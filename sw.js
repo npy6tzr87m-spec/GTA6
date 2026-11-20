@@ -1,5 +1,5 @@
 /* GTA 6 App service worker: app shell offline, map tiles cached as you view them */
-const SHELL = 'lch-shell-v2', TILES = 'lch-tiles', FONTS = 'lch-fonts';
+const SHELL = 'lch-shell-v3', TILES = 'lch-tiles', FONTS = 'lch-fonts';
 const CORE = ['./', 'index.html', 'data/landmarks.json', 'tiles/y18/ov.jpg', 'tiles/day/ov.jpg',
   'manifest.webmanifest', 'apple-touch-icon.png', 'icon-192.png', 'icon-512.png'];
 
@@ -38,8 +38,9 @@ self.addEventListener('fetch', e => {
     return;
   }
 
-  // Page, data and icons: network first so updates arrive, cache when offline
-  e.respondWith(fetch(req).then(r => {
+  // Page, data and icons: network first so updates arrive, cache when offline.
+  // no-cache makes the browser check with the server instead of reusing a copy from the last few minutes.
+  e.respondWith(fetch(url.href, { cache: 'no-cache', credentials: 'same-origin' }).then(r => {
     if (r.ok) { const copy = r.clone(); caches.open(SHELL).then(c => c.put(req, copy)); }
     return r;
   }).catch(() => caches.match(req).then(hit => hit || (req.mode === 'navigate' ? caches.match('index.html') : Response.error()))));
