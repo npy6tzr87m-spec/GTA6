@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Leonida Cheat Hub</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<meta name="theme-color" content="#d7265f">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Cheat Hub">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+/* VOICE: sun-bleached Florida roadside sign, but a tool first
+   IDEA: the in-game phone's cheat screen, carried in your pocket
+   PICTURE: the cheat list itself with D-pad arrow chips; a giant one-arrow-at-a-time entry mode
+   COLOUR and TYPE: flamingo pink field, gulf teal support, sunset orange accent; Bungee + DM Sans
+   LAYOUT: pink header band, sticky tabs, filter bar, grouped card grid; one column on phones */
+:root{color-scheme:light dark;
+--bg:light-dark(#fff4ea,#0b1c21);--ink:light-dark(#1d1a22,#f5ebe3);--card:light-dark(#fff,#112a30);
+--line:light-dark(#f0dac8,#21434a);--mute:light-dark(#6d5f59,#9db2b4);
+--pink:#d7265f;--pinkt:light-dark(#c41f55,#ff6b98);--onpink:light-dark(#fff,#1d0a12);
+--teal:light-dark(#0a6f71,#45cdca);--tealbg:light-dark(#dff3f2,#0f3a3e);
+--org:light-dark(#b8480f,#ffa063);--orgbg:light-dark(#ffeedf,#3a2416)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "DM Sans",system-ui,sans-serif;overflow-x:clip}
+h1,h2,.disp{font-family:Bungee,"DM Sans",sans-serif;font-weight:400;line-height:1.05;text-wrap:balance}
+button,input{font:inherit;color:inherit}button{cursor:pointer}
+:focus-visible{outline:3px solid var(--org);outline-offset:2px}
+a{color:var(--pinkt)}
+.hdr{background:var(--pink);color:#fff;padding:26px max(5vw,16px) 20px}
+.hin{max-width:1240px;margin:auto;display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;align-items:center}
+.sun{width:68px;height:68px;display:block}
+h1{font-size:clamp(28px,6vw,46px);margin:0}
+.sub{margin:6px 0 0;opacity:.94}
+.stats{max-width:1240px;margin:18px auto 0;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.stat{background:rgba(255,255,255,.16);border-radius:12px;padding:6px 14px;display:flex;align-items:baseline;gap:8px;white-space:nowrap}
+.stat b{font-family:Bungee;font-size:22px;font-weight:400}
+.meter{flex:1 1 160px;height:10px;border-radius:9px;background:rgba(0,0,0,.2);overflow:hidden;max-width:260px}
+.meter i{display:block;height:100%;width:0;background:#ffd166;transition:width .4s}
+.plat{margin-left:auto;display:flex;background:rgba(0,0,0,.2);border-radius:999px;padding:4px}
+.plat button{border:0;background:none;color:#fff;padding:0 16px;min-height:40px;border-radius:999px;font-weight:700}
+.plat button[aria-pressed=true]{background:#fff;color:var(--pink)}
+nav{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.nin{max-width:1240px;margin:auto;display:flex;gap:4px;padding:0 max(5vw,16px);overflow-x:auto}
+nav a{flex:none;padding:14px 14px 11px;text-decoration:none;color:var(--mute);font-weight:700;border-bottom:3px solid transparent}
+nav a.on{color:var(--pinkt);border-color:var(--pinkt)}
+main{max-width:1240px;margin:auto;padding:20px max(5vw,16px) 56px}
+.bar{display:grid;gap:12px}
+.srch{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:0 14px}
+.srch svg{width:20px;flex:none;color:var(--mute)}
+.srch input{border:0;background:none;min-height:48px;width:100%;font-size:16px;outline:none}
+.srch:focus-within{border-color:var(--teal)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:999px;min-height:40px;padding:0 14px;font-weight:600}
+.chip[aria-pressed=true]{background:var(--teal);border-color:var(--teal);color:var(--bg)}
+.tog,.chk{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-weight:600;cursor:pointer}
+.tog input,.chk input{width:20px;height:20px;accent-color:var(--teal);margin:0}
+.count{color:var(--mute);margin:6px 0 0;font-size:14px}
+.grp{font-size:clamp(20px,3vw,26px);margin:30px 0 12px;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}
+.grp small{font:600 14px "DM Sans",sans-serif;color:var(--mute)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,330px),1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.card.got{border-color:var(--teal);box-shadow:inset 4px 0 0 var(--teal)}
+.top{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:start}
+.ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--orgbg);color:var(--org)}
+.ic svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+h3{margin:0;font-size:18px;line-height:1.2}
+.fx{margin:2px 0 0;color:var(--mute);font-size:15px}
+.star{border:0;background:none;width:44px;height:44px;margin:-6px -8px 0 0;display:grid;place-items:center;color:var(--line)}
+.star svg{width:24px;fill:currentColor}
+.star[aria-pressed=true]{color:#f2a900}
+.code{display:flex;flex-wrap:wrap;gap:4px}
+.ar{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:var(--tealbg);color:var(--teal)}
+.ar svg,.big svg,.pad svg{width:60%;height:60%;fill:currentColor}
+.rU{transform:none}.rD{transform:rotate(180deg)}.rL{transform:rotate(-90deg)}.rR{transform:rotate(90deg)}
+.nocode{border:1.5px dashed var(--line);border-radius:10px;padding:6px 12px;color:var(--mute);font-size:14px}
+.unl{margin:0;font-size:15px}.unl b{color:var(--org)}
+.note{margin:0;font-size:13px;color:var(--mute)}
+.acts{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:auto}
+.sp{flex:1}.acts.b{margin-top:0}.acts.b .btn{flex:1 1 auto}.acts.b .pri{flex:3 1 auto}
+.tag{font-size:13px;font-weight:700;padding:3px 10px;border-radius:999px;white-space:nowrap}
+.tag.v{background:var(--tealbg);color:var(--teal)}.tag.r{background:var(--orgbg);color:var(--org)}
+.tag.n{background:transparent;color:var(--mute);border:1px solid var(--line)}.tag.u{background:var(--pinkt);color:var(--onpink)}
+.btn{min-height:44px;padding:0 16px;border:1px solid var(--line);border-radius:12px;background:var(--card);font-weight:700}
+.btn:disabled{opacity:.45;cursor:default}
+.btn.pri{background:var(--pinkt);border-color:var(--pinkt);color:var(--onpink)}
+.empty{text-align:center;color:var(--mute);padding:40px 0}
+.prose{max-width:760px}
+.prose h2{font-size:clamp(22px,3.4vw,30px);margin:8px 0 14px}
+.steps{list-style:none;padding:0;margin:0 0 26px;counter-reset:s;display:grid;gap:12px}
+.steps li{counter-increment:s;display:grid;grid-template-columns:40px minmax(0,1fr);gap:12px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px}
+.steps li::before{content:counter(s);font-family:Bungee;font-size:20px;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--pinkt);color:var(--onpink)}
+.steps b{display:block}
+.kbd{display:inline-block;background:var(--tealbg);color:var(--teal);font-weight:700;border-radius:6px;padding:0 7px;white-space:nowrap}
+.warn{background:var(--orgbg);border-radius:16px;padding:16px 18px;margin:0 0 26px}
+.warn h3{color:var(--org);margin-bottom:6px}.warn ul{margin:0;padding-left:20px}
+.fam{display:grid;gap:10px;margin:0 0 26px}
+.fam div{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
+.fam span.l{font-weight:700;min-width:120px}
+.src{padding-left:20px}.src li{margin:4px 0}
+.mapcard{background:var(--teal);color:var(--bg);border-radius:22px;padding:clamp(20px,4vw,36px);display:grid;gap:14px;margin-bottom:26px}
+.mapcard h2{margin:0;font-size:clamp(24px,4vw,34px)}
+.mapcard p{margin:0;max-width:60ch}
+.mapcard .row{display:flex;flex-wrap:wrap;gap:10px}
+.mapcard a{display:inline-flex;align-items:center;min-height:48px;padding:0 20px;border-radius:14px;background:var(--bg);color:var(--teal);font-weight:700;text-decoration:none}
+.mapcard a.alt{background:transparent;color:var(--bg);border:2px solid var(--bg)}
+.hunt{display:grid;gap:8px}
+.hrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:8px 14px}
+.hrow b{display:block}.hrow span{color:var(--mute);font-size:14px}
+.ov{position:fixed;inset:0;z-index:20;background:rgba(5,12,14,.72);display:grid;place-items:center;padding:16px}
+.ov[hidden]{display:none}
+.ovin{width:min(420px,100%);max-height:100%;overflow:auto;background:#0b1c21;color:#f5ebe3;border-radius:28px;padding:20px;display:grid;gap:14px;border:2px solid #21434a}
+.ovtop{display:flex;align-items:center;gap:10px}
+.ovtop h2{margin:0;font-size:22px;flex:1}
+.x{width:44px;height:44px;border-radius:12px;border:0;background:#1a3a40;color:#fff;font-size:24px}
+.hold{margin:0;color:#9db2b4;font-size:15px;text-align:center}
+.hold b{color:#ffd166}
+.big{justify-self:center;width:min(220px,58vw);aspect-ratio:1;border-radius:36px;border:0;background:linear-gradient(160deg,#ff6b98,#d7265f);color:#fff;display:grid;place-items:center;box-shadow:0 10px 0 #8f1640}
+.big.done{background:linear-gradient(160deg,#45cdca,#0a6f71);box-shadow:0 10px 0 #064244;font:22px Bungee,sans-serif}
+.big:active{transform:translateY(4px);box-shadow:0 6px 0 #8f1640}
+.cnt{margin:0;text-align:center;font:18px Bungee,sans-serif;color:#ffd166}
+.seq{display:flex;flex-wrap:wrap;justify-content:center;gap:5px;min-height:32px}
+.seq .ar{background:#16343a;color:#9db2b4}
+.seq .ar.cur{background:#ff6b98;color:#fff;transform:scale(1.15)}
+.seq .ar.ok{background:#0f3a3e;color:#45cdca}
+.ovb{display:flex;gap:8px}.ovb .btn{flex:1 1 0}
+.ovin .btn{background:#16343a;border-color:#21434a;color:#f5ebe3}
+.ovin .btn.pri{background:#ff6b98;border-color:#ff6b98;color:#1d0a12}
+.pad{display:grid;grid-template-columns:repeat(3,68px);grid-template-rows:repeat(3,68px);gap:6px;justify-content:center}
+.pad button{border:0;border-radius:16px;background:#16343a;color:#45cdca;display:grid;place-items:center}
+.pad button:active{background:#ff6b98;color:#fff}
+.pad [data-d=U]{grid-area:1/2}.pad [data-d=L]{grid-area:2/1}.pad [data-d=R]{grid-area:2/3}.pad [data-d=D]{grid-area:3/2}
+.pad .hub{grid-area:2/2;border-radius:50%;background:#0f2a2f}
+footer{max-width:1240px;margin:auto;padding:0 max(5vw,16px) 40px;color:var(--mute);font-size:13px}
+.mtools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px}
+.seg{display:flex;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px}
+.seg button{border:0;background:none;min-height:40px;padding:0 16px;border-radius:999px;font-weight:700;color:var(--mute)}
+.seg button[aria-pressed=true]{background:var(--teal);color:var(--bg)}
+.btn.add{display:inline-flex;align-items:center;gap:8px}.btn.add svg{width:18px;height:18px}
+.btn.add[aria-pressed=true]{background:var(--pinkt);border-color:var(--pinkt);color:var(--onpink)}
+label.btn{display:inline-flex;align-items:center;cursor:pointer}
+.mapwrap{position:relative;height:min(68vh,600px);min-height:340px;border-radius:22px;overflow:hidden;background:#57b9bb;touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab;border:1px solid var(--line)}
+.mapwrap.adding{cursor:crosshair;box-shadow:0 0 0 3px var(--pinkt)}
+.stage{position:absolute;left:0;top:0;transform-origin:0 0}
+#base svg,#base img{display:block;width:100%;height:100%}#base svg{overflow:visible}#base img{pointer-events:none}
+#tiles,#lms,#pins{position:absolute;inset:0;pointer-events:none}
+.tl{position:absolute;pointer-events:none;user-select:none;-webkit-user-drag:none;max-width:none}
+.lm{position:absolute;width:26px;height:26px;padding:0;border:0;background:none;transform:translate(-50%,-50%) scale(var(--iz,1));cursor:pointer;pointer-events:auto}
+.lm span{display:block;width:10px;height:10px;margin:auto;border-radius:50%;background:#23202a;border:2.5px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,.45)}
+.hl{position:absolute;width:46px;height:46px;border-radius:50%;border:4px solid #ff4f86;box-shadow:0 0 0 3px #fff,0 0 0 9px rgba(255,79,134,.25);transform:translate(-50%,-50%) scale(var(--iz,1));pointer-events:none}
+.msearch{position:relative;margin-bottom:10px}
+.sugg{position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:6;background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 10px 24px rgba(0,0,0,.18);max-height:340px;overflow-y:auto}
+.sugg button{display:block;width:100%;text-align:left;border:0;border-bottom:1px solid var(--line);background:none;padding:9px 14px;min-height:44px}
+.sugg b{display:block;font-size:15px}.sugg span{color:var(--mute);font-size:13px}.sugg .note{padding:10px 14px;margin:0}
+.jumps{margin-bottom:12px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}.tags span{font-size:12px;font-weight:700;background:var(--tealbg);color:var(--teal);border-radius:999px;padding:2px 9px}
+.rinfo .btn{margin-top:10px}.mcap a{color:inherit}#pins .pin{pointer-events:auto}
+.pin{position:absolute;width:32px;height:38px;padding:0;border:0;background:none;transform:translate(-50%,-100%) scale(var(--iz,1));transform-origin:50% 100%;cursor:pointer}
+.pin span{position:absolute;left:1px;top:0;width:30px;height:30px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--c);border:2.5px solid #fff;box-shadow:0 3px 6px rgba(0,0,0,.35);display:grid;place-items:center}
+.pin i{transform:rotate(45deg);font:700 13px "DM Sans",sans-serif;color:var(--t);font-style:normal}
+.pin.found span{border-color:#23202a;opacity:.62}
+.pin.ping span{animation:ping .8s 3}
+@keyframes ping{50%{box-shadow:0 0 0 10px rgba(255,107,152,.55)}}
+.mhint{position:absolute;left:50%;top:12px;transform:translateX(-50%);background:#0b1c21;color:#fff;border-radius:999px;padding:6px 14px;font-size:14px;font-weight:600;pointer-events:none;white-space:nowrap}
+.mhint:empty{display:none}
+.zm{position:absolute;right:10px;bottom:10px;display:grid;gap:6px}
+.zm button{width:44px;height:44px;border-radius:12px;border:0;background:#fff;color:#0b1c21;font-size:22px;font-weight:700;box-shadow:0 2px 6px rgba(0,0,0,.25);display:grid;place-items:center}
+.zm svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round}
+.nrose{position:absolute;left:12px;top:12px;width:38px;height:38px;pointer-events:none}
+.upl{position:absolute;inset:0;display:grid;place-items:center;padding:20px;background:rgba(11,28,33,.86);color:#f5ebe3;text-align:center}
+.upl[hidden]{display:none}.upl>div{max-width:340px;display:grid;gap:12px;justify-items:center}
+.upl h3{font:22px/1.1 Bungee,"DM Sans",sans-serif}.upl p{margin:0;color:#c9d6d7;font-size:15px}
+.mcap{color:var(--mute);font-size:14px;margin:10px 0 0}
+.rinfo{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;margin:12px 0 4px;min-height:58px}
+.rinfo b{display:block;font-size:17px}.rinfo small{color:var(--org);font-weight:700;font-size:13px}.rinfo p{margin:4px 0 0}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 6px}
+.lg{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 12px 0 6px;border-radius:999px;border:1px solid var(--line);background:var(--card);font-weight:600;font-size:14px;flex:none}
+.lg[aria-pressed=false]{opacity:.45;text-decoration:line-through}
+.dot{width:26px;height:26px;border-radius:50%;background:var(--c);color:var(--t);display:grid;place-items:center;font:700 12px "DM Sans",sans-serif;flex:none;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.12)}
+.lg small{color:var(--mute);font-weight:700}
+.plist{display:grid;gap:8px;margin:10px 0 30px}
+.prow{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;gap:10px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:6px 8px 6px 12px}
+.prow b{display:block;font-size:15px;line-height:1.25}.prow .n{color:var(--mute);font-size:14px}
+.prow .btn{min-height:40px;padding:0 12px}
+.prow.found b{text-decoration:line-through;text-decoration-color:var(--teal)}
+.ptools{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.hp{display:block;font-size:13px;color:var(--teal);font-weight:700;margin-top:2px}
+.mini{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;background:var(--tealbg);border-radius:16px;padding:14px 16px;margin-top:28px}
+.mini p{margin:0;flex:1 1 260px}
+.mini a{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:12px;background:var(--teal);color:var(--bg);font-weight:700;text-decoration:none}
+.pcats{display:flex;flex-wrap:wrap;gap:6px}
+.pcats button{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 10px 0 4px;border-radius:999px;border:1px solid #21434a;background:#16343a;color:#f5ebe3;font-size:14px;font-weight:600}
+.pcats button[aria-pressed=true]{background:#f5ebe3;color:#0b1c21}
+.fld{display:grid;gap:6px;font-weight:600;font-size:14px;color:#9db2b4}
+.fld input{min-height:46px;border-radius:12px;border:1px solid #21434a;background:#16343a;color:#f5ebe3;padding:0 12px;font-size:16px}
+.chk.lt input{accent-color:#45cdca}
+html{scroll-padding-top:64px}
+.ghead{display:flex;flex-wrap:wrap;gap:10px;align-items:center}.ghead>div:first-child{flex:1 1 320px}
+.gtitle{font-size:clamp(26px,4vw,36px);margin:4px 0 4px}
+.gstat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:8px 14px;display:flex;align-items:baseline;gap:8px;white-space:nowrap}
+.gstat b{font:24px Bungee,sans-serif;color:var(--pinkt)}.gstat span{color:var(--mute);font-size:14px;font-weight:600}
+.gjump{margin:14px 0 4px}
+.tips{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.tips li{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.src{font-size:13px;color:var(--mute);margin:10px 0 0}.src a{color:inherit}
+.warn h3+ul{margin-bottom:12px}.warn ul:last-child{margin-bottom:0}
+.heat{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,330px),1fr));gap:8px;margin:12px 0}
+.hrow2{display:grid;grid-template-columns:44px minmax(0,1fr);gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 12px}
+.hic{width:44px;height:44px;border-radius:12px;background:#d92f2f;display:grid;place-items:center}
+.hic svg{width:24px;height:24px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.hrow2 b,.mrow b{display:block}.hrow2 span,.mrow span:not(.ch){color:var(--mute);font-size:15px}
+.stars{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:8px;margin:12px 0}
+.stars div{background:var(--tealbg);border-radius:14px;padding:10px 14px}.stars b{display:block;color:var(--teal)}.stars span{font-size:15px}
+.money{display:grid;gap:8px;margin:12px 0}
+.mrow{display:grid;grid-template-columns:104px minmax(0,1fr);gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.mrow .ch{font-weight:700;color:var(--org);font-size:14px}
+.mtrk{display:grid;gap:10px;margin:12px 0}
+.chap{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.chap summary{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:6px 12px;align-items:center;padding:12px 16px;cursor:pointer;list-style:none;min-height:56px}
+.chap summary::-webkit-details-marker{display:none}
+.chn{font-size:13px;font-weight:700;color:var(--org);white-space:nowrap}.chap summary b{font-size:16px}
+.chc{font-weight:700;color:var(--teal);font-size:14px;white-space:nowrap}
+.bar{grid-column:1/-1;height:6px;border-radius:6px;background:var(--line);overflow:hidden}.bar i{display:block;height:100%;background:var(--teal)}
+.mlist{list-style:none;margin:0;padding:0 8px 10px}
+.mi{display:flex;flex-wrap:wrap;align-items:center;gap:2px 8px;border-top:1px solid var(--line);padding:4px 8px}
+.mi label{display:flex;align-items:center;gap:12px;flex:1 1 220px;min-height:44px;cursor:pointer}
+.mi input,.hg input{width:20px;height:20px;accent-color:var(--teal);flex:none;margin:0}
+.mi b{font-weight:600;display:block;line-height:1.25}.mi small,.hg small{display:block;color:var(--mute);font-size:13px}
+.mi.done b,.hg li.done b{text-decoration:line-through;text-decoration-color:var(--teal);color:var(--mute)}
+.mi.next{background:var(--orgbg);border-radius:10px;border-top-color:transparent}
+.mt{display:flex;flex-wrap:wrap;gap:4px;padding-left:32px}
+.t{font-style:normal;font-size:12px;font-weight:700;border-radius:999px;padding:1px 8px;white-space:nowrap}
+.t.o{border:1px solid var(--line);color:var(--mute)}.t.m{background:var(--orgbg);color:var(--org)}
+.t.j{background:light-dark(#dbe8ff,#1c2c4d);color:light-dark(#1f4fb0,#9cc0ff)}.t.l{background:light-dark(#ffe0ec,#4a1a2c);color:light-dark(#b3245a,#ff9cbf)}
+.t.h{background:var(--tealbg);color:var(--teal)}.t.n{background:var(--pinkt);color:var(--onpink)}
+.mhid{border-top:1px solid var(--line);padding:10px 8px;color:var(--mute);font-size:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.hund{display:grid;gap:16px;margin:12px 0}
+.hg h3{margin:0 0 8px;font-size:16px;color:var(--org)}
+.hg ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:6px}
+.hg label{display:flex;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 12px;min-height:48px;cursor:pointer;height:100%}
+.lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:8px;margin:12px 0}
+.lib a{display:block;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;text-decoration:none;color:var(--ink)}
+.lib a b{display:block}.lib a span{font-size:13px;color:var(--mute)}.lib a:hover{border-color:var(--teal)}
+.hdr{padding-top:calc(26px + env(safe-area-inset-top,0px))}
+nav{top:env(safe-area-inset-top,0px)}
+body::before{content:'';position:fixed;inset:0 0 auto 0;height:env(safe-area-inset-top,0px);background:var(--pink);z-index:30;pointer-events:none}
+footer{padding-bottom:calc(40px + env(safe-area-inset-bottom,0px))}
+.ov{padding:max(16px,env(safe-area-inset-top,0px)) 16px max(16px,env(safe-area-inset-bottom,0px))}
+.databox{margin-top:44px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px clamp(16px,3vw,24px)}
+.databox .grp{margin-top:0}.databox p{margin:0}
+.databox .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+#bkIn{margin-top:12px}
+#bkTxt{width:100%;min-height:90px;border-radius:12px;border:1px solid var(--line);background:var(--bg);padding:10px 12px;font:14px/1.4 ui-monospace,Menlo,monospace;color:var(--ink);resize:vertical}
+#bkMsg:empty{display:none}#bkMsg{margin-top:10px;color:var(--teal);font-weight:600}
+.inst{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:25;background:#0b1c21;color:#f5ebe3;border-radius:16px;padding:8px 8px 8px 16px;display:flex;align-items:center;gap:10px;box-shadow:0 8px 24px rgba(0,0,0,.3);max-width:520px;margin:auto}
+.inst span{flex:1;font-size:15px}.inst svg{width:18px;height:18px;vertical-align:-3px;fill:none;stroke:currentColor;stroke-width:2}
+@media(max-width:600px){.hdr{padding-top:calc(20px + env(safe-area-inset-top,0px))}.mt{padding-left:0}.mrow{grid-template-columns:1fr;gap:2px}.mapwrap{height:min(64vh,calc(100vw + 40px))}.legend{flex-wrap:nowrap;overflow-x:auto;margin-inline:calc(-1*max(5vw,16px));padding:2px max(5vw,16px)}.chips{flex-wrap:nowrap;overflow-x:auto;margin-inline:calc(-1*max(5vw,16px));padding:2px max(5vw,16px)}.chip{flex:none}.hdr{padding-top:20px}.sun{width:52px;height:52px}.plat{margin-left:0}.acts .btn{flex:1 1 auto}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.seq .ar.cur{transform:none}}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="hin">
+    <svg class="sun" viewBox="0 0 72 72" aria-hidden="true"><defs><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd166"/><stop offset="1" stop-color="#ff7a2f"/></linearGradient><clipPath id="sc"><circle cx="36" cy="36" r="31"/></clipPath></defs><g clip-path="url(#sc)"><rect width="72" height="72" fill="url(#sg)"/><rect y="39" width="72" height="3" fill="#d7265f"/><rect y="47" width="72" height="4" fill="#d7265f"/><rect y="56" width="72" height="6" fill="#d7265f"/></g><circle cx="36" cy="36" r="31" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="2"/></svg>
+    <div>
+      <h1>Leonida Cheat Hub</h1>
+      <p class="sub">Every GTA VI cheat, its unlock challenge and its D-pad code, for PS5 and Xbox Series X|S.</p>
+    </div>
+  </div>
+  <div class="stats">
+    <span class="stat"><b>61</b> cheats</span>
+    <span class="stat"><b id="sk">0</b> codes known</span>
+    <span class="stat"><b id="su">0</b> unlocked</span>
+    <span class="meter" aria-hidden="true"><i id="sm"></i></span>
+    <div class="plat" role="group" aria-label="Controller">
+      <button id="pPS" aria-pressed="true">PS5</button><button id="pXB" aria-pressed="false">Xbox</button>
+    </div>
+  </div>
+</header>
+<nav><div class="nin"><a href="#cheats" data-v="cheats">Cheats</a><a href="#how-to" data-v="how-to">How to enter</a><a href="#leonida-map" data-v="leonida-map">Map</a><a href="#guides" data-v="guides">Guides</a></div></nav>
+
+<main>
+<section id="v-cheats" data-view="cheats">
+  <div class="bar">
+    <label class="srch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="q" type="search" placeholder="Search name, effect or unlock" aria-label="Search cheats" autocomplete="off"></label>
+    <div class="chips" id="chips" role="group" aria-label="Filter cheats"></div>
+    <label class="tog"><input type="checkbox" id="known"> Show only cheats with a code</label>
+  </div>
+  <p class="count" id="cnt"></p>
+  <div id="list"></div>
+  <p class="empty" id="empty" hidden>Nothing matches. Try another word or clear the filters.</p>
+</section>
+
+<section id="v-how" data-view="how-to" class="prose" hidden>
+  <h2>Entering a cheat</h2>
+  <ol class="steps">
+    <li><div><b>Finish the story first.</b>Cheats stay locked until the final mission is done. A save that hasn't reached the end rejects every code.</div></li>
+    <li><div><b>Unlock the cheat.</b>Each one has its own challenge, shown on its card. Challenges you finished during the story count. Check Pause menu › Progress › Cheats.</div></li>
+    <li><div><b>Save manually.</b>You'll want a clean save to go back to (see below).</div></li>
+    <li><div><b>Open the phone.</b>In free roam, press <span class="kbd">D-pad ↑</span>.</div></li>
+    <li><div><b>Hold <span class="kbd hb">L1 + R1</span> and enter the code.</b>On the phone's home screen, keep both bumpers held while you tap the arrows. Some guides word it as "hold <span class="hb1">L1</span>, press <span class="hb2">R1</span>", so if a code doesn't take, keep both held the whole time.</div></li>
+    <li><div><b>Watch for the confirmation.</b>Tap <b>Entry mode</b> on any card to step through a code one big arrow at a time.</div></li>
+  </ol>
+  <div class="warn">
+    <h3>Before you cheat</h3>
+    <ul>
+      <li>Trophies and achievements stop unlocking for the rest of that session.</li>
+      <li>The game won't save while a cheat is active. To go back to normal, quit without saving and load your last save.</li>
+      <li>Anything you do while a cheat is on is lost when you quit, so cheats can't help you finish challenges.</li>
+      <li>Not usable during missions or online.</li>
+      <li>Console only: there is no PC version yet, so no PC codes.</li>
+    </ul>
+  </div>
+  <h2>Code families</h2>
+  <p>The known codes share openings by type, which helps when you're checking a new code someone posts:</p>
+  <div class="fam" id="fam"></div>
+  <h2>Where the codes come from</h2>
+  <p><b>Verified</b> means at least three guides list the same code. <b>Reported</b> means one or two guides list it and the others still show it as unknown. <b>Your entry</b> is a code you saved yourself. It stays on this device only.</p>
+  <ul class="src">
+    <li><a href="https://www.powerpyx.com/gta-6-all-cheats/">PowerPyx: GTA 6 All Cheats</a></li>
+    <li><a href="https://gamerant.com/all-grand-theft-auto-vi-gta-6-cheat-codes-list/">Game Rant: All GTA 6 Cheats</a></li>
+    <li><a href="https://gtaside.com/tips/gta6/cheat-codes/">GTAside: GTA 6 Cheat Codes</a></li>
+    <li><a href="https://www.dexerto.com/wikis/gta-6/cheat-codes/">Dexerto: GTA 6 cheat codes</a></li>
+    <li><a href="https://www.igeeksblog.com/gta-6-cheats-codes/">iGeeksBlog: GTA 6 cheats</a></li>
+    <li><a href="https://github.com/rolux/gtadb.org">gtadb.org community map, render and landmark data</a> (CC BY 4.0, gtadb.org and all contributors)</li>
+    <li><a href="https://beebom.com/gta-6-map/">Beebom: GTA 6 map locations</a></li>
+    <li><a href="https://allthings.how/gta-6-map-locations-every-confirmed-region-in-leonida/">All Things How: every confirmed region in Leonida</a></li>
+    <li><a href="https://www.gamesradar.com/games/grand-theft-auto/gta-6-locations">GamesRadar: every GTA 6 location</a></li>
+    <li><a href="https://www.destructoid.com/all-gta-6-cheat-codes-and-how-to-unlock-them/">Destructoid: All GTA 6 cheat codes</a></li>
+  </ul>
+</section>
+
+<section id="v-map" data-view="leonida-map" hidden>
+  <div class="mtools">
+    <div class="seg" id="seg" role="group" aria-label="Map layer"><button data-b="y18" aria-pressed="true">Map</button><button data-b="day" aria-pressed="false">Satellite</button><button data-b="photo" aria-pressed="false">My screenshot</button></div>
+    <button class="btn add" id="addB" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Add pin</button>
+    <button class="btn add" id="lmB" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="5" fill="currentColor"/></svg>Landmarks</button>
+  </div>
+  <div class="msearch" id="msearch"><label class="srch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="ls" type="search" placeholder="Search places" aria-label="Search places on the map" autocomplete="off"></label><div class="sugg" id="sugg" hidden></div></div>
+  <div class="chips jumps" id="jumps" role="group" aria-label="Jump to an area"></div>
+  <div class="mapwrap" id="mw" tabindex="0" aria-label="Leonida map. Drag to pan, pinch or scroll to zoom. With the map focused, arrow keys pan and plus or minus zoom.">
+    <div class="stage" id="stg"><div id="base"></div><div id="tiles"></div><div id="lms"></div><div class="hl" id="hl" hidden></div><div id="pins"></div></div>
+    <svg class="nrose" viewBox="0 0 38 38" aria-hidden="true"><circle cx="19" cy="19" r="18" fill="#fff" fill-opacity=".92"/><path d="M19 4l6 15h-12z" fill="#d7265f"/><path d="M19 34l-6-15h12z" fill="#23202a" fill-opacity=".3"/></svg>
+    <div class="mhint" id="mh"></div>
+    <div class="zm"><button id="zIn" aria-label="Zoom in">+</button><button id="zOut" aria-label="Zoom out">&minus;</button><button id="zFit" aria-label="Fit whole map"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button></div>
+    <div class="upl" id="upl" hidden><div>
+      <h3>Use your own map</h3>
+      <p>Take a screenshot of the pause-menu map on your console, get it onto this device through the PlayStation App or Xbox app, then choose it here. Pins on it stay separate from the community map's.</p>
+      <label class="btn pri" for="fileIn">Choose screenshot</label>
+    </div></div>
+  </div>
+  <input type="file" id="fileIn" accept="image/*" hidden>
+  <p class="mcap" id="mcap">Map layers: <a href="https://map.gtadb.org">"Yanis" GTA VI Community Map v18</a> and the satellite-style render, by <a href="https://github.com/rolux/gtadb.org">gtadb.org and all contributors</a>, licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Cropped to remove the legend, re-tiled and resized. Place names and real-world matches come from the same project. It's a fan reconstruction built from trailers and screenshots before launch, so some details may differ from the game.</p>
+  <p class="mcap" id="pcap" hidden></p>
+  <div class="ptools" id="ptools" hidden><label class="btn" for="fileIn">Replace screenshot</label><button class="btn" id="rmP">Remove screenshot</button></div>
+  <div class="rinfo" id="rinfo" aria-live="polite"><p>Tap a landmark dot, search a place, or jump to an area.</p></div>
+  <div class="legend" id="leg" role="group" aria-label="Show or hide pin types"></div>
+  <label class="tog"><input type="checkbox" id="hideF"> Hide pins I've marked found</label>
+  <div class="plist" id="plist"></div>
+  <h2 class="grp">Hunt list <small>cheats you unlock by finding things in the world</small></h2>
+  <div class="hunt" id="hunt"></div>
+  <div class="mini"><p>Want gameplay markers like robberies and illegal operations? GTA6MAP.IO lists them free in a browser.</p><a href="https://gta6map.io/#map">Open GTA6MAP.IO</a></div>
+</section>
+<section id="v-guides" data-view="guides" hidden>
+  <div class="ghead">
+    <div><h2 class="gtitle">Guides</h2><p class="note">Pulled from the main GTA VI guide sites in the first days after launch, rewritten short. Facts may shift as guides update; each section links its sources.</p></div>
+    <div class="gstat"><b id="gsM">0</b><span>missions done</span></div><div class="gstat"><b id="gsH">0</b><span>of 35 for 100%</span></div>
+  </div>
+  <div class="chips gjump" id="gjump" role="group" aria-label="Jump to a guide">
+    <button class="chip" data-go="g-start">Start here</button><button class="chip" data-go="g-miss">Don't miss</button><button class="chip" data-go="g-cops">Lose the cops</button><button class="chip" data-go="g-money">Money</button><button class="chip" data-go="g-story">Mission tracker</button><button class="chip" data-go="g-100">100% checklist</button><button class="chip" data-go="g-more">Collectibles &amp; trophies</button><button class="chip" data-go="g-lib">Full guides</button>
+  </div>
+
+  <h2 class="grp" id="g-start">Start here <small>first hours</small></h2>
+  <ul class="tips">
+    <li><b>Fix the camera settings.</b> Set Motion Blur Strength to 0, Look and Aim Sensitivity to 9 or 10, and Movement Speed to Run.</li>
+    <li><b>Play the Prologue in one sitting.</b> Saving is greyed out until it ends, so a crash sends you back to the start.</li>
+    <li><b>Save by hand.</b> Pause › Game › Save Game. Autosave only runs after missions and there's no mission replay, so use a fresh slot at the start of each chapter.</li>
+    <li><b>Never carry big cash.</b> Pocket money is lost if you die or get busted. Use the stash under Jason's bedroom floor, then BuckMe once the Buck Me mission opens banking.</li>
+    <li><b>Check the mailbox.</b> Pay from Brian and Donnie lands in the mailbox outside Jason's house. Brian's lockup keypad code is <span class="kbd">7700</span>.</li>
+    <li><b>Keep your guns.</b> Only guns bought at Ammu-Nation come back after a death. Store the ones you pick up in your car's trunk.</li>
+    <li><b>Live in Focus mode.</b> Press <span class="kbd">L3 + R3</span> (<span class="kbd">LS + RS</span>): enemies show red, usable items yellow, cash green. White doors are open, red doors are alarmed.</li>
+    <li><b>Holster before crowds.</b> Press <span class="kbd">L1</span> (<span class="kbd">LB</span>). Anyone who sees a drawn gun calls the police.</li>
+    <li><b>Scan before you steal.</b> Use the WAiNK app on a car first to check for an alarm or tracker.</li>
+    <li><b>Train a little every day.</b> Weights raise Health; running, cycling or the treadmill raise Stamina; calm activities like fishing or pool raise Focus. Strength and Cardio have daily caps and fade if you stop. Focus gains stay.</li>
+    <li><b>Watch your Criminal Profile.</b> Killing civilians, police or animals drags it down through five tiers, and one of them, Irredeemable, is permanent. Save before a rampage.</li>
+    <li><b>Rob smart.</b> Bring your partner, both masked, for bigger jobs since they handle the crowd. Kill the alarm in the back room and destroy the tapes.</li>
+    <li><b>Switch characters</b> freely after the Breakfast Run mission in Chapter 2: hold <span class="kbd">D-pad →</span> and press <span class="kbd">R1</span> (<span class="kbd">RB</span>).</li>
+  </ul>
+  <p class="src">Sources: <a href="https://outputlag.com/guides/gta-6-beginner-tips/">OutputLag</a>, <a href="https://endgametools.com/en/gta-6/news/gta-6-beginner-tips">Endgame Tools</a>, <a href="https://alcasthq.com/gta-6-beginner-tips/">AlcastHQ</a>, <a href="https://gamingbolt.com/gta-6-15-tips-and-tricks-that-beginners-should-know">GamingBolt</a></p>
+
+  <h2 class="grp" id="g-miss">Don't miss <small>things that expire</small></h2>
+  <div class="warn">
+    <h3>Before Chapter 1 ends (Tourist Trap)</h3>
+    <ul>
+      <li>Do <b>Get Shirley's Rum</b> and <b>Steal the Scooter</b> early. Both disappear. For the rum, go around the liquor store's left wall to the backyard (about $1,300).</li>
+      <li>Buy the long gun at Chuck's Tackle &amp; Shot in Key Lento during Gear Up. Skipping it can stall the next call.</li>
+      <li>Ultimate Edition owners: use the Enduro, Crest Kayak and Ganado Retro Build now. They're gone after Chapter 1.</li>
+      <li>Do Lucia's balcony meditation. It can't be done later.</li>
+      <li>Empty the floor stash, then make a manual save.</li>
+    </ul>
+    <h3>Later</h3>
+    <ul>
+      <li>An hourglass icon on the map means a time-limited job. Do it right away. <b>Race Against Yago</b> (Chapter 3) and <b>This is a Free Call From…</b> (Chapter 4) are the known ones.</li>
+      <li>Missing these doesn't block any trophy or 100% completion.</li>
+    </ul>
+  </div>
+  <p class="src">Sources: <a href="https://outputlag.com/guides/gta-6-beginner-tips/">OutputLag</a>, <a href="https://www.powerpyx.com/gta-6-full-walkthrough-all-missions/">PowerPyx walkthrough</a></p>
+
+  <h2 class="grp" id="g-cops">Lose the cops <small>the heat system</small></h2>
+  <p>Stars show how hard police are coming. The red icons under them are what police know about you. Each icon has its own fix, and clearing one doesn't clear the others.</p>
+  <div class="heat" id="heat"></div>
+  <div class="stars">
+    <div><b>Hollow stars</b><span>A crime was reported, but police don't know it was you.</span></div>
+    <div><b>Solid white</b><span>Police can see you right now.</span></div>
+    <div><b>Flashing white</b><span>You broke line of sight and they're searching.</span></div>
+    <div><b>Red</b><span>You lost them but you're still in the red search zone. Leave it.</span></div>
+  </div>
+  <p>The search zone later shrinks to a neighbourhood "heat zone". Police there know who they want, so an officer who spots you with an uncleared icon restarts the chase. At six stars the search covers the whole map.</p>
+  <p class="src">Sources: <a href="https://allthings.how/gta-6-heat-indicators-explained-how-to-clear-what-police-know/">All Things How</a>, <a href="https://alcasthq.com/gta-6-wanted-level/">AlcastHQ</a></p>
+
+  <h2 class="grp" id="g-money">Money <small>best method by chapter</small></h2>
+  <div class="money" id="money"></div>
+  <p>Late-game target: maxing Family Savings for <b>Save for the Future</b> takes $2 million.</p>
+  <p class="src">Sources: <a href="https://www.powerpyx.com/gta-6-money-guide-how-to-get-money-fast/">PowerPyx</a>, <a href="https://metaforge.app/gta-6/gta-6-money-guide-how-to-make-money-fast">MetaForge</a>, <a href="https://outputlag.com/guides/gta-6-make-money-fast/">OutputLag</a>, <a href="https://insider-gaming.com/gta-6-money-making/">Insider Gaming</a></p>
+
+  <h2 class="grp" id="g-story">Mission tracker <small id="gsTot"></small></h2>
+  <p>Tick missions as you go. To avoid spoilers, each chapter only shows what you've done plus your next mission.</p>
+  <label class="tog"><input type="checkbox" id="spoil"> Show every mission name (spoilers)</label>
+  <div class="mtrk" id="mtrk"></div>
+  <p class="src">Names and order follow the <a href="https://www.powerpyx.com/gta-6-full-walkthrough-all-missions/">PowerPyx walkthrough</a>, which includes optional jobs and map tasks. Order can shift slightly in your game. Other guides count 91 main missions because they leave the optional ones out.</p>
+
+  <h2 class="grp" id="g-100">100% checklist <small>unlocks in-game after the story</small></h2>
+  <p>In-game it's at Progress › Stats › 100% Completion. Nothing here is missable, so all of it can wait until after the credits.</p>
+  <div class="hund" id="hund"></div>
+  <p class="src">Source: <a href="https://www.powerpyx.com/gta-6-100-completion-checklist-guide/">PowerPyx 100% guide</a></p>
+
+  <h2 class="grp" id="g-more">Collectibles &amp; trophies</h2>
+  <ul class="tips">
+    <li><b>No hidden packages this time.</b> The closest thing is the 125 cocaine flamingos (100 count for 100%). Real ones have a <b>black-and-white beak</b>; decorative flamingos with yellow-and-black beaks don't count. Shoot the body and a package drops.</li>
+    <li><b>Cards:</b> 480 in 18 sets, and 15 complete sets count for 100%. The Vice City Flamingos set (24 cards) unlocks the Bubblegum filter cheat.</li>
+    <li><b>Watches:</b> 34 luxury watches sit inside the 79 discoverable styles, often at Gang Operations. Ten and twenty unlock the two time cheats.</li>
+    <li><b>Trophies:</b> 55 in total (1 platinum, 2 gold, 6 silver, 46 bronze), all single-player. The platinum is <i>Vice Got a Price!</i> About half are hidden story trophies.</li>
+    <li><b>Track everything</b> under Map › Progress, the in-game database of collectibles, vehicles, animals and weapons.</li>
+  </ul>
+  <p class="src">Sources: <a href="https://www.powerpyx.com/gta-6-100-completion-checklist-guide/">PowerPyx</a>, <a href="https://vicecheats.com/guides/gta-6-collectibles/">ViceCheats</a>, <a href="https://www.pushsquare.com/guides/gta-6-collectible-card-locations">Push Square</a>, <a href="https://showgamer.com/en/guides/7786-kak-proyti-gta-6-na-100-polnyy-spisok-trebovaniy-i-vseh-aktivnostey">ShowGamer</a>, <a href="https://www.gamerfuzion.com/gta-6-trophy-list-all-55-trophies-achievements/">GamerFuzion</a></p>
+
+  <h2 class="grp" id="g-lib">Full guides <small>for when you need the details</small></h2>
+  <div class="lib" id="lib"></div>
+</section>
+
+<section class="databox" aria-labelledby="dataT">
+  <h2 class="grp" id="dataT">Your progress <small>saved on this device only</small></h2>
+  <p>Back up your unlocked cheats, codes, pins, missions and checklist, or move them to another device or into the installed app. Your own map screenshot isn't included.</p>
+  <div class="row"><button class="btn pri" id="bkCopy">Copy backup code</button><button class="btn" id="bkFile" hidden>Save backup file</button><button class="btn" id="bkOpen" aria-expanded="false">Restore from backup</button><button class="btn" id="offB" hidden>Save map for offline</button></div>
+  <p id="bkMsg" aria-live="polite"></p>
+  <div id="bkIn" hidden>
+    <textarea id="bkTxt" rows="3" placeholder="Paste a backup code here" aria-label="Backup code" autocomplete="off" spellcheck="false"></textarea>
+    <div class="row"><label class="btn" for="bkFileIn">Choose backup file</label><input type="file" id="bkFileIn" accept="application/json,.json,text/plain" hidden><button class="btn pri" id="bkGo">Restore</button></div>
+  </div>
+</section>
+</main>
+<div class="inst" id="inst" hidden><span>Install it: tap <b>Share</b> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V3M7 8l5-5 5 5M5 12v8h14v-8"/></svg> then <b>Add to Home Screen</b>.</span><button class="x" id="instX" aria-label="Dismiss">×</button></div>
+<footer>Personal reference. Not affiliated with Rockstar Games or GTA6MAP.IO. Codes last checked 11.20.2026, the day after launch. Most codes are still unpublished, so add them here as they turn up.</footer>
+
+<div id="ov" class="ov" hidden role="dialog" aria-modal="true" aria-labelledby="ovT">
+  <div class="ovin">
+    <div class="ovtop"><h2 id="ovT"></h2><button class="x" id="ovX" aria-label="Close">×</button></div>
+    <p class="hold">Phone open · hold <b class="hb">L1 + R1</b></p>
+    <button class="big" id="big" aria-live="polite"></button>
+    <p class="cnt" id="ovC"></p>
+    <div class="seq" id="ovS"></div>
+    <div class="ovb"><button class="btn" id="ovP">Back</button><button class="btn" id="ovR">Restart</button><button class="btn pri" id="ovN">Next</button></div>
+  </div>
+</div>
+
+<div id="pf" class="ov" hidden role="dialog" aria-modal="true" aria-labelledby="pfT">
+  <div class="ovin">
+    <div class="ovtop"><h2 id="pfT">New pin</h2><button class="x" id="pfX" aria-label="Close">×</button></div>
+    <div class="pcats" id="pfC" role="group" aria-label="Pin type"></div>
+    <label class="fld"><span>Note (optional)</span><input id="pfN" maxlength="80" placeholder="e.g. on the roof, behind the pier" autocomplete="off"></label>
+    <label class="chk lt"><input type="checkbox" id="pfF"> Found it</label>
+    <div class="ovb"><button class="btn" id="pfD">Delete</button><button class="btn pri" id="pfS">Save pin</button></div>
+  </div>
+</div>
+
+<div id="ed" class="ov" hidden role="dialog" aria-modal="true" aria-labelledby="edT">
+  <div class="ovin">
+    <div class="ovtop"><h2 id="edT"></h2><button class="x" id="edX" aria-label="Close">×</button></div>
+    <p class="hold">Tap the arrows in order. Saved on this device only.</p>
+    <div class="seq" id="edS"></div>
+    <div class="pad" id="pad"></div>
+    <div class="ovb"><button class="btn" id="edU">Undo</button><button class="btn" id="edDel">Use guide</button><button class="btn pri" id="edOK">Save</button></div>
+  </div>
+</div>
+
+<script>
+{
+const D=[
+['cash','p','$250,000','Instantly adds $250,000. The only money cheat.','URDLULDR','Finish the story','v'],
+['drunk','p','Drunk','Makes you and your partner drunk.','ULRUULRULR','Spend $2,500 on alcohol','r','Listed by Dexerto and iGeeksBlog; PowerPyx and Game Rant still show it as unknown.'],
+['heat','p','Raise Heat Level','Raises your heat across the map.','LDRDUDU','Lose a 3-star wanted level 25 times','v','One guide says 50 times instead of 25.'],
+['wanted','p','Raise Wanted Level','Raises your wanted level.','LDRDURU','Lose a 3-star wanted level 50 times','r','From GTAside and iGeeksBlog. Another listing shows ← ↓ → ↓ ↑ ↑ → ↑, so try that if this one fails.'],
+['focus','p','Unlimited Focus','Focus never runs out.','DUUDUDUDUR','Finish the story','v'],
+['fall','p','No Fall Damage','You take no damage from falls.','','Survive a 40-foot freefall 20 times'],
+['chute','p','Parachute','Adds a parachute to your loadout.','','Complete 50 skydives or BASE jumps from 300+ feet'],
+['armor','p','Body Armor','Adds body armor to your loadout.','DULUUUUUDD','Complete 100 workouts','v'],
+['repair','p','Repair Vehicle','Fully repairs your current vehicle.','','Win 1st place in 10 races at Gellhorn Raceway, Thrillbilly Mud Club and Boone Speedway'],
+['nitro','p','Unlimited Nitrous','Nitrous and fuel never run out.','','Complete 50 stunt jumps'],
+['maxammo','c','Max Ammo','Fills all ammo to maximum.','DURDLLUUDL','Win 25 bronze medals or better at shooting ranges','v'],
+['infammo','c','Infinite Ammo','Ammo never runs out.','DURDLLUDDD','Win 25 silver medals or better at shooting ranges','v'],
+['noreload','c','No Reload','Ammo never runs out and you never reload.','DURDLLUDDU','Win 25 gold medals at shooting ranges','v'],
+['explo','c','All Explosive Weapons','Adds every explosive weapon with full ammo.','','Throw 100 grenades'],
+['fire','c','Incendiary Ammo','All your ammo is incendiary.','','Burn 100 enemies with fire damage'],
+['bottles','c','Exploding Bottles','Bottles explode when damaged.','','Throw 100 Molotovs'],
+['shotgun','c','Explosive Shotgun','Adds a Mason & Keen Shortstraw that fires explosive shells.','','Hit 100 enemies with explosive damage'],
+['hat','c','Hauners H-AT','Adds a Hauners H-AT to your loadout.','','Blow up 100 vehicles'],
+['attack','c','Attack Force','Bullets and melee hits launch targets.','DULLRDDUD','Finish the story','v'],
+['balls','c','Exploding Balls','Sports balls explode on impact.','DULLRDDUR','Hit 20 enemies with explosive damage','v'],
+['vforce','c','Vehicle Force','Anyone your vehicle hits is launched.','DULLRDLUD','Kill 25 enemies with a vehicle','v','One guide lists a mirrored version; three agree on this one.'],
+['ambo','v','Interstate Ambulance','Spawns an Interstate Ambulance.','','Discover it in the Progress menu'],
+['airboat','v','Airboat 09','Spawns an Airboat 09.','','Complete 5 survival challenges'],
+['banshee','v','Bravado Banshee','Spawns a Bravado Banshee.','','Complete all combat challenges'],
+['bmx','v','Tuff BMX','Spawns a Tuff BMX.','','Complete 5 fitness challenges'],
+['boom','v','Maibatsu Boomazoom','Spawns a Maibatsu Boomazoom.','LURDLLUL','Complete 5 shopping challenges','v'],
+['carbon','v','Nagasaki Carbon RS','Spawns a Nagasaki Carbon RS.','','Complete all exploration challenges'],
+['dom','v',"'65 Vapid Dominator","Spawns a '65 Vapid Dominator.",'','Complete all fitness challenges'],
+['emerus','v','Progen Emerus','Spawns a Progen Emerus.','','Complete all vehicle challenges'],
+['flamingo','v','Inflatable Flamingo','Spawns an Inflatable Flamingo.','','Destroy 50 cocaine flamingos'],
+['pumper','v','MTL Pumper','Spawns an MTL Pumper.','LURDLRRU','Discover it in the Progress menu','v'],
+['taxi','v','Vapid Stanier G2 Taxi','Spawns a Vapid Stanier G2 Taxi.','','Complete 5 sports challenges'],
+['lazer','v','Hauners P-996 Lazer','Spawns a Hauners P-996 Lazer jet.','','Complete every challenge'],
+['dozer','v','HVY Bulldozer','Spawns an HVY Bulldozer.','LURDLRRD','Discover it in the Progress menu','v'],
+['mallard','v','Lapwing Mallard','Spawns a Lapwing Mallard.','','Complete 5 vehicle challenges'],
+['golfer','v','Brimstone Golfer','Spawns a Brimstone Golfer.','','Complete all sports challenges'],
+['rhino','v','Hauners Rhino Tank','Spawns a Hauners Rhino Tank.','','Complete all survival challenges'],
+['sanchez','v','Maibatsu Sanchez','Spawns a Maibatsu Sanchez.','','Complete 5 criminal challenges'],
+['sparrow','v','Nagasaki Sea Sparrow','Spawns a Nagasaki Sea Sparrow.','','Complete 5 exploration challenges'],
+['speeder','v','Speeder 700 GT','Spawns a Speeder 700 GT.','','Complete 5 combat challenges'],
+['thrax','v','Truffade Thrax','Spawns a Truffade Thrax.','','Complete all shopping challenges'],
+['bobber','v','Western Zombie Bobber','Spawns a Western Zombie Bobber.','','Complete all criminal challenges'],
+['timefwd','w','Move Time Forward','Moves the time of day forward.','','Find 10 collectible watches'],
+['timepause','w','Pause Time of Day','Freezes the time of day.','','Find 20 collectible watches'],
+['weather','w','Cycle Weather','Switches to the next weather type.','DRUDRUR','Finish the story','v','Dexerto adds one extra → at the end; four guides agree on this version.'],
+['golden','f','Golden Hour','Golden filter with a widescreen frame.','','Spend 4 hours holding hands'],
+['sugar','f','Powdered Sugar','White world with sparkling highlights.','','Scan all the space debris with WAiNK'],
+['pinhole','f','Pinhole','Pinhole camera look.','','Clear 25 gang operations with your partner'],
+['neon','f','Neon Jungle','Neon highlights across the world.','','Discover all 16 Girlypop vehicles'],
+['yester','f','Yesteryear','Black-and-white CRT TV look.','','Discover the Ridgeway'],
+['cata','f','Cataclysm','Murky smoke fills the world.','DDURRULLRR',"Discover Martha's Vamos in the Progress menu",'v'],
+['vhs','f','Videotape','Videotape-style filter.','','Complete 50 activities with your partner'],
+['mirror','f','Dark Mirror','Flips the world upside down and darkens it.','','Make $500,000 selling vehicles'],
+['migraine','f','Migraine','Blurred, distorted view.','','Survive 6 minutes at a 6-star wanted level'],
+['doll','f','Dollhouse','Vivid colours in a narrow frame.','DDURRULLDR','Spend 8 hours with your partner','v'],
+['bubble','f','Bubblegum','Purple and yellow world with sparkles.','','Find all 24 Vice City Flamingos collectible cards'],
+['ffwd','f','Fast Forward','Motion blur and faster clouds.','','Complete 50 meditations'],
+['fisheye','f','Fisheye','Fisheye lens filter.','','Catch 100 fish'],
+['faded','f','Faded Glory','Colour CRT TV look.','DDURRULLLR','Rob 50 stores with your partner','v'],
+['pixel','f','Pixel Art','Pixelated filter.','','Make $250,000 selling collectibles'],
+['hell','f','Hellscape','Red and orange world with heat haze.','','Steal 100 police vehicles']
+];
+const CAT={p:'Player',c:'Combat',v:'Spawn vehicle',w:'Environment',f:'Screen filter'};
+const IC={
+p:'<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.5 4.5-7 8-7s7 2.5 8 7"/></svg>',
+c:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><path d="M12 2v6M12 16v6M2 12h6M16 12h6"/></svg>',
+v:'<svg viewBox="0 0 24 24"><path d="M3 16v-3l2.5-5h13l2.5 5v3z"/><circle cx="7.5" cy="17" r="2"/><circle cx="16.5" cy="17" r="2"/></svg>',
+w:'<svg viewBox="0 0 24 24"><circle cx="9" cy="9" r="4"/><path d="M9 1.5v2M1.5 9h2M3.7 3.7l1.4 1.4M14.3 3.7l-1.4 1.4"/><path d="M9 21h9a3.5 3.5 0 0 0 0-7 5 5 0 0 0-9.4 1.5A2.8 2.8 0 0 0 9 21z"/></svg>',
+f:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 3v5M21 12h-5M12 21v-5M3 12h5"/></svg>'};
+const STAR='<svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.2 1.3-6.6-4.9-4.6 6.6-.8z"/></svg>';
+const AR='<path d="M12 3l8 9h-5v9H9v-9H4z"/>';
+const NM={U:'Up',D:'Down',L:'Left',R:'Right'};
+const GL={U:'↑',D:'↓',L:'←',R:'→'};
+const PL={ps:{h:'L1 + R1',a:'L1',b:'R1'},xb:{h:'LB + RB',a:'LB',b:'RB'}};
+const HUNT=['timefwd','timepause','bubble','sugar','flamingo','neon','nitro','yester','cata','repair','fisheye'];
+const HUNTP={timefwd:['watch',10],timepause:['watch',20],bubble:['card',24],sugar:['debris',0],flamingo:['coke',50],neon:['girly',16],nitro:['stunt',50],repair:['race',3],fisheye:['fish',0]};
+const S={get(k,d){try{const v=localStorage.getItem('lch-'+k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem('lch-'+k,JSON.stringify(v))}catch(e){}}};
+let fav=S.get('fav',{}),unlk=S.get('unl',{}),cust=S.get('cust',{}),plat=S.get('plat','ps'),cat=S.get('cat','all'),known=S.get('known',false),q='';
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
+const codeOf=x=>cust[x[0]]||x[4];
+const chip=(d,cls)=>`<span class="ar${cls?' '+cls:''}"><svg class="r${d}" viewBox="0 0 24 24" aria-hidden="true">${AR}</svg></span>`;
+const spell=c=>[...c].map(d=>NM[d]).join(', ');
+const byId=id=>D.find(x=>x[0]===id);
+
+const CHIPS=[['all','All'],['p','Player'],['c','Combat'],['v','Vehicles'],['w','Environment'],['f','Filters'],['fav','Favorites'],['unl','Unlocked']];
+$('#chips').innerHTML=CHIPS.map(([k,l])=>`<button class="chip" data-c="${k}" aria-pressed="${k===cat}">${l}</button>`).join('');
+$('#known').checked=known;
+
+const card=x=>{
+  const [id,c,name,fx,,unl,st,note]=x,code=codeOf(x),mine=!!cust[id];
+  const tag=mine?'<span class="tag u">Your entry</span>':st==='v'?'<span class="tag v">Verified</span>':st==='r'?'<span class="tag r">Reported</span>':'<span class="tag n">Code not out yet</span>';
+  return `<article class="card${unlk[id]?' got':''}" data-id="${id}">
+<div class="top"><span class="ic">${IC[c]}</span><div><h3>${esc(name)}</h3><p class="fx">${esc(fx)}</p></div><button class="star" data-a="fav" aria-pressed="${!!fav[id]}" aria-label="Favorite ${esc(name)}">${STAR}</button></div>
+${code?`<div class="code" role="img" aria-label="${spell(code)}">${[...code].map(d=>chip(d)).join('')}</div>`:'<div class="nocode">No code published yet</div>'}
+<p class="unl"><b>Unlock:</b> ${esc(unl)}</p>${note&&!mine?`<p class="note">${esc(note)}</p>`:''}
+<div class="acts">${tag}<span class="sp"></span><label class="chk"><input type="checkbox" data-a="unl"${unlk[id]?' checked':''}> Unlocked</label></div>
+<div class="acts b">${code?'<button class="btn pri" data-a="go">Entry mode</button>':''}<button class="btn" data-a="edit">${code?'Edit code':'Add code'}</button></div></article>`};
+
+function render(){
+  const t=q.trim().toLowerCase();
+  const rows=D.filter(x=>{
+    if(cat==='fav'&&!fav[x[0]])return false;
+    if(cat==='unl'&&!unlk[x[0]])return false;
+    if(CAT[cat]&&x[1]!==cat)return false;
+    if(known&&!codeOf(x))return false;
+    return !t||(x[2]+' '+x[3]+' '+x[5]).toLowerCase().includes(t)});
+  let h='';
+  for(const k of Object.keys(CAT)){
+    const g=rows.filter(x=>x[1]===k);if(!g.length)continue;
+    const kn=g.filter(codeOf).length;
+    h+=`<h2 class="grp">${CAT[k]} <small>${g.length} shown · ${kn} with codes</small></h2><div class="grid">${g.map(card).join('')}</div>`}
+  $('#list').innerHTML=h;
+  $('#empty').hidden=rows.length>0;
+  $('#cnt').textContent=rows.length===D.length?'Showing all 61 cheats':`Showing ${rows.length} of 61 cheats`;
+  stats();hunt()}
+
+function stats(){
+  const k=D.filter(codeOf).length,u=D.filter(x=>unlk[x[0]]).length;
+  $('#sk').textContent=k;$('#su').textContent=u;$('#sm').style.width=(u/D.length*100)+'%'}
+
+function hunt(){
+  const all=[...pins.map,...pins.photo];
+  $('#hunt').innerHTML=HUNT.map(byId).map(x=>{const hp=HUNTP[x[0]];let pr='';
+    if(hp){const n=all.filter(p=>p.c===hp[0]&&p.f).length;pr=`<span class="hp">Pinned as found: ${n}${hp[1]?' / '+hp[1]:''}</span>`}
+    return `<div class="hrow" data-id="${x[0]}"><div><b>${esc(x[2])}</b><span>${esc(x[5])}</span>${pr}</div><label class="chk"><input type="checkbox" data-a="unl"${unlk[x[0]]?' checked':''}> Unlocked</label></div>`}).join('')}
+
+function fam(){
+  const F=[['Vehicle spawns','LURDL'],['Screen filters','DDURRULL'],['Ammo cheats','DURDLLU'],['Force cheats','DULLRD']];
+  $('#fam').innerHTML=F.map(([l,c])=>`<div><span class="l">${l}</span><span class="code" role="img" aria-label="start with ${spell(c)}">${[...c].map(d=>chip(d)).join('')}</span><span class="note">…</span></div>`).join('')}
+
+function setPlat(p){
+  plat=p;S.set('plat',p);
+  $('#pPS').setAttribute('aria-pressed',p==='ps');$('#pXB').setAttribute('aria-pressed',p==='xb');
+  document.querySelectorAll('.hb').forEach(e=>e.textContent=PL[p].h);
+  document.querySelectorAll('.hb1').forEach(e=>e.textContent=PL[p].a);
+  document.querySelectorAll('.hb2').forEach(e=>e.textContent=PL[p].b)}
+
+/* entry mode */
+let cur=null,step=0;
+function openEntry(id){cur=byId(id);step=0;$('#ovT').textContent=cur[2];show('#ov');drawEntry();$('#big').focus()}
+function drawEntry(){
+  const c=codeOf(cur),n=c.length,b=$('#big');
+  if(step>=n){b.className='big done';b.innerHTML='Done';b.setAttribute('aria-label','Code complete');$('#ovC').textContent='Watch for the confirmation'}
+  else{b.className='big';b.innerHTML=`<svg class="r${c[step]}" viewBox="0 0 24 24" aria-hidden="true">${AR}</svg>`;b.setAttribute('aria-label',`Press ${NM[c[step]]}. Tap for next.`);$('#ovC').textContent=`${step+1} / ${n}`}
+  $('#ovS').innerHTML=[...c].map((d,i)=>chip(d,i<step?'ok':i===step?'cur':'')).join('');
+  $('#ovP').disabled=step===0}
+const next=()=>{if(step<codeOf(cur).length){step++;drawEntry()}else closeAll()};
+
+/* editor */
+let edId=null,buf='';
+$('#pad').innerHTML=['U','L','R','D'].map(d=>`<button data-d="${d}" aria-label="${NM[d]}"><svg class="r${d}" viewBox="0 0 24 24" aria-hidden="true">${AR}</svg></button>`).join('')+'<span class="hub"></span>';
+function openEd(id){edId=id;const x=byId(id);buf=codeOf(x)||'';$('#edT').textContent=x[2];$('#edDel').hidden=!cust[id];show('#ed');drawEd()}
+function drawEd(){$('#edS').innerHTML=buf?[...buf].map(d=>chip(d)).join(''):'<span class="hold">No arrows yet</span>';$('#edOK').disabled=!buf}
+function saveEd(){const x=byId(edId);if(buf&&buf!==x[4])cust[edId]=buf;else delete cust[edId];S.set('cust',cust);closeAll();render()}
+
+let lastFocus=null;
+function show(s){lastFocus=document.activeElement;$(s).hidden=false;document.body.style.overflow='hidden'}
+function closeAll(){document.querySelectorAll('.ov').forEach(o=>o.hidden=true);document.body.style.overflow='';if(lastFocus&&lastFocus.focus)lastFocus.focus()}
+
+/* views */
+const VIEWS=['cheats','how-to','leonida-map','guides'];
+function route(){
+  const v=VIEWS.includes(location.hash.slice(1))?location.hash.slice(1):'cheats';
+  document.querySelectorAll('[data-view]').forEach(s=>s.hidden=s.dataset.view!==v);
+  document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',a.dataset.v===v))}
+
+/* events */
+$('#chips').addEventListener('click',e=>{const b=e.target.closest('[data-c]');if(!b)return;cat=b.dataset.c;S.set('cat',cat);document.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',c===b));render()});
+$('#q').addEventListener('input',e=>{q=e.target.value;render()});
+$('#known').addEventListener('change',e=>{known=e.target.checked;S.set('known',known);render()});
+$('#pPS').addEventListener('click',()=>setPlat('ps'));
+$('#pXB').addEventListener('click',()=>setPlat('xb'));
+document.addEventListener('click',e=>{
+  const b=e.target.closest('button[data-a]');if(!b)return;
+  const id=b.closest('[data-id]').dataset.id,a=b.dataset.a;
+  if(a==='fav'){fav[id]?delete fav[id]:fav[id]=1;S.set('fav',fav);if(cat==='fav')render();else b.setAttribute('aria-pressed',!!fav[id])}
+  else if(a==='go')openEntry(id);
+  else if(a==='edit')openEd(id)});
+document.addEventListener('change',e=>{
+  const i=e.target;if(i.dataset.a!=='unl')return;
+  const id=i.closest('[data-id]').dataset.id;i.checked?unlk[id]=1:delete unlk[id];S.set('unl',unlk);
+  const keep=i.closest('#v-map')?null:i;render();
+  if(keep){const n=document.querySelector(`#list [data-id="${id}"] input[data-a=unl]`);if(n)n.focus()}});
+$('#big').addEventListener('click',next);
+$('#ovN').addEventListener('click',next);
+$('#ovP').addEventListener('click',()=>{if(step>0){step--;drawEntry()}});
+$('#ovR').addEventListener('click',()=>{step=0;drawEntry()});
+$('#ovX').addEventListener('click',closeAll);
+$('#edX').addEventListener('click',closeAll);
+$('#pad').addEventListener('click',e=>{const b=e.target.closest('[data-d]');if(!b||buf.length>=16)return;buf+=b.dataset.d;drawEd()});
+$('#edU').addEventListener('click',()=>{buf=buf.slice(0,-1);drawEd()});
+$('#edDel').addEventListener('click',()=>{delete cust[edId];S.set('cust',cust);closeAll();render()});
+$('#edOK').addEventListener('click',saveEd);
+document.querySelectorAll('.ov').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)closeAll()}));
+document.addEventListener('keydown',e=>{
+  if(!$('#ov').hidden){if(e.key==='Escape')closeAll();else if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();next()}else if(e.key==='ArrowLeft'&&step>0){step--;drawEntry()}}
+  else if(!$('#pf').hidden){if(e.key==='Escape')closeAll()}
+  else if(!$('#ed').hidden){const m={ArrowUp:'U',ArrowDown:'D',ArrowLeft:'L',ArrowRight:'R'}[e.key];if(e.key==='Escape')closeAll();else if(m&&buf.length<16){e.preventDefault();buf+=m;drawEd()}else if(e.key==='Backspace'){buf=buf.slice(0,-1);drawEd()}}});
+addEventListener('hashchange',()=>{route();scrollTo(0,0)});
+
+/* ---------- map ---------- */
+const PC=[
+['watch','Collectible watch','W','#f2a900','#23202a'],
+['card','Flamingos card','C','#ff4f86','#fff'],
+['debris','Space debris','D','#6d5ce8','#fff'],
+['coke','Cocaine flamingo','F','#ffb3c8','#23202a'],
+['girly','Girlypop vehicle','G','#c43fcf','#fff'],
+['stunt','Stunt jump','J','#ff7a2f','#23202a'],
+['race','Race track','R','#d92f2f','#fff'],
+['range','Shooting range','S','#4b5563','#fff'],
+['store','Store to rob','$','#0a8f5a','#fff'],
+['fish','Fishing spot','~','#1f6fd1','#fff'],
+['other','Other','?','#23202a','#fff']];
+const PCM=Object.fromEntries(PC.map(c=>[c[0],c]));
+/* community map layers from gtadb.org (CC BY 4.0), cropped to game x -10240..3840, y -8704..11264; stage units = zoom-4 pixels */
+const LY={y18:{bg:'#2c66a5',lv:{3:[4,5],4:[7,10]}},day:{bg:'#2f90b0',lv:{3:[4,5],4:[7,10]}}};
+const MW=7040,MH=9984;
+const g2s=(gx,gy)=>[(gx+10240)/2,(11264-gy)/2];
+const s2g=(sx,sy)=>[Math.round(sx*2-10240),Math.round(11264-sy*2)];
+const JUMPS=[
+['Vice City',-965,123,'Southeast coast · Vice-Dale County',"Leonida's big city, based on modern Miami: art deco hotels, white-sand beaches, Little Cuba and a busy port."],
+['Vice Beach',1733,1063,'Barrier island east of downtown','The beach strip across the bay from Vice City, with Ocean Beach and Washington Beach.'],
+['Port Gellhorn',-6550,3873,'West coast · Kelly County',"Leonida's run-down Gulf Coast town: budget motels, empty strip malls and a working port."],
+['Gellhorn Raceway',-6452,1967,'Near Port Gellhorn','Gellhorn International Raceway. Racing here counts toward the Repair Vehicle cheat.'],
+['Ambrosia',-2762,3902,'Central · Ambrosia County','Inland county beside Lake Leonida, with a sugar refinery on the skyline and bikers running the less legal side.'],
+['Mt. Kalaga',-3856,6192,'Northern Leonida','Mount Kalaga National Park: hunting trails, fishing spots and dense backcountry forest.'],
+['Grassrivers',-3856,-3984,'Southwest wetlands','Everglades-style swamp and mangroves. Gators, airboats, and plenty of illegal business away from the city.'],
+['Leonida Keys',-4272,-6392,'Southern islands','A tropical chain of islands off the southern tip, reached by road and by boat.']];
+
+const mw=$('#mw'),stg=$('#stg');
+let base=S.get('base','y18');if(!LY[base]&&base!=='photo')base='y18';
+const pins={map:S.get('pins-map',[]),photo:S.get('pins-photo',[])};
+const oldSketch=S.get('pins-sketch',[]);
+let hideCat=S.get('hidecat',{}),hideF=S.get('hidef',false),lmOn=S.get('lmon',true),addMode=false,photoURL=null,photoNote='';
+let W=MW,H=MH,z=1,tx=0,ty=0,fitZ=1,lastW=0,LM=[];
+const grp=()=>base==='photo'?'photo':'map';
+const pinPos=p=>base==='photo'?[p.x*W,p.y*H]:g2s(p.gx,p.gy);
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const dpr=()=>window.devicePixelRatio||1;
+function apply(){stg.style.transform=`translate(${tx}px,${ty}px) scale(${z})`;stg.style.setProperty('--iz',1/z);queueView()}
+function fit(){const r=mw.getBoundingClientRect();if(!r.width)return;fitZ=Math.min(r.width/W,r.height/H);z=fitZ;tx=(r.width-W*z)/2;ty=(r.height-H*z)/2;apply()}
+const maxZ=()=>base==='photo'?fitZ*10:Math.max(fitZ*10,2.5/dpr());
+function clampPan(){const r=mw.getBoundingClientRect();tx=clamp(tx,80-W*z,r.width-80);ty=clamp(ty,80-H*z,r.height-80)}
+function zoomAt(f,cx,cy){const nz=clamp(z*f,fitZ*.8,maxZ());tx=cx-(cx-tx)*nz/z;ty=cy-(cy-ty)*nz/z;z=nz;clampPan();apply()}
+function zoomMid(f){const r=mw.getBoundingClientRect();zoomAt(f,r.width/2,r.height/2)}
+function centerOn(sx,sy,nz){const r=mw.getBoundingClientRect();z=clamp(nz,fitZ*.8,maxZ());tx=r.width/2-sx*z;ty=r.height/2-sy*z;clampPan();apply()}
+
+/* tiles and landmark dots for the visible area */
+const tileEls=new Map();let viewRAF=0;
+function queueView(){if(!viewRAF)viewRAF=requestAnimationFrame(()=>{viewRAF=0;drawTiles();drawLms();hint()})}
+function visRect(){const r=mw.getBoundingClientRect();return [-tx/z,-ty/z,(r.width-tx)/z,(r.height-ty)/z]}
+function drawTiles(){
+  const L=LY[base],box=$('#tiles');
+  if(!L||!mw.getBoundingClientRect().width){if(!L){box.innerHTML='';tileEls.clear()}return}
+  const need=z*dpr(),lv=need<=.33?0:need<=.65?3:4,want=new Set();
+  if(lv){const cs=lv===3?2048:1024,[cols,rows]=L.lv[lv],[x0,y0,x1,y1]=visRect();
+    for(let r=clamp(Math.floor(y0/cs),0,rows-1);r<=clamp(Math.floor(y1/cs),0,rows-1);r++)
+      for(let c=clamp(Math.floor(x0/cs),0,cols-1);c<=clamp(Math.floor(x1/cs),0,cols-1);c++){
+        const k=`${base}/${lv}/${c}_${r}`;want.add(k);
+        if(!tileEls.has(k)){const im=new Image();im.className='tl';im.alt='';im.decoding='async';im.draggable=false;
+          const w=Math.min(cs,W-c*cs),h=Math.min(cs,H-r*cs);
+          Object.assign(im.style,{left:c*cs+'px',top:r*cs+'px',width:(w+(c<cols-1?1:0))+'px',height:(h+(r<rows-1?1:0))+'px'});
+          im.src=`tiles/${k}.jpg`;tileEls.set(k,im);box.appendChild(im)}}}
+  for(const [k,el] of tileEls)if(!want.has(k)){el.remove();tileEls.delete(k)}}
+function drawLms(){
+  const box=$('#lms');
+  if(!lmOn||base==='photo'||z<=.22||!LM.length){box.innerHTML='';return}
+  const [x0,y0,x1,y1]=visRect(),out=[];
+  for(let i=0;i<LM.length&&out.length<350;i++){const [sx,sy]=g2s(LM[i][1],LM[i][2]);if(sx>=x0&&sx<=x1&&sy>=y0&&sy<=y1)out.push(`<button class="lm" data-li="${i}" style="left:${sx}px;top:${sy}px" aria-label="${esc(LM[i][0])}"><span></span></button>`)}
+  box.innerHTML=out.join('')}
+function hint(){$('#mh').textContent=addMode?'Tap the map to drop a pin':(lmOn&&base!=='photo'&&LM.length&&z<=.22)?'Zoom in to see landmarks':''}
+
+/* gestures: pan, pinch, wheel, keys */
+const pts=new Map();let g=null,moved=false;
+mw.addEventListener('pointerdown',e=>{
+  if(e.button>0||e.target.closest('.zm,.upl'))return;
+  pts.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  if(pts.size===1){moved=false;g={sx:e.clientX,sy:e.clientY,tx,ty}}
+  else if(pts.size===2){const [a,b]=[...pts.values()];g={d:Math.hypot(a.x-b.x,a.y-b.y)||1,z,tx,ty,mx:(a.x+b.x)/2,my:(a.y+b.y)/2};moved=true}});
+addEventListener('pointermove',e=>{
+  if(!pts.has(e.pointerId)||!g)return;
+  pts.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  const r=mw.getBoundingClientRect();
+  if(pts.size===1&&g.sx!=null){const dx=e.clientX-g.sx,dy=e.clientY-g.sy;if(Math.abs(dx)+Math.abs(dy)>6)moved=true;if(moved){tx=g.tx+dx;ty=g.ty+dy;clampPan();apply()}}
+  else if(pts.size===2&&g.d){const [a,b]=[...pts.values()];const d=Math.hypot(a.x-b.x,a.y-b.y);const ox=(g.mx-r.left-g.tx)/g.z,oy=(g.my-r.top-g.ty)/g.z;z=clamp(g.z*d/g.d,fitZ*.8,maxZ());tx=(a.x+b.x)/2-r.left-ox*z;ty=(a.y+b.y)/2-r.top-oy*z;clampPan();apply()}});
+const up=e=>{if(!pts.has(e.pointerId))return;pts.delete(e.pointerId);if(pts.size===1){const [p]=[...pts.values()];g={sx:p.x,sy:p.y,tx,ty}}else if(!pts.size)g=null};
+addEventListener('pointerup',up);addEventListener('pointercancel',up);
+mw.addEventListener('wheel',e=>{e.preventDefault();const r=mw.getBoundingClientRect();zoomAt(Math.exp(-e.deltaY*.0015),e.clientX-r.left,e.clientY-r.top)},{passive:false});
+mw.addEventListener('keydown',e=>{if(e.target!==mw)return;const k=e.key,s=60;
+  if(k==='ArrowLeft')tx+=s;else if(k==='ArrowRight')tx-=s;else if(k==='ArrowUp')ty+=s;else if(k==='ArrowDown')ty-=s;
+  else if(k==='+'||k==='='){zoomMid(1.3);e.preventDefault();return}else if(k==='-'){zoomMid(1/1.3);e.preventDefault();return}else if(k==='0'){fit();e.preventDefault();return}else return;
+  e.preventDefault();clampPan();apply()});
+mw.addEventListener('click',e=>{
+  if(moved){moved=false;return}
+  if(e.target.closest('.zm,.upl'))return;
+  const pin=e.target.closest('.pin');if(pin){openPin(pin.dataset.pid);return}
+  if(addMode){const r=stg.getBoundingClientRect(),sx=(e.clientX-r.left)/r.width*W,sy=(e.clientY-r.top)/r.height*H;
+    if(sx>=0&&sx<=W&&sy>=0&&sy<=H)openPin(null,sx,sy);return}
+  const lm=e.target.closest('.lm');if(lm)showLm(+lm.dataset.li)});
+$('#zIn').addEventListener('click',()=>zoomMid(1.4));
+$('#zOut').addEventListener('click',()=>zoomMid(1/1.4));
+$('#zFit').addEventListener('click',fit);
+const mro=new ResizeObserver(()=>{const r=mw.getBoundingClientRect();if(r.width&&Math.abs(r.width-lastW)>2){lastW=r.width;fit()}});
+mro.observe(mw);
+
+/* places: search, jump chips, landmark card */
+function mark(sx,sy){const h=$('#hl');h.hidden=false;h.style.left=sx+'px';h.style.top=sy+'px'}
+function setCard(html){$("#rinfo").innerHTML=html}
+function showLm(i){const l=LM[i];if(!l)return;const [sx,sy]=g2s(l[1],l[2]);mark(sx,sy);
+  const parts=l[0].split(', ');
+  setCard(`<b>${esc(parts[0])}</b><small>${esc(parts.slice(1).join(', ')||'Leonida')}</small>${l[3]?`<p>Real-world match: ${esc(l[3])}</p>`:''}${l[4]?`<p class="tags">${l[4].split('·').map(t=>`<span>${esc(t)}</span>`).join('')}</p>`:''}<button class="btn" data-pinat="${sx},${sy}">Pin this spot</button>`)}
+function flyLm(i){const l=LM[i];const [sx,sy]=g2s(l[1],l[2]);centerOn(sx,sy,Math.max(z,1.1/dpr()));showLm(i)}
+$('#jumps').innerHTML=JUMPS.map((j,i)=>`<button class="chip" data-j="${i}">${esc(j[0])}</button>`).join('');
+$('#jumps').addEventListener('click',e=>{const b=e.target.closest('[data-j]');if(!b)return;const j=JUMPS[+b.dataset.j],[sx,sy]=g2s(j[1],j[2]);
+  if(base==='photo')setBase('y18');
+  centerOn(sx,sy,Math.max(fitZ*2.2,.3/dpr()));mark(sx,sy);setCard(`<b>${esc(j[0])}</b><small>${esc(j[3])}</small><p>${esc(j[4])}</p>`);mw.scrollIntoView({block:'nearest'})});
+$('#rinfo').addEventListener('click',e=>{const b=e.target.closest('[data-pinat]');if(!b)return;const [sx,sy]=b.dataset.pinat.split(',').map(Number);openPin(null,sx,sy)});
+const sug=$('#sugg');let sugI=[];
+$('#ls').addEventListener('input',e=>{const t=e.target.value.trim().toLowerCase();
+  if(t.length<2||!LM.length){sug.hidden=true;return}
+  sugI=[];for(let i=0;i<LM.length&&sugI.length<8;i++)if((LM[i][0]+' '+LM[i][3]).toLowerCase().includes(t))sugI.push(i);
+  sug.innerHTML=sugI.length?sugI.map(i=>{const p=LM[i][0].split(', ');return `<button data-si="${i}"><b>${esc(p[0])}</b><span>${esc(p.slice(1).join(', '))}</span></button>`}).join(''):'<p class="note">No matching place.</p>';
+  sug.hidden=false});
+$('#ls').addEventListener('keydown',e=>{if(e.key==='Enter'&&sugI.length){e.preventDefault();pick(sugI[0])}else if(e.key==='Escape')sug.hidden=true});
+function pick(i){sug.hidden=true;$('#ls').value=LM[i][0].split(', ')[0];if(base==='photo')setBase('y18');flyLm(i);mw.scrollIntoView({block:'nearest'})}
+sug.addEventListener('click',e=>{const b=e.target.closest('[data-si]');if(b)pick(+b.dataset.si)});
+document.addEventListener('click',e=>{if(!e.target.closest('.msearch'))sug.hidden=true});
+$('#lmB').setAttribute('aria-pressed',lmOn);
+$('#lmB').addEventListener('click',()=>{lmOn=!lmOn;S.set('lmon',lmOn);$('#lmB').setAttribute('aria-pressed',lmOn);queueView()});
+fetch('data/landmarks.json').then(r=>r.json()).then(d=>{LM=d;$('#ls').placeholder=`Search ${d.length} places, e.g. Ocean View Hotel`;queueView()}).catch(()=>{$('#ls').placeholder='Place search unavailable here'});
+
+/* pins */
+function drawPins(){
+  const list=pins[grp()];
+  $('#pins').innerHTML=list.filter(p=>!hideCat[p.c]&&!(hideF&&p.f)).map(p=>{const c=PCM[p.c]||PCM.other,[sx,sy]=pinPos(p);
+    return `<button class="pin${p.f?' found':''}" data-pid="${p.id}" style="left:${sx/W*100}%;top:${sy/H*100}%;--c:${c[3]};--t:${c[4]}" aria-label="${esc(c[1])}${p.n?': '+esc(p.n):''}${p.f?', found':''}"><span><i>${esc(c[2])}</i></span></button>`}).join('');
+  legend();plist();hunt()}
+function legend(){
+  const list=pins[grp()];
+  $('#leg').innerHTML=PC.map(c=>{const all=list.filter(p=>p.c===c[0]),f=all.filter(p=>p.f).length;
+    return `<button class="lg" data-lc="${c[0]}" aria-pressed="${!hideCat[c[0]]}" style="--c:${c[3]};--t:${c[4]}"><span class="dot">${esc(c[2])}</span>${esc(c[1])} <small>${f}/${all.length}</small></button>`}).join('')}
+function plist(){
+  const list=[...pins[grp()]].sort((a,b)=>PC.findIndex(c=>c[0]===a.c)-PC.findIndex(c=>c[0]===b.c));
+  const old=oldSketch.length&&base!=='photo'?`<p class="note">${oldSketch.length} pin${oldSketch.length>1?'s':''} from the earlier sketch map couldn't move over, since the sketch was only approximate. Re-pin ${oldSketch.length>1?'them':'it'} here. <button class="btn" id="clrOld">Dismiss</button></p>`:'';
+  $('#plist').innerHTML=old+(list.length?list.map(p=>{const c=PCM[p.c]||PCM.other;
+    return `<div class="prow${p.f?' found':''}" data-pid="${p.id}"><span class="dot" style="--c:${c[3]};--t:${c[4]}">${esc(c[2])}</span><div><b>${esc(c[1])}</b>${p.n?`<span class="n">${esc(p.n)}</span>`:''}</div><label class="chk"><input type="checkbox" data-pf${p.f?' checked':''}> Found</label><button class="btn" data-show>Show</button></div>`}).join('')
+    :`<p class="note">No pins yet. Tap <b>Add pin</b>, then tap the spot${base==='photo'?'':', or tap a landmark and choose Pin this spot'}.</p>`)}
+function savePins(){S.set('pins-'+grp(),pins[grp()])}
+let pfId=null,pfS=[0,0],pfC='watch';
+function openPin(id,sx,sy){
+  const p=id?pins[grp()].find(q=>q.id===id):null;
+  pfId=p?p.id:null;pfS=p?pinPos(p):[sx,sy];pfC=p?p.c:S.get('lastcat','watch');if(!PCM[pfC])pfC='watch';
+  $('#pfT').textContent=p?'Edit pin':'New pin';$('#pfN').value=p?p.n||'':'';$('#pfF').checked=p?!!p.f:false;$('#pfD').hidden=!p;
+  drawPfC();show('#pf')}
+function drawPfC(){$('#pfC').innerHTML=PC.map(c=>`<button type="button" data-k="${c[0]}" aria-pressed="${c[0]===pfC}" style="--c:${c[3]};--t:${c[4]}"><span class="dot">${esc(c[2])}</span>${esc(c[1])}</button>`).join('')}
+$('#pfC').addEventListener('click',e=>{const b=e.target.closest('[data-k]');if(!b)return;pfC=b.dataset.k;drawPfC()});
+$('#pfS').addEventListener('click',()=>{
+  const n=$('#pfN').value.trim().slice(0,80),f=$('#pfF').checked,list=pins[grp()];
+  if(pfId){const p=list.find(q=>q.id===pfId);if(p)Object.assign(p,{c:pfC,n,f})}
+  else{const p={id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),c:pfC,n,f};
+    if(base==='photo'){p.x=pfS[0]/W;p.y=pfS[1]/H}else{[p.gx,p.gy]=s2g(pfS[0],pfS[1])}list.push(p)}
+  S.set('lastcat',pfC);savePins();closeAll();drawPins()});
+$('#pfD').addEventListener('click',()=>{pins[grp()]=pins[grp()].filter(q=>q.id!==pfId);savePins();closeAll();drawPins()});
+$('#pfX').addEventListener('click',closeAll);
+$('#pfN').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();$('#pfS').click()}});
+$('#leg').addEventListener('click',e=>{const b=e.target.closest('[data-lc]');if(!b)return;const k=b.dataset.lc;hideCat[k]?delete hideCat[k]:hideCat[k]=1;S.set('hidecat',hideCat);drawPins()});
+$('#hideF').checked=hideF;
+$('#hideF').addEventListener('change',e=>{hideF=e.target.checked;S.set('hidef',hideF);drawPins()});
+$('#plist').addEventListener('change',e=>{if(!e.target.matches('[data-pf]'))return;const p=pins[grp()].find(q=>q.id===e.target.closest('[data-pid]').dataset.pid);if(p){p.f=e.target.checked;savePins();drawPins()}});
+$('#plist').addEventListener('click',e=>{
+  if(e.target.closest('#clrOld')){oldSketch.length=0;try{localStorage.removeItem('lch-pins-sketch')}catch(err){}plist();return}
+  if(!e.target.closest('[data-show]'))return;const id=e.target.closest('[data-pid]').dataset.pid,p=pins[grp()].find(q=>q.id===id);if(!p)return;
+  if(hideCat[p.c]){delete hideCat[p.c];S.set('hidecat',hideCat)}if(hideF&&p.f){hideF=false;$('#hideF').checked=false;S.set('hidef',false)}drawPins();
+  const [sx,sy]=pinPos(p);centerOn(sx,sy,Math.max(z,base==='photo'?fitZ*3:.9/dpr()));
+  mw.scrollIntoView({block:'center',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+  const el=$(`#pins [data-pid="${id}"]`);if(el){el.classList.add('ping');setTimeout(()=>el.classList.remove('ping'),2600)}});
+$('#addB').addEventListener('click',()=>{addMode=!addMode;$('#addB').setAttribute('aria-pressed',addMode);mw.classList.toggle('adding',addMode);hint()});
+
+/* base layer: community map, satellite render, or the person's own screenshot (kept in IndexedDB) */
+function idb(op,k,v){return new Promise((res,rej)=>{let r;try{r=indexedDB.open('lch',1)}catch(e){rej(e);return}
+  r.onupgradeneeded=()=>r.result.createObjectStore('kv');r.onerror=()=>rej(r.error);
+  r.onsuccess=()=>{try{const t=r.result.transaction('kv',op==='get'?'readonly':'readwrite').objectStore('kv');const q=op==='get'?t.get(k):op==='put'?t.put(v,k):t.delete(k);q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error)}catch(e){rej(e)}}})}
+const imgSize=u=>new Promise(res=>{const i=new Image();i.onload=()=>res([i.naturalWidth||1,i.naturalHeight||1]);i.onerror=()=>res([1,1]);i.src=u});
+let photoTried=false;
+async function setBase(b){
+  const wasMap=base!=='photo',keep=wasMap&&b!=='photo'&&lastW;
+  base=b;S.set('base',b);
+  document.querySelectorAll('#seg [data-b]').forEach(x=>x.setAttribute('aria-pressed',x.dataset.b===b));
+  $('#tiles').innerHTML='';tileEls.clear();$('#hl').hidden=true;
+  if(b==='photo'&&!photoURL&&!photoTried){photoTried=true;try{const blob=await idb('get','photo');if(blob)photoURL=URL.createObjectURL(blob)}catch(e){}}
+  if(LY[b]){W=MW;H=MH;mw.style.background=LY[b].bg;$('#base').innerHTML=`<img class="ovw" src="tiles/${b}/ov.jpg" alt="" draggable="false">`;$('#upl').hidden=true}
+  else if(photoURL){const [nw,nh]=await imgSize(photoURL);W=1000;H=Math.round(1000*nh/nw);mw.style.background='#0b1c21';
+    $('#base').innerHTML=`<img class="ovw" src="${photoURL}" alt="Your map screenshot" draggable="false">`;$('#upl').hidden=true}
+  else{W=1000;H=1000;mw.style.background='#0b1c21';$('#base').innerHTML='';$('#upl').hidden=false}
+  $('#mcap').hidden=b==='photo';$('#pcap').hidden=b!=='photo'||!photoURL;$('#pcap').textContent='Your screenshot. Pins here are separate from the community map. If you replace the image, use the same zoom level so old pins still line up.'+(photoNote?' '+photoNote:'');
+  $('#msearch').hidden=$('#rinfo').hidden=$('#lmB').hidden=b==='photo';
+  $('#ptools').hidden=!(b==='photo'&&photoURL);
+  stg.style.width=W+'px';stg.style.height=H+'px';
+  if(keep)apply();else fit();
+  drawPins();hint()}
+document.querySelectorAll('#seg [data-b]').forEach(x=>x.addEventListener('click',()=>{if(x.dataset.b!==base)setBase(x.dataset.b)}));
+$('#fileIn').addEventListener('change',async e=>{const f=e.target.files&&e.target.files[0];e.target.value='';if(!f||!f.type.startsWith('image/'))return;
+  if(photoURL)URL.revokeObjectURL(photoURL);photoURL=URL.createObjectURL(f);photoNote='';
+  try{await idb('put','photo',f)}catch(err){photoNote='This browser would not store the image, so it lasts until you close the page.'}
+  base='';setBase('photo')});
+$('#rmP').addEventListener('click',async()=>{try{await idb('del','photo')}catch(e){}if(photoURL)URL.revokeObjectURL(photoURL);photoURL=null;base='';setBase('photo')});
+
+/* ---------- guides ---------- */
+/* mission list: "name|hint|flags|heist" — flags o optional, m missable, J Jason only, L Lucia only (PowerPyx walkthrough order) */
+const CH=[
+['Prologue','Opening mission',['Prologue']],
+['Chapter 1','Just Like Paradise',['Gone Fishing','Gear Up|Pick up another gun','Lab Fees|Collect Brian\'s rent','Just a Scratch|Fix your car','Unwanted Attention|Go see Cal','Pipework|Collect Mandy\'s rent','Get Shirley\'s Rum||om','Steal the Scooter||om','Hey Arnold!|Meet Brian','Island Dreams|Work for Kenton','Feng Shui|Meet Cal','Pick Up & Drop Off Groceries||o','Buy Flowers||o','Buy Lucia a Necklace||o','Get The Chop||o','Get Lucia\'s Clothes||o','Coming Home|Lucia\'s release','Clean Up After Donnie|Donnie\'s drop','Buck Me|Set up a bank account','Down to Earth|Meet Brian','Deposit Cash Into BuckMe','Save for the Future','Find the Lost Drugs||o','Day Release|Meet Mattia & Kat','Clock Out||o','Clear Skies|Join Donnie on a job','Building a Life','Swamped|Meet Brian','Don Gone|Head to Donnie\'s trailer','Donnie\'s Lost Drugs','Recalibration|Talk to Lucia','Tourist Trap|Take up Mattia\'s offer','Home Sweet Home','Discharge Time']],
+['Chapter 2','Paradise Lost',['What\'s in the Bag?','Take Care of Jason|Play nurse','Overnight Charges|See Linda, the manager','Just Moved In','Girls\' Trip|Find painkillers','Pick Up a Gun||o','Moses|Take a vehicle to Moses','New Look','How Do I Look?','Painkiller Supplier','Ambulance Chaser|Move the ambulance','Check Out McKittrick Farm|Kyle quest 1|o','Behind on Payments','Slam Dunk|Find painkillers','Collect Chemicals for Kyle|Kyle quest 2|o','Daily Driver|Steal the Crawler for Moses','Breakfast Run|Check on Jason','Coffee Break','Thrillbillies|Check out the Mud Club|o','Twist Wrist, Smash, Grab|Join Billy on a job|o','Hit Avery Pawn||o','Hit Kingpin Bowling||o','Impounded Vehicle||o','Prepare for Vice City','Veteran Hunted|Meet Bret|oJ','Afternoon Delight|Rob Vicki\'s boss','Checking Out|Move to Vice City']],
+['Chapter 3','Tits, Ass, Drug Money',['Welcome to Vice City','Dealer\'s Choice|Go see Dre\'Quan|J','Dubious Provenance|Visit the antique store','Mami Knows Best|Catch up with Mia|L','Get Your Wheels||o','Join a Street Race|Yago quest 1|o','Here, Kitty Kitty|Speak with Tyrone|J','Send Money to Lorena','Encrypted Hard Drive','Boobie Time|Talk to Boobie|J','Buddy?|Check on Kyle|o','Meet the Heders|Meet Brian & Lori','Yasmani\'s Jewelry Jobs|Three stores, then sell to Yasmani','Bumper to Bumper|Mentor Yago|oJ','Car Service|Steal the car for Raul|L','Send More Money to Lorena','Top Billing|Watch the Real Dimez','First Impressions|Meeting with Raul','Crosstown Traffic / Meet Karim|Lucia does Crosstown Traffic, Jason meets Karim','Credit Check|Meet Raul\'s crew','Clonin\' Keys, Makin\' Gs|Steal the Zorrusso for Randy','Ride or Die|Meet Dre\'Quan|J','Raul\'s Next Job','Race Against Yago|Yago quest 3|om','Sinfrontera National Bank|Scope out the bank||Cartel Heist','Security Expert|||Cartel Heist','Caught Slipping','Heist Planning|||Cartel Heist','Company Property|Meet Brian||Cartel Heist','Safe Word|Steal the practice safe||Cartel Heist','The Missing Link|Meet Andrea|L|Cartel Heist','Mall Rats|Join Billy on a job, solo|o','Brother to Brother|Back up Yago|o','Cooties|Shoot the music video','Hidden Charges|Prep the explosives||Cartel Heist','Bricked Up|Return to the apartment','South Leonida Real Estate|Meet Mia|L','The Cartel Heist|||Cartel Heist']],
+['Chapter 4','Vice City, Baby',['Ocean Beach','Another Life','Pool Day','Company Cars|Speak to the concierge','Lawyer Up|Meet Abe Gonzalez','Heavy Lifting|Bring Raul the hard drive','It\'s a Date!||o','Party Hard|Work personal security','Pay Abe\'s Fee','Photo/Shoot|Shoot a promo','Bad Driver!|Find Felipe|o','Attend Eddie Acosta\'s Party|Solo only|o','Making Gainz|Raul\'s plan|L|VCIA Takedown','Blood Sweat and Gear|Work out|L|VCIA Takedown','Too Much Baggage|Scope out the airport|J|VCIA Takedown','Watch It|Meet Dre\'Quan|J','Amateur Hour|Workout|L|VCIA Takedown','Call Nate||L|VCIA Takedown','Cash Injections|Hang out with Nate|L|VCIA Takedown','Dirty Work|Deal with Raina||VCIA Takedown','Nate Will Be in Touch|Help Kordell\'s crew||VCIA Takedown','Adventures in Babysitting|Work security for Andrés|J','Rafa\'s Kidnapping||J','Fresh Evidence|Meet Dre\'Quan|J','Child\'s Play','This is a Free Call From…|Pick up Shayna|omL','Power Play|Help Kordell\'s crew|L|VCIA Takedown','Close Surveillance|Spy on the bodybuilders|J|VCIA Takedown','Delivery Method|Help Andrea|J|VCIA Takedown','Team Building|Meet Kordell|L|VCIA Takedown','Fully Catered|Steal a catering truck||VCIA Takedown','Heist Plans in Place|||VCIA Takedown','Headliners|Help with the launch party','VCIA Takedown|Start the airport heist||VCIA Takedown','Tie Up Loose Ends','That\'s Where the Money Is…|Unlocks bank vault robberies|o','Call Valentina Back','Sunset|Stop by the front desk','Starting From Zero']],
+['Chapter 5','Top of the World, Ma',['Bird in the Hand','Taking Liberties','Doggie Bag|Meet Vinny','VC Baby|Talk to Mattia','Operation Savage Glory','Honest Abe|Negotiate a deal with Abe','Unfinished Business','Pay Abe\'s Fee','Protective Custody|Meet with Abe','The End of the Road']]];
+const HUND=[
+['Story & tasks',['Finish the main story','100 optional tasks|200–300+ exist','39 of 39 Gang Operations|Respawn slowly if you miss a key valuable','22 of 22 Bank Jobs','7 of 7 Payday Loans','34 of 35 Smash \'N\' Grabs','50 of 91 Stick Ups','$100,000 of narcotics fenced','$100,000 of jewelry fenced','$250,000 of marked bills fenced','8 of 8 bank vaults hit|Your partner has to carry bags','$200,000 of vehicles fenced']],
+['Exploration & activities',['5 of 7 Kenton sets|Kenton is away after Chapter 1 but comes back','15 of 18 collectible card sets','100 WAiNK locations scanned','33 of 33 underwater discoveries','30 of 34 magazines, books & comics','15 of 18 meditation spots|Each spot counts double only when both Jason and Lucia meditate there','100 of 125 cocaine flamingos|Black-and-white beak only','2 of 2 unique playlists','70 of 79 discovered styles','30 of 40 unique races won','10 of 13 race challenge gold medals','42 of 42 shooting range gold medals|Buy the $5 Waiver Pass from the clerk','4 of 4 video games played|TV games are off-limits in Chapter 2 only','5 of 7 pool opponents beaten','2 of 3 mini golf courses played','90 of 100 basketball hoops|Each hoop must be a different location','42 of 42 drone time trials|Only the first two races at each spot need par times','300 of 397 stunts','70 of 80 challenges','15 of 15 of Bret\'s target decks|Jason only']],
+['Discovery',['200 of 277 base model vehicles scanned','50 of 66 standard issue weapons','100 of 255 animals studied']]];
+const MONEY=[
+['Chapter 1','Kenton\'s treasure dives','About $1,400 for the first wreck, paid on the spot, and nobody shoots at you.'],
+['Chapter 1 on','Store stick-ups','A few hundred dollars each. Kill the alarm and destroy the tapes.'],
+['Chapter 2','Sell untracked cars to Moses','$1,000+ each at Watkins Auto Parts in Port Gellhorn. He refuses tracked cars and ones stolen next to his garage.'],
+['Early Ch. 3','Tracked cars at Pay \'n\' Spray','Around $4,000 for a good car with a standard tracker.'],
+['Chapter 3','Jewelry store robberies','$10,000 to $25,000 per store.'],
+['Mid Ch. 3','Randy\'s wish-list supercars','$30,000+ per car.'],
+['End of Ch. 4','Large bank vaults','Up to $205,000 each. Unlocked by the optional job That\'s Where the Money Is…, and your partner carries the bags.'],
+['After the story','$250,000 cheat','Unlocked by finishing the story. See the Cheats tab.']];
+const HEAT=[
+['<circle cx="12" cy="7.5" r="3.5"/><path d="M5 20c1-4 3.8-6 7-6s6 2 7 6"/>','Your description','Change your hairstyle, or wear a mask or helmet before the crime.'],
+['<path d="M12 7.5a2 2 0 1 1 2 2c-1 0-2 .6-2 1.6v.4L3.5 17.5h17L12 11.5"/>','Your outfit','Change your whole outfit. Keep a spare in your car\'s trunk (it holds five).'],
+['<path d="M3 7h11l4-2v9l-4-2H3z"/><path d="M8 12v5h-3"/>','CCTV footage','Destroy the recording inside the building.'],
+['<path d="M3 16v-3l2.5-5h13l2.5 5v3z"/><circle cx="7.5" cy="17" r="2"/><circle cx="16.5" cy="17" r="2"/>','Your vehicle','Ditch it and take a different car.'],
+['<circle cx="8" cy="8" r="3"/><circle cx="16.5" cy="8" r="3"/><path d="M2.5 19c.6-3 2.8-5 5.5-5s4.9 2 5.5 5M11 15.2c1.2-.8 2.9-1.2 5.5-1.2 2.7 0 4.9 2 5.5 5"/>','You as a couple','Split Jason and Lucia up and move separately.'],
+['<path d="M3 8h16v4h-7l-1.2 6H7.5l1.2-6H3z"/>','Your weapon','Holster it or drop it.']];
+const LIB=[
+['https://www.powerpyx.com/gta-6-full-walkthrough-all-missions/','Full walkthrough, every mission','PowerPyx'],
+['https://www.powerpyx.com/gta-6-100-completion-checklist-guide/','100% completion checklist','PowerPyx'],
+['https://www.gtabase.com/gta-6/missions/','Story missions guide','GTABase'],
+['https://www.powerpyx.com/gta-6-money-guide-how-to-get-money-fast/','Money guide','PowerPyx'],
+['https://outputlag.com/guides/gta-6-beginner-tips/','20 things to know first','OutputLag'],
+['https://alcasthq.com/gta-6-beginner-tips/','69 tips and tricks','AlcastHQ'],
+['https://alcasthq.com/gta-6-wanted-level/','Wanted level and heat guide','AlcastHQ'],
+['https://vicecheats.com/guides/gta-6-collectibles/','Collectibles and what 100% needs','ViceCheats'],
+['https://www.pushsquare.com/guides/gta-6-collectible-card-locations','Collectible card locations','Push Square'],
+['https://www.powerpyx.com/gta-6-all-cheats/','All cheats','PowerPyx'],
+['https://gta6map.io/#map','Interactive map with gameplay markers','GTA6MAP.IO'],
+['https://map.gtadb.org','Community map and landmark database','gtadb.org']];
+let ms=S.get('ms',{}),hc=S.get('hc',{}),spoil=S.get('spoil',false),rev=S.get('rev',{});
+const openCh=new Set();let openInit=false;
+const parseM=s=>{const [n,h='',f='',t='']=s.split('|');return {n,h,t,o:f.includes('o'),m:f.includes('m'),J:f.includes('J'),L:f.includes('L')}};
+const MTOTAL=CH.reduce((a,c)=>a+c[2].length,0);
+function renderM(){
+  let done=0;
+  if(!openInit){openInit=true;const f=CH.findIndex((c,ci)=>c[2].some((_,i)=>!ms[`c${ci}-${i}`]));openCh.add(f<0?0:f)}
+  $('#mtrk').innerHTML=CH.map((c,ci)=>{
+    const items=c[2].map(parseM),ids=items.map((_,i)=>`c${ci}-${i}`),d=ids.filter(id=>ms[id]).length;done+=d;
+    const all=spoil||rev[ci],next=items.findIndex((_,i)=>!ms[ids[i]]);let hidden=0;
+    const rows=items.map((x,i)=>{const on=!!ms[ids[i]];if(!all&&!on&&i!==next){hidden++;return ''}
+      const tg=(i===next?'<i class="t n">Up next</i>':'')+(x.o?'<i class="t o">Optional</i>':'')+(x.m?'<i class="t m">Missable</i>':'')+(x.J?'<i class="t j">Jason</i>':'')+(x.L?'<i class="t l">Lucia</i>':'')+(x.t?`<i class="t h">${esc(x.t)}</i>`:'');
+      return `<li class="mi${on?' done':''}${i===next?' next':''}"><label><input type="checkbox" data-ms="${ids[i]}"${on?' checked':''}><span><b>${esc(x.n)}</b>${x.h?`<small>${esc(x.h)}</small>`:''}</span></label>${tg?`<span class="mt">${tg}</span>`:''}</li>`}).join('');
+    const more=hidden?`<li class="mhid">${hidden} more hidden to avoid spoilers <button class="btn" data-rev="${ci}">Show chapter</button></li>`:(rev[ci]&&!spoil?`<li class="mhid"><button class="btn" data-rev="${ci}">Hide upcoming missions</button></li>`:'');
+    return `<details class="chap" data-ci="${ci}"${openCh.has(ci)?' open':''}><summary><span class="chn">${esc(c[0])}</span><b>${esc(c[1])}</b><span class="chc">${d}/${items.length}</span><span class="bar"><i style="width:${d/items.length*100}%"></i></span></summary><ul class="mlist">${rows}${more}</ul></details>`}).join('');
+  $('#gsM').textContent=done;$('#gsTot').textContent=`${done} of ${MTOTAL} checked`;
+  $('#gsM').nextElementSibling.textContent=`of ${MTOTAL} missions`}
+function renderH(){
+  let k=0,done=0;
+  $('#hund').innerHTML=HUND.map(([g,items])=>`<div class="hg"><h3>${esc(g)}</h3><ul>${items.map(s=>{const [t,h='']=s.split('|'),id='h'+(k++),on=!!hc[id];if(on)done++;
+    return `<li class="${on?'done':''}"><label><input type="checkbox" data-hc="${id}"${on?' checked':''}><span><b>${esc(t)}</b>${h?`<small>${esc(h)}</small>`:''}</span></label></li>`}).join('')}</ul></div>`).join('');
+  $('#gsH').textContent=done}
+$('#heat').innerHTML=HEAT.map(h=>`<div class="hrow2"><span class="hic"><svg viewBox="0 0 24 24" aria-hidden="true">${h[0]}</svg></span><div><b>${esc(h[1])}</b><span>${esc(h[2])}</span></div></div>`).join('');
+$('#money').innerHTML=MONEY.map(m=>`<div class="mrow"><span class="ch">${esc(m[0])}</span><div><b>${esc(m[1])}</b><span>${esc(m[2])}</span></div></div>`).join('');
+$('#lib').innerHTML=LIB.map(l=>`<a href="${l[0]}"><b>${esc(l[1])}</b><span>${esc(l[2])}</span></a>`).join('');
+$('#spoil').checked=spoil;
+$('#spoil').addEventListener('change',e=>{spoil=e.target.checked;S.set('spoil',spoil);renderM()});
+$('#mtrk').addEventListener('change',e=>{const id=e.target.dataset.ms;if(!id)return;e.target.checked?ms[id]=1:delete ms[id];S.set('ms',ms);renderM();
+  const n=$(`#mtrk [data-ms="${id}"]`);if(n)n.focus()});
+$('#mtrk').addEventListener('click',e=>{const b=e.target.closest('[data-rev]');if(!b)return;const ci=+b.dataset.rev;rev[ci]?delete rev[ci]:rev[ci]=1;S.set('rev',rev);renderM()});
+$('#mtrk').addEventListener('toggle',e=>{const d=e.target;if(!d.matches||!d.matches('details'))return;const ci=+d.dataset.ci;d.open?openCh.add(ci):openCh.delete(ci)},true);
+$('#hund').addEventListener('change',e=>{const id=e.target.dataset.hc;if(!id)return;e.target.checked?hc[id]=1:delete hc[id];S.set('hc',hc);renderH();
+  const n=$(`#hund [data-hc="${id}"]`);if(n)n.focus()});
+$('#gjump').addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(!b)return;const t=document.getElementById(b.dataset.go);
+  if(t)t.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'})});
+renderM();renderH();
+
+/* ---------- backup, offline map, install ---------- */
+const enc=s=>btoa(unescape(encodeURIComponent(s))),dec=s=>decodeURIComponent(escape(atob(s.replace(/\s+/g,''))));
+function snapshot(){const d={};try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith('lch-'))d[k]=localStorage.getItem(k)}}catch(e){}
+  return JSON.stringify({app:'leonida-cheat-hub',v:1,at:new Date().toISOString(),data:d})}
+const bkMsg=t=>{$('#bkMsg').textContent=t};
+$('#bkCopy').addEventListener('click',async()=>{const code=enc(snapshot());
+  try{await navigator.clipboard.writeText(code);bkMsg('Backup code copied. Paste it into Notes to keep it, or into Restore on the other device.')}
+  catch(e){$('#bkIn').hidden=false;$('#bkOpen').setAttribute('aria-expanded','true');$('#bkTxt').value=code;$('#bkTxt').focus();$('#bkTxt').select();bkMsg('Copying was blocked here, so the code is in the box below. Select all and copy it.')}});
+$('#bkFile').addEventListener('click',()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([snapshot()],{type:'application/json'}));
+  a.download=`cheat-hub-backup-${new Date().toISOString().slice(0,10)}.json`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),5000);bkMsg('Backup file saved.')});
+$('#bkOpen').addEventListener('click',()=>{const o=$('#bkIn');o.hidden=!o.hidden;$('#bkOpen').setAttribute('aria-expanded',!o.hidden);if(!o.hidden)$('#bkTxt').focus()});
+$('#bkFileIn').addEventListener('change',async e=>{const f=e.target.files&&e.target.files[0];e.target.value='';if(f){$('#bkTxt').value=await f.text();bkMsg('File loaded. Tap Restore.')}});
+let bkArm=false;
+$('#bkTxt').addEventListener('input',()=>{bkArm=false;$('#bkGo').textContent='Restore'});
+$('#bkGo').addEventListener('click',()=>{
+  const raw=$('#bkTxt').value.trim();let obj=null;
+  if(!raw){bkMsg('Paste a backup code or choose a backup file first.');return}
+  try{obj=JSON.parse(raw.startsWith('{')?raw:dec(raw))}catch(e){}
+  if(!obj||obj.app!=='leonida-cheat-hub'||!obj.data||typeof obj.data!=='object'){bkMsg("That doesn't look like a Cheat Hub backup.");return}
+  if(!bkArm){bkArm=true;$('#bkGo').textContent="Tap again to replace this device's progress";return}
+  try{Object.keys(localStorage).filter(k=>k.startsWith('lch-')).forEach(k=>localStorage.removeItem(k));
+    for(const [k,v] of Object.entries(obj.data))if(k.startsWith('lch-')&&typeof v==='string')localStorage.setItem(k,v)}
+  catch(e){bkMsg("This browser wouldn't save it.");return}
+  bkMsg('Restored. Reloading…');setTimeout(()=>location.reload(),600)});
+const TILE_URLS=(()=>{const u=[];for(const k of Object.keys(LY)){u.push(`tiles/${k}/ov.jpg`);
+  for(const [lv,[c,r]] of Object.entries(LY[k].lv))for(let y=0;y<r;y++)for(let x=0;x<c;x++)u.push(`tiles/${k}/${lv}/${x}_${y}.jpg`)}return u})();
+async function offCount(){let n=0;try{for(const u of TILE_URLS)if(await caches.match(u))n++}catch(e){}return n}
+$('#offB').addEventListener('click',async()=>{const b=$('#offB');b.disabled=true;let i=0,fail=0;
+  try{const c=await caches.open('lch-tiles');
+    for(const u of TILE_URLS){i++;if(!(await caches.match(u))){try{const r=await fetch(u);if(r.ok)await c.put(u,r);else fail++}catch(e){fail++}}
+      b.textContent=`Saving map… ${Math.round(i/TILE_URLS.length*100)}%`}}catch(e){fail++}
+  b.disabled=false;b.textContent=fail?'Save map for offline':'Map saved for offline';
+  bkMsg(fail?'Some map pieces didn\'t download. Check your connection and tap again.':'Both map layers are saved, so the map works with no signal.')});
+try{if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost')){
+  navigator.serviceWorker.register('sw.js').then(()=>navigator.serviceWorker.ready).then(async()=>{
+    $('#offB').hidden=false;$('#bkFile').hidden=false;
+    if(await offCount()>=TILE_URLS.length)$('#offB').textContent='Map saved for offline';
+    if(/iPhone|iPad|iPod/.test(navigator.userAgent)&&!navigator.standalone&&!S.get('instx',false))$('#inst').hidden=false}).catch(()=>{})}}catch(e){}
+$('#instX').addEventListener('click',()=>{$('#inst').hidden=true;S.set('instx',true)});
+
+fam();setPlat(plat);route();render();setBase(base);
+}
+</script>
+</body>
+</html>
