@@ -1,5 +1,5 @@
 /* Leonida Cheat Hub service worker: app shell offline, map tiles cached as you view them */
-const SHELL = 'lch-shell-v1', TILES = 'lch-tiles', FONTS = 'lch-fonts';
+const SHELL = 'lch-shell-v2', TILES = 'lch-tiles', FONTS = 'lch-fonts';
 const CORE = ['./', 'index.html', 'data/landmarks.json', 'tiles/y18/ov.jpg', 'tiles/day/ov.jpg',
   'manifest.webmanifest', 'apple-touch-icon.png', 'icon-192.png', 'icon-512.png'];
 

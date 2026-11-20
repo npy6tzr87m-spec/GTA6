@@ -114,7 +114,7 @@ h3{margin:0;font-size:18px;line-height:1.2}
 .hunt{display:grid;gap:8px}
 .hrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:8px 14px}
 .hrow b{display:block}.hrow span{color:var(--mute);font-size:14px}
-.ov{position:fixed;inset:0;z-index:20;background:rgba(5,12,14,.72);display:grid;place-items:center;padding:16px}
+.ov{position:fixed;inset:0;z-index:50;background:rgba(5,12,14,.72);display:grid;place-items:center;padding:16px}
 .ov[hidden]{display:none}
 .ovin{width:min(420px,100%);max-height:100%;overflow:auto;background:#0b1c21;color:#f5ebe3;border-radius:28px;padding:20px;display:grid;gap:14px;border:2px solid #21434a}
 .ovtop{display:flex;align-items:center;gap:10px}
@@ -139,6 +139,34 @@ h3{margin:0;font-size:18px;line-height:1.2}
 .pad [data-d=U]{grid-area:1/2}.pad [data-d=L]{grid-area:2/1}.pad [data-d=R]{grid-area:2/3}.pad [data-d=D]{grid-area:3/2}
 .pad .hub{grid-area:2/2;border-radius:50%;background:#0f2a2f}
 footer{max-width:1240px;margin:auto;padding:0 max(5vw,16px) 40px;color:var(--mute);font-size:13px}
+.lm span{background:var(--c,#23202a)}
+.lm em{position:absolute;left:calc(100% - 4px);top:50%;transform:translateY(-50%);white-space:nowrap;font:600 11px/1 "DM Sans",sans-serif;font-style:normal;color:#fff;background:rgba(11,28,33,.8);padding:4px 7px;border-radius:7px;pointer-events:none}
+.chip i,.sugg b i{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--c);margin-right:7px;border:1.5px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.15)}
+.chip small{opacity:.7;margin-left:3px;font-weight:700}
+.lmcat{margin-bottom:8px}
+.pop{position:absolute;z-index:6;width:min(300px,calc(100% - 16px));background:var(--card);color:var(--ink);border-radius:16px;box-shadow:0 12px 32px rgba(0,0,0,.3);border:1px solid var(--line);cursor:auto}
+.pop::after{content:'';position:absolute;left:var(--ax,50%);bottom:-7px;width:14px;height:14px;background:var(--card);border-right:1px solid var(--line);border-bottom:1px solid var(--line);transform:translateX(-50%) rotate(45deg)}
+.pop.below::after{bottom:auto;top:-7px;transform:translateX(-50%) rotate(225deg)}
+.popc{max-height:min(46vh,300px);overflow:auto;padding:12px 14px 14px;overscroll-behavior:contain;touch-action:pan-y}
+.mapwrap.full .popc{max-height:52vh}
+.popx{position:absolute;top:4px;right:4px;width:40px;height:40px;border:0;background:none;color:var(--mute);font-size:24px;line-height:1;z-index:1}
+.pcat{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--mute);padding-right:36px}
+.pcat::before{content:'';width:10px;height:10px;border-radius:50%;background:var(--c);flex:none}
+.pt{display:block;font-size:17px;line-height:1.2;margin:4px 30px 2px 0}
+.pa{display:block;color:var(--mute);font-size:13px}
+.pop p{margin:8px 0 0;font-size:14px;line-height:1.45}
+.pnote{background:var(--orgbg);border-radius:10px;padding:8px 10px}
+.prw{color:var(--mute)}.prw a{color:var(--pinkt);font-weight:700;white-space:nowrap}
+.pb{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}.pb .btn{min-height:40px;padding:0 14px}
+.mtop{display:none}
+.mapwrap.full{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);bottom:0;height:auto;min-height:0;border-radius:0;border:0;z-index:35;margin:0}
+html.mapfull,html.mapfull body{overflow:hidden}
+.mapwrap.full .mtop{display:flex;flex-wrap:wrap;gap:8px;align-items:center;position:absolute;left:10px;right:10px;top:10px;z-index:5}
+.mtop .seg,.mtop .btn{box-shadow:0 2px 10px rgba(0,0,0,.2)}.mtop .seg button{padding:0 12px;font-size:15px}.mtop .btn.add{width:48px;padding:0;justify-content:center}.mtop .btn.add svg{width:22px;height:22px}.mtop .lbl{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.mtop .msearch{flex:1 1 100%;margin:0}.mtop .srch{box-shadow:0 2px 10px rgba(0,0,0,.2)}
+.mapwrap.full .nrose{top:auto;bottom:calc(16px + env(safe-area-inset-bottom,0px))}
+.mapwrap.full .mhint{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
+.mapwrap.full .zm{bottom:calc(12px + env(safe-area-inset-bottom,0px))}
 .mtools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px}
 .seg{display:flex;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px}
 .seg button{border:0;background:none;min-height:40px;padding:0 16px;border-radius:999px;font-weight:700;color:var(--mute)}
@@ -338,18 +366,21 @@ footer{padding-bottom:calc(40px + env(safe-area-inset-bottom,0px))}
 </section>
 
 <section id="v-map" data-view="leonida-map" hidden>
-  <div class="mtools">
+  <div class="mtools" id="mtools">
     <div class="seg" id="seg" role="group" aria-label="Map layer"><button data-b="y18" aria-pressed="true">Map</button><button data-b="day" aria-pressed="false">Satellite</button><button data-b="photo" aria-pressed="false">My screenshot</button></div>
-    <button class="btn add" id="addB" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Add pin</button>
+    <button class="btn add" id="addB" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span class="lbl">Add pin</span></button>
     <button class="btn add" id="lmB" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="5" fill="currentColor"/></svg>Landmarks</button>
   </div>
   <div class="msearch" id="msearch"><label class="srch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="ls" type="search" placeholder="Search places" aria-label="Search places on the map" autocomplete="off"></label><div class="sugg" id="sugg" hidden></div></div>
+  <div class="chips lmcat" id="lmcat" role="group" aria-label="Show landmark types"></div>
   <div class="chips jumps" id="jumps" role="group" aria-label="Jump to an area"></div>
   <div class="mapwrap" id="mw" tabindex="0" aria-label="Leonida map. Drag to pan, pinch or scroll to zoom. With the map focused, arrow keys pan and plus or minus zoom.">
     <div class="stage" id="stg"><div id="base"></div><div id="tiles"></div><div id="lms"></div><div class="hl" id="hl" hidden></div><div id="pins"></div></div>
+    <div class="mtop" id="mtop"></div>
+    <div class="pop" id="pop" hidden><button class="popx" id="popX" aria-label="Close">×</button><div class="popc" id="popc"></div></div>
     <svg class="nrose" viewBox="0 0 38 38" aria-hidden="true"><circle cx="19" cy="19" r="18" fill="#fff" fill-opacity=".92"/><path d="M19 4l6 15h-12z" fill="#d7265f"/><path d="M19 34l-6-15h12z" fill="#23202a" fill-opacity=".3"/></svg>
     <div class="mhint" id="mh"></div>
-    <div class="zm"><button id="zIn" aria-label="Zoom in">+</button><button id="zOut" aria-label="Zoom out">&minus;</button><button id="zFit" aria-label="Fit whole map"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button></div>
+    <div class="zm"><button id="fsB" aria-label="Full screen map"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button><button id="zIn" aria-label="Zoom in">+</button><button id="zOut" aria-label="Zoom out">&minus;</button><button id="zFit" aria-label="Fit whole map"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></button></div>
     <div class="upl" id="upl" hidden><div>
       <h3>Use your own map</h3>
       <p>Take a screenshot of the pause-menu map on your console, get it onto this device through the PlayStation App or Xbox app, then choose it here. Pins on it stay separate from the community map's.</p>
@@ -357,10 +388,9 @@ footer{padding-bottom:calc(40px + env(safe-area-inset-bottom,0px))}
     </div></div>
   </div>
   <input type="file" id="fileIn" accept="image/*" hidden>
-  <p class="mcap" id="mcap">Map layers: <a href="https://map.gtadb.org">"Yanis" GTA VI Community Map v18</a> and the satellite-style render, by <a href="https://github.com/rolux/gtadb.org">gtadb.org and all contributors</a>, licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Cropped to remove the legend, re-tiled and resized. Place names and real-world matches come from the same project. It's a fan reconstruction built from trailers and screenshots before launch, so some details may differ from the game.</p>
+  <p class="mcap" id="mcap">Map layers: <a href="https://map.gtadb.org">"Yanis" GTA VI Community Map v18</a> and the satellite-style render, by <a href="https://github.com/rolux/gtadb.org">gtadb.org and all contributors</a>, licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Cropped to remove the legend, re-tiled and resized. Place names, categories and real-world matches come from the same project. Tap any dot for details. It's a fan reconstruction built from trailers and screenshots before launch, so some details may differ from the game.</p>
   <p class="mcap" id="pcap" hidden></p>
   <div class="ptools" id="ptools" hidden><label class="btn" for="fileIn">Replace screenshot</label><button class="btn" id="rmP">Remove screenshot</button></div>
-  <div class="rinfo" id="rinfo" aria-live="polite"><p>Tap a landmark dot, search a place, or jump to an area.</p></div>
   <div class="legend" id="leg" role="group" aria-label="Show or hide pin types"></div>
   <label class="tog"><input type="checkbox" id="hideF"> Hide pins I've marked found</label>
   <div class="plist" id="plist"></div>
@@ -719,10 +749,14 @@ const PC=[
 ['other','Other','?','#23202a','#fff']];
 const PCM=Object.fromEntries(PC.map(c=>[c[0],c]));
 /* community map layers from gtadb.org (CC BY 4.0), cropped to game x -10240..3840, y -8704..11264; stage units = zoom-4 pixels */
-const LY={y18:{bg:'#2c66a5',lv:{3:[4,5],4:[7,10]}},day:{bg:'#2f90b0',lv:{3:[4,5],4:[7,10]}}};
+const LY={y18:{bg:'#2c66a5',lv:{3:[4,5],4:[7,10],5:[14,20]}},day:{bg:'#2f90b0',lv:{3:[4,5],4:[7,10],5:[14,20]}}};
 const MW=7040,MH=9984;
 const g2s=(gx,gy)=>[(gx+10240)/2,(11264-gy)/2];
 const s2g=(sx,sy)=>[Math.round(sx*2-10240),Math.round(11264-sy*2)];
+/* landmark categories, from the in-game map icon tags in gtadb's data */
+const LMC={guns:['Ammu-Nation & guns','#d92f2f'],fence:['Fences','#0a8f5a'],car:["Pay 'n' Spray & mods",'#ff7a2f'],gas:['Gas','#d99a00'],safe:['Safehouses','#ff4f86'],
+  style:['Clothes & hair','#c43fcf'],shop:['Stores & food','#1f9e89'],night:['Bars & clubs','#6d5ce8'],fun:['Activities & racing','#c2410c'],help:['Police & hospitals','#1f6fd1'],
+  travel:['Transport','#64748b'],place:['Other places','#23202a']};
 const JUMPS=[
 ['Vice City',-965,123,'Southeast coast · Vice-Dale County',"Leonida's big city, based on modern Miami: art deco hotels, white-sand beaches, Little Cuba and a busy port."],
 ['Vice Beach',1733,1063,'Barrier island east of downtown','The beach strip across the bay from Vice City, with Ocean Beach and Washington Beach.'],
@@ -733,19 +767,22 @@ const JUMPS=[
 ['Grassrivers',-3856,-3984,'Southwest wetlands','Everglades-style swamp and mangroves. Gators, airboats, and plenty of illegal business away from the city.'],
 ['Leonida Keys',-4272,-6392,'Southern islands','A tropical chain of islands off the southern tip, reached by road and by boat.']];
 
+
 const mw=$('#mw'),stg=$('#stg');
 let base=S.get('base','y18');if(!LY[base]&&base!=='photo')base='y18';
 const pins={map:S.get('pins-map',[]),photo:S.get('pins-photo',[])};
 const oldSketch=S.get('pins-sketch',[]);
 let hideCat=S.get('hidecat',{}),hideF=S.get('hidef',false),lmOn=S.get('lmon',true),addMode=false,photoURL=null,photoNote='';
-let W=MW,H=MH,z=1,tx=0,ty=0,fitZ=1,lastW=0,LM=[];
+let lmCats=Object.assign(Object.fromEntries(Object.keys(LMC).map(k=>[k,1])),S.get('lmcats',{}));
+let MAXLV=4;fetch('tiles/y18/5/0_0.jpg',{method:'HEAD',cache:'no-store'}).then(r=>{if(r.ok){MAXLV=5;queueView()}}).catch(()=>{});
+let W=MW,H=MH,z=1,tx=0,ty=0,fitZ=1,lastW=0,lastH=0,LM=[],lmHidden=false,full=false,popAt=null,lastTap=null;
 const grp=()=>base==='photo'?'photo':'map';
 const pinPos=p=>base==='photo'?[p.x*W,p.y*H]:g2s(p.gx,p.gy);
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const dpr=()=>window.devicePixelRatio||1;
-function apply(){stg.style.transform=`translate(${tx}px,${ty}px) scale(${z})`;stg.style.setProperty('--iz',1/z);queueView()}
+function apply(){stg.style.transform=`translate(${tx}px,${ty}px) scale(${z})`;stg.style.setProperty('--iz',1/z);placePop();queueView()}
 function fit(){const r=mw.getBoundingClientRect();if(!r.width)return;fitZ=Math.min(r.width/W,r.height/H);z=fitZ;tx=(r.width-W*z)/2;ty=(r.height-H*z)/2;apply()}
-const maxZ=()=>base==='photo'?fitZ*10:Math.max(fitZ*10,2.5/dpr());
+const maxZ=()=>base==='photo'?fitZ*10:Math.max(fitZ*12,4/dpr());
 function clampPan(){const r=mw.getBoundingClientRect();tx=clamp(tx,80-W*z,r.width-80);ty=clamp(ty,80-H*z,r.height-80)}
 function zoomAt(f,cx,cy){const nz=clamp(z*f,fitZ*.8,maxZ());tx=cx-(cx-tx)*nz/z;ty=cy-(cy-ty)*nz/z;z=nz;clampPan();apply()}
 function zoomMid(f){const r=mw.getBoundingClientRect();zoomAt(f,r.width/2,r.height/2)}
@@ -758,8 +795,8 @@ function visRect(){const r=mw.getBoundingClientRect();return [-tx/z,-ty/z,(r.wid
 function drawTiles(){
   const L=LY[base],box=$('#tiles');
   if(!L||!mw.getBoundingClientRect().width){if(!L){box.innerHTML='';tileEls.clear()}return}
-  const need=z*dpr(),lv=need<=.33?0:need<=.65?3:4,want=new Set();
-  if(lv){const cs=lv===3?2048:1024,[cols,rows]=L.lv[lv],[x0,y0,x1,y1]=visRect();
+  const need=z*dpr(),lv=need<=.33?0:need<=.65?3:(need<=1.3||MAXLV<5)?4:5,want=new Set();
+  if(lv){const cs=1024*2**(4-lv),[cols,rows]=L.lv[lv],[x0,y0,x1,y1]=visRect();
     for(let r=clamp(Math.floor(y0/cs),0,rows-1);r<=clamp(Math.floor(y1/cs),0,rows-1);r++)
       for(let c=clamp(Math.floor(x0/cs),0,cols-1);c<=clamp(Math.floor(x1/cs),0,cols-1);c++){
         const k=`${base}/${lv}/${c}_${r}`;want.add(k);
@@ -769,17 +806,53 @@ function drawTiles(){
           im.src=`tiles/${k}.jpg`;tileEls.set(k,im);box.appendChild(im)}}}
   for(const [k,el] of tileEls)if(!want.has(k)){el.remove();tileEls.delete(k)}}
 function drawLms(){
-  const box=$('#lms');
-  if(!lmOn||base==='photo'||z<=.22||!LM.length){box.innerHTML='';return}
-  const [x0,y0,x1,y1]=visRect(),out=[];
-  for(let i=0;i<LM.length&&out.length<350;i++){const [sx,sy]=g2s(LM[i][1],LM[i][2]);if(sx>=x0&&sx<=x1&&sy>=y0&&sy<=y1)out.push(`<button class="lm" data-li="${i}" style="left:${sx}px;top:${sy}px" aria-label="${esc(LM[i][0])}"><span></span></button>`)}
-  box.innerHTML=out.join('')}
-function hint(){$('#mh').textContent=addMode?'Tap the map to drop a pin':(lmOn&&base!=='photo'&&LM.length&&z<=.22)?'Zoom in to see landmarks':''}
+  const box=$('#lms');lmHidden=false;
+  if(!lmOn||base==='photo'||!LM.length){box.innerHTML='';return}
+  const [x0,y0,x1,y1]=visRect(),vis=[];
+  for(let i=0;i<LM.length;i++){const l=LM[i];if(!lmCats[l[5]])continue;const [sx,sy]=g2s(l[1],l[2]);if(sx>=x0&&sx<=x1&&sy>=y0&&sy<=y1)vis.push([i,sx,sy])}
+  if(vis.length>150&&z<=.22){lmHidden=true;box.innerHTML='';return}
+  vis.sort((a,b)=>(LM[b[0]][5]==='place')-(LM[a[0]][5]==='place'));
+  const lab=z>=.45&&vis.length<=90,boxes=[];
+  const fits=(x,y,w)=>{for(const b of boxes)if(x<b[0]+b[2]&&x+w>b[0]&&Math.abs(y-b[1])<20)return false;boxes.push([x,y,w]);return true};
+  const shown=vis.slice(-400),labels=new Set();
+  if(lab)for(let k=shown.length-1;k>=0;k--){const [i,sx,sy]=shown[k],nm=LM[i][0].split(', ')[0];if(fits(tx+sx*z+8,ty+sy*z,nm.length*6.4+16))labels.add(i)}
+  box.innerHTML=shown.map(([i,sx,sy])=>{const l=LM[i],on=labels.has(i);
+    return `<button class="lm" data-li="${i}" style="left:${sx}px;top:${sy}px;--c:${LMC[l[5]][1]}" aria-label="${esc(l[0])}"><span></span>${on?`<em>${esc(l[0].split(', ')[0])}</em>`:''}</button>`}).join('')}
+function hint(){$('#mh').textContent=addMode?'Tap the map to drop a pin':(lmHidden?'Zoom in to see landmarks':'')}
 
-/* gestures: pan, pinch, wheel, keys */
+/* popup anchored to a point on the map */
+function placePop(){
+  const p=$('#pop');if(!popAt||p.hidden)return;
+  const r=mw.getBoundingClientRect(),x=tx+popAt[0]*z,y=ty+popAt[1]*z;
+  if(x<-30||x>r.width+30||y<-30||y>r.height+30){p.style.visibility='hidden';return}
+  p.style.visibility='';
+  const w=p.offsetWidth,h=p.offsetHeight,left=clamp(x-w/2,8,Math.max(8,r.width-w-8));
+  const tmin=full?$('#mtop').offsetTop+$('#mtop').offsetHeight+8:8,topRoom=y-18-tmin,below=topRoom<h&&r.height-y-18>topRoom;
+  p.style.left=left+'px';p.style.top=(below?y+18:Math.max(tmin,y-h-18))+'px';
+  p.classList.toggle('below',below);p.style.setProperty('--ax',clamp(x-left,18,w-18)+'px')}
+function mark(sx,sy){const h=$('#hl');h.hidden=false;h.style.left=sx+'px';h.style.top=sy+'px'}
+function openPop(sx,sy,html){popAt=[sx,sy];$('#popc').innerHTML=html;$('#pop').hidden=false;$('#popc').scrollTop=0;mark(sx,sy);placePop()}
+function closePop(){popAt=null;$('#pop').hidden=true;$('#hl').hidden=true}
+function lmHTML(i,sx,sy){const l=LM[i],p=l[0].split(', '),c=LMC[l[5]];
+  const am=l[6]?` <a href="https://maps.apple.com/?ll=${l[6]},${l[7]}&q=${encodeURIComponent(l[3].split(' (')[0])}">Open in Apple Maps</a>`:'';
+  return `<span class="pcat" style="--c:${c[1]}">${esc(c[0])}</span><b class="pt">${esc(p[0])}</b><small class="pa">${esc(p.slice(1).join(', ')||'Leonida')}</small>`+
+    (l[8]?`<p class="pnote">${esc(l[8])}</p>`:'')+(l[4]?`<p class="tags">${l[4].split('·').map(t=>`<span>${esc(t)}</span>`).join('')}</p>`:'')+
+    (l[3]?`<p class="prw">Real-world match: ${esc(l[3])}.${am}</p>`:'')+`<div class="pb"><button class="btn" data-pinat="${sx},${sy}">Pin this spot</button></div>`}
+function showLm(i){const l=LM[i];if(!l)return;const [sx,sy]=g2s(l[1],l[2]);openPop(sx,sy,lmHTML(i,sx,sy))}
+function flyLm(i){const l=LM[i];const [sx,sy]=g2s(l[1],l[2]);centerOn(sx,sy,Math.max(z,1.1/dpr()));showLm(i)}
+function showPinPop(id){const p=pins[grp()].find(q=>q.id===id);if(!p)return;const c=PCM[p.c]||PCM.other,[sx,sy]=pinPos(p);
+  openPop(sx,sy,`<span class="pcat" style="--c:${c[3]}">Your pin · ${esc(c[1])}</span><b class="pt">${esc(p.n||c[1])}</b><small class="pa">${p.f?'Marked found':'Not found yet'}</small><div class="pb"><button class="btn pri" data-pfound="${p.id}">${p.f?'Mark not found':'Mark found'}</button><button class="btn" data-pedit="${p.id}">Edit</button></div>`)}
+$('#pop').addEventListener('click',e=>{
+  if(e.target.closest('#popX')){closePop();return}
+  const a=e.target.closest('[data-pinat]');if(a){const [sx,sy]=a.dataset.pinat.split(',').map(Number);closePop();openPin(null,sx,sy);return}
+  const f=e.target.closest('[data-pfound]');if(f){const p=pins[grp()].find(q=>q.id===f.dataset.pfound);if(p){p.f=!p.f;savePins();drawPins();showPinPop(p.id)}return}
+  const ed=e.target.closest('[data-pedit]');if(ed){closePop();openPin(ed.dataset.pedit)}});
+
+/* gestures: pan, pinch, wheel, double tap, keys */
 const pts=new Map();let g=null,moved=false;
+const SKIP='.zm,.upl,.pop,.mtop';
 mw.addEventListener('pointerdown',e=>{
-  if(e.button>0||e.target.closest('.zm,.upl'))return;
+  if(e.button>0||e.target.closest(SKIP))return;
   pts.set(e.pointerId,{x:e.clientX,y:e.clientY});
   if(pts.size===1){moved=false;g={sx:e.clientX,sy:e.clientY,tx,ty}}
   else if(pts.size===2){const [a,b]=[...pts.values()];g={d:Math.hypot(a.x-b.x,a.y-b.y)||1,z,tx,ty,mx:(a.x+b.x)/2,my:(a.y+b.y)/2};moved=true}});
@@ -791,49 +864,73 @@ addEventListener('pointermove',e=>{
   else if(pts.size===2&&g.d){const [a,b]=[...pts.values()];const d=Math.hypot(a.x-b.x,a.y-b.y);const ox=(g.mx-r.left-g.tx)/g.z,oy=(g.my-r.top-g.ty)/g.z;z=clamp(g.z*d/g.d,fitZ*.8,maxZ());tx=(a.x+b.x)/2-r.left-ox*z;ty=(a.y+b.y)/2-r.top-oy*z;clampPan();apply()}});
 const up=e=>{if(!pts.has(e.pointerId))return;pts.delete(e.pointerId);if(pts.size===1){const [p]=[...pts.values()];g={sx:p.x,sy:p.y,tx,ty}}else if(!pts.size)g=null};
 addEventListener('pointerup',up);addEventListener('pointercancel',up);
-mw.addEventListener('wheel',e=>{e.preventDefault();const r=mw.getBoundingClientRect();zoomAt(Math.exp(-e.deltaY*.0015),e.clientX-r.left,e.clientY-r.top)},{passive:false});
+mw.addEventListener('wheel',e=>{if(e.target.closest('.pop,.mtop'))return;e.preventDefault();const r=mw.getBoundingClientRect();zoomAt(Math.exp(-e.deltaY*.0015),e.clientX-r.left,e.clientY-r.top)},{passive:false});
 mw.addEventListener('keydown',e=>{if(e.target!==mw)return;const k=e.key,s=60;
   if(k==='ArrowLeft')tx+=s;else if(k==='ArrowRight')tx-=s;else if(k==='ArrowUp')ty+=s;else if(k==='ArrowDown')ty-=s;
   else if(k==='+'||k==='='){zoomMid(1.3);e.preventDefault();return}else if(k==='-'){zoomMid(1/1.3);e.preventDefault();return}else if(k==='0'){fit();e.preventDefault();return}else return;
   e.preventDefault();clampPan();apply()});
 mw.addEventListener('click',e=>{
   if(moved){moved=false;return}
-  if(e.target.closest('.zm,.upl'))return;
-  const pin=e.target.closest('.pin');if(pin){openPin(pin.dataset.pid);return}
-  if(addMode){const r=stg.getBoundingClientRect(),sx=(e.clientX-r.left)/r.width*W,sy=(e.clientY-r.top)/r.height*H;
+  if(e.target.closest(SKIP))return;
+  const r=mw.getBoundingClientRect(),cx=e.clientX-r.left,cy=e.clientY-r.top,now=Date.now();
+  if(lastTap&&now-lastTap.t<320&&Math.hypot(cx-lastTap.x,cy-lastTap.y)<30){lastTap=null;zoomAt(2,cx,cy);return}
+  lastTap={t:now,x:cx,y:cy};
+  const pin=e.target.closest('.pin');if(pin){showPinPop(pin.dataset.pid);return}
+  if(addMode){const s=stg.getBoundingClientRect(),sx=(e.clientX-s.left)/s.width*W,sy=(e.clientY-s.top)/s.height*H;
     if(sx>=0&&sx<=W&&sy>=0&&sy<=H)openPin(null,sx,sy);return}
-  const lm=e.target.closest('.lm');if(lm)showLm(+lm.dataset.li)});
-$('#zIn').addEventListener('click',()=>zoomMid(1.4));
-$('#zOut').addEventListener('click',()=>zoomMid(1/1.4));
+  const lm=e.target.closest('.lm');if(lm){showLm(+lm.dataset.li);return}
+  closePop()});
+$('#zIn').addEventListener('click',()=>zoomMid(1.6));
+$('#zOut').addEventListener('click',()=>zoomMid(1/1.6));
 $('#zFit').addEventListener('click',fit);
-const mro=new ResizeObserver(()=>{const r=mw.getBoundingClientRect();if(r.width&&Math.abs(r.width-lastW)>2){lastW=r.width;fit()}});
+const mro=new ResizeObserver(()=>{const r=mw.getBoundingClientRect();if(!r.width)return;
+  if(lastW&&Math.abs(r.width-lastW)<2&&Math.abs(r.height-lastH)<2)return;
+  const c=lastW?[(lastW/2-tx)/z,(lastH/2-ty)/z]:null,wasFit=z<=fitZ*1.02;lastW=r.width;lastH=r.height;
+  if(!c||wasFit){fit();return}
+  fitZ=Math.min(r.width/W,r.height/H);z=clamp(z,fitZ*.8,maxZ());tx=r.width/2-c[0]*z;ty=r.height/2-c[1]*z;clampPan();apply()});
 mro.observe(mw);
 
-/* places: search, jump chips, landmark card */
-function mark(sx,sy){const h=$('#hl');h.hidden=false;h.style.left=sx+'px';h.style.top=sy+'px'}
-function setCard(html){$("#rinfo").innerHTML=html}
-function showLm(i){const l=LM[i];if(!l)return;const [sx,sy]=g2s(l[1],l[2]);mark(sx,sy);
-  const parts=l[0].split(', ');
-  setCard(`<b>${esc(parts[0])}</b><small>${esc(parts.slice(1).join(', ')||'Leonida')}</small>${l[3]?`<p>Real-world match: ${esc(l[3])}</p>`:''}${l[4]?`<p class="tags">${l[4].split('·').map(t=>`<span>${esc(t)}</span>`).join('')}</p>`:''}<button class="btn" data-pinat="${sx},${sy}">Pin this spot</button>`)}
-function flyLm(i){const l=LM[i];const [sx,sy]=g2s(l[1],l[2]);centerOn(sx,sy,Math.max(z,1.1/dpr()));showLm(i)}
+/* full-screen map */
+const homes={};
+['seg','addB','msearch'].forEach(id=>{const el=document.getElementById(id),m=document.createComment(id);el.before(m);homes[id]=m});
+const FS_OPEN='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>',FS_CLOSE='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>';
+function setFull(on){
+  full=on;mw.classList.toggle('full',on);document.documentElement.classList.toggle('mapfull',on);
+  if(on)$('#mtop').append($('#seg'),$('#addB'),$('#msearch'));
+  else ['seg','addB','msearch'].forEach(id=>homes[id].after(document.getElementById(id)));
+  $('#fsB').innerHTML=on?FS_CLOSE:FS_OPEN;$('#fsB').setAttribute('aria-label',on?'Exit full screen':'Full screen map');
+  if(!on)mw.scrollIntoView({block:'nearest'})}
+$('#fsB').addEventListener('click',()=>setFull(!full));
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&full&&!document.querySelector('.ov:not([hidden])')){if(!$('#pop').hidden)closePop();else setFull(false)}});
+
+/* places: search, jump chips, landmark categories */
 $('#jumps').innerHTML=JUMPS.map((j,i)=>`<button class="chip" data-j="${i}">${esc(j[0])}</button>`).join('');
 $('#jumps').addEventListener('click',e=>{const b=e.target.closest('[data-j]');if(!b)return;const j=JUMPS[+b.dataset.j],[sx,sy]=g2s(j[1],j[2]);
   if(base==='photo')setBase('y18');
-  centerOn(sx,sy,Math.max(fitZ*2.2,.3/dpr()));mark(sx,sy);setCard(`<b>${esc(j[0])}</b><small>${esc(j[3])}</small><p>${esc(j[4])}</p>`);mw.scrollIntoView({block:'nearest'})});
-$('#rinfo').addEventListener('click',e=>{const b=e.target.closest('[data-pinat]');if(!b)return;const [sx,sy]=b.dataset.pinat.split(',').map(Number);openPin(null,sx,sy)});
+  centerOn(sx,sy,Math.max(fitZ*2.2,.3/dpr()));openPop(sx,sy,`<span class="pcat" style="--c:#d7265f">Area</span><b class="pt">${esc(j[0])}</b><small class="pa">${esc(j[3])}</small><p>${esc(j[4])}</p>`);mw.scrollIntoView({block:'nearest'})});
+function drawCats(){
+  const n={};LM.forEach(l=>n[l[5]]=(n[l[5]]||0)+1);
+  const all=Object.keys(LMC).every(k=>lmCats[k]);
+  $('#lmcat').innerHTML=`<button class="chip" data-lmc="*" aria-pressed="${all}">All</button>`+Object.entries(LMC).filter(([k])=>n[k]).map(([k,c])=>`<button class="chip lc" data-lmc="${k}" aria-pressed="${!!lmCats[k]}"><i style="--c:${c[1]}"></i>${esc(c[0])} <small>${n[k]}</small></button>`).join('')}
+$('#lmcat').addEventListener('click',e=>{const b=e.target.closest('[data-lmc]');if(!b)return;const k=b.dataset.lmc;
+  if(k==='*'){const all=Object.keys(LMC).every(c=>lmCats[c]);Object.keys(LMC).forEach(c=>lmCats[c]=all?0:1)}
+  else if(Object.keys(LMC).every(c=>lmCats[c])){Object.keys(LMC).forEach(c=>lmCats[c]=c===k?1:0)}
+  else lmCats[k]=lmCats[k]?0:1;
+  if(!lmOn){lmOn=true;S.set('lmon',true);$('#lmB').setAttribute('aria-pressed',true)}
+  S.set('lmcats',lmCats);drawCats();queueView()});
 const sug=$('#sugg');let sugI=[];
 $('#ls').addEventListener('input',e=>{const t=e.target.value.trim().toLowerCase();
   if(t.length<2||!LM.length){sug.hidden=true;return}
-  sugI=[];for(let i=0;i<LM.length&&sugI.length<8;i++)if((LM[i][0]+' '+LM[i][3]).toLowerCase().includes(t))sugI.push(i);
-  sug.innerHTML=sugI.length?sugI.map(i=>{const p=LM[i][0].split(', ');return `<button data-si="${i}"><b>${esc(p[0])}</b><span>${esc(p.slice(1).join(', '))}</span></button>`}).join(''):'<p class="note">No matching place.</p>';
+  sugI=[];for(let i=0;i<LM.length&&sugI.length<10;i++){const l=LM[i];if((l[0]+' '+l[3]+' '+l[4]+' '+LMC[l[5]][0]).toLowerCase().includes(t))sugI.push(i)}
+  sug.innerHTML=sugI.length?sugI.map(i=>{const l=LM[i],p=l[0].split(', ');return `<button data-si="${i}"><b><i style="--c:${LMC[l[5]][1]}"></i>${esc(p[0])}</b><span>${esc(p.slice(1).join(', '))}</span></button>`}).join(''):'<p class="note">No matching place.</p>';
   sug.hidden=false});
 $('#ls').addEventListener('keydown',e=>{if(e.key==='Enter'&&sugI.length){e.preventDefault();pick(sugI[0])}else if(e.key==='Escape')sug.hidden=true});
-function pick(i){sug.hidden=true;$('#ls').value=LM[i][0].split(', ')[0];if(base==='photo')setBase('y18');flyLm(i);mw.scrollIntoView({block:'nearest'})}
+function pick(i){sug.hidden=true;$('#ls').value=LM[i][0].split(', ')[0];$('#ls').blur();if(base==='photo')setBase('y18');flyLm(i);if(!full)mw.scrollIntoView({block:'nearest'})}
 sug.addEventListener('click',e=>{const b=e.target.closest('[data-si]');if(b)pick(+b.dataset.si)});
 document.addEventListener('click',e=>{if(!e.target.closest('.msearch'))sug.hidden=true});
 $('#lmB').setAttribute('aria-pressed',lmOn);
 $('#lmB').addEventListener('click',()=>{lmOn=!lmOn;S.set('lmon',lmOn);$('#lmB').setAttribute('aria-pressed',lmOn);queueView()});
-fetch('data/landmarks.json').then(r=>r.json()).then(d=>{LM=d;$('#ls').placeholder=`Search ${d.length} places, e.g. Ocean View Hotel`;queueView()}).catch(()=>{$('#ls').placeholder='Place search unavailable here'});
+fetch('data/landmarks.json').then(r=>r.json()).then(d=>{LM=d;$('#ls').placeholder=`Search ${d.length} places, shops, gas…`;drawCats();queueView()}).catch(()=>{$('#ls').placeholder='Place search unavailable here'});
 
 /* pins */
 function drawPins(){
@@ -850,7 +947,7 @@ function plist(){
   const old=oldSketch.length&&base!=='photo'?`<p class="note">${oldSketch.length} pin${oldSketch.length>1?'s':''} from the earlier sketch map couldn't move over, since the sketch was only approximate. Re-pin ${oldSketch.length>1?'them':'it'} here. <button class="btn" id="clrOld">Dismiss</button></p>`:'';
   $('#plist').innerHTML=old+(list.length?list.map(p=>{const c=PCM[p.c]||PCM.other;
     return `<div class="prow${p.f?' found':''}" data-pid="${p.id}"><span class="dot" style="--c:${c[3]};--t:${c[4]}">${esc(c[2])}</span><div><b>${esc(c[1])}</b>${p.n?`<span class="n">${esc(p.n)}</span>`:''}</div><label class="chk"><input type="checkbox" data-pf${p.f?' checked':''}> Found</label><button class="btn" data-show>Show</button></div>`}).join('')
-    :`<p class="note">No pins yet. Tap <b>Add pin</b>, then tap the spot${base==='photo'?'':', or tap a landmark and choose Pin this spot'}.</p>`)}
+    :`<p class="note">No pins yet. Tap <b>Add pin</b>, then tap the spot${base==='photo'?'':', or tap a landmark dot and choose Pin this spot'}.</p>`)}
 function savePins(){S.set('pins-'+grp(),pins[grp()])}
 let pfId=null,pfS=[0,0],pfC='watch';
 function openPin(id,sx,sy){
@@ -879,7 +976,7 @@ $('#plist').addEventListener('click',e=>{
   if(hideCat[p.c]){delete hideCat[p.c];S.set('hidecat',hideCat)}if(hideF&&p.f){hideF=false;$('#hideF').checked=false;S.set('hidef',false)}drawPins();
   const [sx,sy]=pinPos(p);centerOn(sx,sy,Math.max(z,base==='photo'?fitZ*3:.9/dpr()));
   mw.scrollIntoView({block:'center',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
-  const el=$(`#pins [data-pid="${id}"]`);if(el){el.classList.add('ping');setTimeout(()=>el.classList.remove('ping'),2600)}});
+  const el=$(`#pins [data-pid="${id}"]`);if(el){el.classList.add('ping');setTimeout(()=>el.classList.remove('ping'),2600)}showPinPop(id)});
 $('#addB').addEventListener('click',()=>{addMode=!addMode;$('#addB').setAttribute('aria-pressed',addMode);mw.classList.toggle('adding',addMode);hint()});
 
 /* base layer: community map, satellite render, or the person's own screenshot (kept in IndexedDB) */
@@ -892,14 +989,14 @@ async function setBase(b){
   const wasMap=base!=='photo',keep=wasMap&&b!=='photo'&&lastW;
   base=b;S.set('base',b);
   document.querySelectorAll('#seg [data-b]').forEach(x=>x.setAttribute('aria-pressed',x.dataset.b===b));
-  $('#tiles').innerHTML='';tileEls.clear();$('#hl').hidden=true;
+  $('#tiles').innerHTML='';tileEls.clear();closePop();
   if(b==='photo'&&!photoURL&&!photoTried){photoTried=true;try{const blob=await idb('get','photo');if(blob)photoURL=URL.createObjectURL(blob)}catch(e){}}
   if(LY[b]){W=MW;H=MH;mw.style.background=LY[b].bg;$('#base').innerHTML=`<img class="ovw" src="tiles/${b}/ov.jpg" alt="" draggable="false">`;$('#upl').hidden=true}
   else if(photoURL){const [nw,nh]=await imgSize(photoURL);W=1000;H=Math.round(1000*nh/nw);mw.style.background='#0b1c21';
     $('#base').innerHTML=`<img class="ovw" src="${photoURL}" alt="Your map screenshot" draggable="false">`;$('#upl').hidden=true}
   else{W=1000;H=1000;mw.style.background='#0b1c21';$('#base').innerHTML='';$('#upl').hidden=false}
   $('#mcap').hidden=b==='photo';$('#pcap').hidden=b!=='photo'||!photoURL;$('#pcap').textContent='Your screenshot. Pins here are separate from the community map. If you replace the image, use the same zoom level so old pins still line up.'+(photoNote?' '+photoNote:'');
-  $('#msearch').hidden=$('#rinfo').hidden=$('#lmB').hidden=b==='photo';
+  $('#msearch').hidden=$('#lmB').hidden=$('#lmcat').hidden=$('#jumps').hidden=b==='photo';
   $('#ptools').hidden=!(b==='photo'&&photoURL);
   stg.style.width=W+'px';stg.style.height=H+'px';
   if(keep)apply();else fit();
@@ -1015,7 +1112,7 @@ $('#bkGo').addEventListener('click',()=>{
   catch(e){bkMsg("This browser wouldn't save it.");return}
   bkMsg('Restored. Reloading…');setTimeout(()=>location.reload(),600)});
 const TILE_URLS=(()=>{const u=[];for(const k of Object.keys(LY)){u.push(`tiles/${k}/ov.jpg`);
-  for(const [lv,[c,r]] of Object.entries(LY[k].lv))for(let y=0;y<r;y++)for(let x=0;x<c;x++)u.push(`tiles/${k}/${lv}/${x}_${y}.jpg`)}return u})();
+  for(const [lv,[c,r]] of Object.entries(LY[k].lv))if(+lv<=4)for(let y=0;y<r;y++)for(let x=0;x<c;x++)u.push(`tiles/${k}/${lv}/${x}_${y}.jpg`)}return u})();
 async function offCount(){let n=0;try{for(const u of TILE_URLS)if(await caches.match(u))n++}catch(e){}return n}
 $('#offB').addEventListener('click',async()=>{const b=$('#offB');b.disabled=true;let i=0,fail=0;
   try{const c=await caches.open('lch-tiles');
