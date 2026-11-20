@@ -1,4 +1,4 @@
-# Leonida Cheat Hub
+# GTA 6 App
 
 A personal GTA VI companion that installs on a phone like an app and works offline once it's loaded.
 
