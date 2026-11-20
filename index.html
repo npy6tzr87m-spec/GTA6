@@ -44,9 +44,6 @@ h1{font-size:clamp(28px,6vw,46px);margin:0}
 .stat b{font-family:Bungee;font-size:22px;font-weight:400}
 .meter{flex:1 1 160px;height:10px;border-radius:9px;background:rgba(0,0,0,.2);overflow:hidden;max-width:260px}
 .meter i{display:block;height:100%;width:0;background:#ffd166;transition:width .4s}
-.plat{margin-left:auto;display:flex;background:rgba(0,0,0,.2);border-radius:999px;padding:4px}
-.plat button{border:0;background:none;color:#fff;padding:0 16px;min-height:40px;border-radius:999px;font-weight:700}
-.plat button[aria-pressed=true]{background:#fff;color:var(--pink)}
 nav{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
 .nin{max-width:1240px;margin:auto;display:flex;gap:4px;padding:0 max(5vw,16px);overflow-x:auto}
 nav a{flex:none;padding:14px 14px 11px;text-decoration:none;color:var(--mute);font-weight:700;border-bottom:3px solid transparent}
@@ -340,7 +337,7 @@ footer{padding-bottom:calc(40px + env(safe-area-inset-bottom,0px))}
 #bkMsg:empty{display:none}#bkMsg{margin-top:10px;color:var(--teal);font-weight:600}
 .inst{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:25;background:#0b1c21;color:#f5ebe3;border-radius:16px;padding:8px 8px 8px 16px;display:flex;align-items:center;gap:10px;box-shadow:0 8px 24px rgba(0,0,0,.3);max-width:520px;margin:auto}
 .inst span{flex:1;font-size:15px}.inst svg{width:18px;height:18px;vertical-align:-3px;fill:none;stroke:currentColor;stroke-width:2}
-@media(max-width:600px){.hdr{padding-top:calc(20px + env(safe-area-inset-top,0px))}.mt{padding-left:0}.mrow{grid-template-columns:1fr;gap:2px}.mapwrap{height:min(64vh,calc(100vw + 40px))}.legend{flex-wrap:nowrap;overflow-x:auto;margin-inline:calc(-1*max(5vw,16px));padding:2px max(5vw,16px)}.chips{flex-wrap:nowrap;overflow-x:auto;margin-inline:calc(-1*max(5vw,16px));padding:2px max(5vw,16px)}.chip{flex:none}.sun{width:52px;height:52px}.plat{margin-left:0}.acts .btn{flex:1 1 auto}}
+@media(max-width:600px){.hdr{padding-top:calc(20px + env(safe-area-inset-top,0px))}.mt{padding-left:0}.mrow{grid-template-columns:1fr;gap:2px}.mapwrap{height:min(64vh,calc(100vw + 40px))}.legend{flex-wrap:nowrap;overflow-x:auto;margin-inline:calc(-1*max(5vw,16px));padding:2px max(5vw,16px)}.chips{flex-wrap:nowrap;overflow-x:auto;margin-inline:calc(-1*max(5vw,16px));padding:2px max(5vw,16px)}.chip{flex:none}.sun{width:52px;height:52px}.acts .btn{flex:1 1 auto}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.seq .ar.cur{transform:none}}
 </style>
 </head>
@@ -350,7 +347,7 @@ footer{padding-bottom:calc(40px + env(safe-area-inset-bottom,0px))}
     <svg class="sun" viewBox="0 0 72 72" aria-hidden="true"><defs><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd166"/><stop offset="1" stop-color="#ff7a2f"/></linearGradient><clipPath id="sc"><circle cx="36" cy="36" r="31"/></clipPath></defs><g clip-path="url(#sc)"><rect width="72" height="72" fill="url(#sg)"/><rect y="39" width="72" height="3" fill="#d7265f"/><rect y="47" width="72" height="4" fill="#d7265f"/><rect y="56" width="72" height="6" fill="#d7265f"/></g><circle cx="36" cy="36" r="31" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="2"/></svg>
     <div>
       <h1>GTA 6 App</h1>
-      <p class="sub">Every GTA VI cheat, its unlock challenge and its D-pad code, for PS5 and Xbox Series X|S.</p>
+      <p class="sub">Every GTA VI cheat, its unlock challenge and its D-pad code, for PS5.</p>
     </div>
   </div>
   <div class="stats">
@@ -358,9 +355,6 @@ footer{padding-bottom:calc(40px + env(safe-area-inset-bottom,0px))}
     <span class="stat"><b id="sk">0</b> codes known</span>
     <span class="stat"><b id="su">0</b> unlocked</span>
     <span class="meter" aria-hidden="true"><i id="sm"></i></span>
-    <div class="plat" role="group" aria-label="Controller">
-      <button id="pPS" aria-pressed="true">PS5</button><button id="pXB" aria-pressed="false">Xbox</button>
-    </div>
   </div>
 </header>
 <nav><div class="nin"><a href="#cheats" data-v="cheats">Cheats</a><a href="#how-to" data-v="how-to">How to<span class="nlong"> enter</span></a><a href="#leonida-map" data-v="leonida-map">Map</a><a href="#story" data-v="story">Story</a><a href="#guides" data-v="guides">Guides</a></div></nav>
@@ -436,7 +430,7 @@ footer{padding-bottom:calc(40px + env(safe-area-inset-bottom,0px))}
     <div class="zm"><button id="fsB" aria-label="Full screen map"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button><button id="zIn" aria-label="Zoom in">+</button><button id="zOut" aria-label="Zoom out">&minus;</button><button id="zFit" aria-label="Fit whole map"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></button></div>
     <div class="upl" id="upl" hidden><div>
       <h3>Use your own map</h3>
-      <p>Take a screenshot of the pause-menu map on your console, get it onto this device through the PlayStation App or Xbox app, then choose it here. Pins on it stay separate from the community map's.</p>
+      <p>Take a screenshot of the pause-menu map on your console, get it onto this device through the PlayStation App, then choose it here. Pins on it stay separate from the community map's.</p>
       <label class="btn pri" for="fileIn">Choose screenshot</label>
     </div></div>
   </div>
@@ -482,13 +476,13 @@ footer{padding-bottom:calc(40px + env(safe-area-inset-bottom,0px))}
     <li><b>Never carry big cash.</b> Pocket money is lost if you die or get busted. Use the stash under Jason's bedroom floor, then BuckMe once the Buck Me mission opens banking.</li>
     <li><b>Check the mailbox.</b> Pay from Brian and Donnie lands in the mailbox outside Jason's house. Brian's lockup keypad code is <span class="kbd">7700</span>.</li>
     <li><b>Keep your guns.</b> Only guns bought at Ammu-Nation come back after a death. Store the ones you pick up in your car's trunk.</li>
-    <li><b>Live in Focus mode.</b> Press <span class="kbd">L3 + R3</span> (<span class="kbd">LS + RS</span>): enemies show red, usable items yellow, cash green. White doors are open, red doors are alarmed.</li>
-    <li><b>Holster before crowds.</b> Press <span class="kbd">L1</span> (<span class="kbd">LB</span>). Anyone who sees a drawn gun calls the police.</li>
+    <li><b>Live in Focus mode.</b> Press <span class="kbd">L3 + R3</span>: enemies show red, usable items yellow, cash green. White doors are open, red doors are alarmed.</li>
+    <li><b>Holster before crowds.</b> Press <span class="kbd">L1</span>. Anyone who sees a drawn gun calls the police.</li>
     <li><b>Scan before you steal.</b> Use the WAiNK app on a car first to check for an alarm or tracker.</li>
     <li><b>Train a little every day.</b> Weights raise Health; running, cycling or the treadmill raise Stamina; calm activities like fishing or pool raise Focus. Strength and Cardio have daily caps and fade if you stop. Focus gains stay.</li>
     <li><b>Watch your Criminal Profile.</b> Killing civilians, police or animals drags it down through five tiers, and one of them, Irredeemable, is permanent. Save before a rampage.</li>
     <li><b>Rob smart.</b> Bring your partner, both masked, for bigger jobs since they handle the crowd. Kill the alarm in the back room and destroy the tapes.</li>
-    <li><b>Switch characters</b> freely after the Breakfast Run mission in Chapter 2: hold <span class="kbd">D-pad →</span> and press <span class="kbd">R1</span> (<span class="kbd">RB</span>).</li>
+    <li><b>Switch characters</b> freely after the Breakfast Run mission in Chapter 2: hold <span class="kbd">D-pad →</span> and press <span class="kbd">R1</span>.</li>
   </ul>
   <p class="src">Sources: <a href="https://outputlag.com/guides/gta-6-beginner-tips/">OutputLag</a>, <a href="https://endgametools.com/en/gta-6/news/gta-6-beginner-tips">Endgame Tools</a>, <a href="https://alcasthq.com/gta-6-beginner-tips/">AlcastHQ</a>, <a href="https://gamingbolt.com/gta-6-15-tips-and-tricks-that-beginners-should-know">GamingBolt</a></p>
 
@@ -683,11 +677,11 @@ const STAR='<svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.6 1.3 6.
 const AR='<path d="M12 3l8 9h-5v9H9v-9H4z"/>';
 const NM={U:'Up',D:'Down',L:'Left',R:'Right'};
 const GL={U:'↑',D:'↓',L:'←',R:'→'};
-const PL={ps:{h:'L1 + R1',a:'L1',b:'R1'},xb:{h:'LB + RB',a:'LB',b:'RB'}};
+const PL={ps:{h:'L1 + R1',a:'L1',b:'R1'}};
 const HUNT=['timefwd','timepause','bubble','sugar','flamingo','neon','nitro','yester','cata','repair','fisheye'];
 const HUNTP={timefwd:['watch',10],timepause:['watch',20],bubble:['card',24],sugar:['debris',0],flamingo:['coke',50],neon:['girly',16],nitro:['stunt',50],repair:['race',3],fisheye:['fish',0]};
 const S={get(k,d){try{const v=localStorage.getItem('lch-'+k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem('lch-'+k,JSON.stringify(v))}catch(e){}}};
-let fav=S.get('fav',{}),unlk=S.get('unl',{}),cust=S.get('cust',{}),plat=S.get('plat','ps'),cat=S.get('cat','all'),known=S.get('known',false),q='';
+let fav=S.get('fav',{}),unlk=S.get('unl',{}),cust=S.get('cust',{}),plat='ps',cat=S.get('cat','all'),known=S.get('known',false),q='';
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
 const codeOf=x=>cust[x[0]]||x[4];
@@ -742,8 +736,6 @@ function fam(){
   $('#fam').innerHTML=F.map(([l,c])=>`<div><span class="l">${l}</span><span class="code" role="img" aria-label="start with ${spell(c)}">${[...c].map(d=>chip(d)).join('')}</span><span class="note">…</span></div>`).join('')}
 
 function setPlat(p){
-  plat=p;S.set('plat',p);
-  $('#pPS').setAttribute('aria-pressed',p==='ps');$('#pXB').setAttribute('aria-pressed',p==='xb');
   document.querySelectorAll('.hb').forEach(e=>e.textContent=PL[p].h);
   document.querySelectorAll('.hb1').forEach(e=>e.textContent=PL[p].a);
   document.querySelectorAll('.hb2').forEach(e=>e.textContent=PL[p].b)}
@@ -783,8 +775,6 @@ function route(){
 $('#chips').addEventListener('click',e=>{const b=e.target.closest('[data-c]');if(!b)return;cat=b.dataset.c;S.set('cat',cat);document.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',c===b));render()});
 $('#q').addEventListener('input',e=>{q=e.target.value;render()});
 $('#known').addEventListener('change',e=>{known=e.target.checked;S.set('known',known);render()});
-$('#pPS').addEventListener('click',()=>setPlat('ps'));
-$('#pXB').addEventListener('click',()=>setPlat('xb'));
 document.addEventListener('click',e=>{
   const b=e.target.closest('button[data-a]');if(!b)return;
   const id=b.closest('[data-id]').dataset.id,a=b.dataset.a;
