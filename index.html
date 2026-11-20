@@ -51,6 +51,8 @@ nav{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid
 .nin{max-width:1240px;margin:auto;display:flex;gap:4px;padding:0 max(5vw,16px);overflow-x:auto}
 nav a{flex:none;padding:14px 14px 11px;text-decoration:none;color:var(--mute);font-weight:700;border-bottom:3px solid transparent}
 nav a.on{color:var(--pinkt);border-color:var(--pinkt)}
+@media (max-width:480px){.nin{gap:0;padding:0 6px;justify-content:space-between}nav a{padding:14px 8px 11px;font-size:15px}}
+@media (max-width:374px){nav .nlong{display:none}}
 main{max-width:1240px;margin:auto;padding:20px max(5vw,16px) 56px}
 .bar{display:grid;gap:12px}
 .srch{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:0 14px}
@@ -274,6 +276,31 @@ html{scroll-padding-top:64px}
 .mrow{display:grid;grid-template-columns:104px minmax(0,1fr);gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
 .mrow .ch{font-weight:700;color:var(--org);font-size:14px}
 .mtrk{display:grid;gap:10px;margin:12px 0}
+.shero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px 14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:16px;margin:14px 0 6px}
+.shero .sk{margin:0;font-size:13px;font-weight:700;color:var(--mute);letter-spacing:.03em;text-transform:uppercase}
+.shero h3{margin:2px 0 0;font:21px/1.15 Bungee,sans-serif;color:var(--pinkt)}
+.shero .ring{width:78px;height:78px}
+.ring .rbg{fill:none;stroke:var(--line);stroke-width:9}.ring .rfg{fill:none;stroke:var(--teal);stroke-width:9;stroke-linecap:round}
+.ring text{font:700 17px "DM Sans",sans-serif;fill:var(--ink)}
+.sstrip{grid-column:1/-1;display:flex;gap:4px}
+.sseg{flex:1 1 0;min-width:30px;border:0;background:none;padding:0;display:grid;gap:4px;cursor:pointer;color:var(--mute);font:700 12px "DM Sans",sans-serif}
+.sseg .sf{display:block;height:10px;border-radius:6px;background:var(--line);overflow:hidden}
+.sseg .sf i{display:block;height:100%;background:var(--teal)}
+.sseg.cur{color:var(--pinkt)}.sseg.cur .sf{outline:2px solid var(--pinkt);outline-offset:1px}
+.sseg.done{color:var(--teal)}
+.snext{grid-column:1/-1;background:var(--orgbg);border-radius:16px;padding:12px 14px;display:grid;gap:4px}
+.snext .sk{color:var(--pinkt)}
+.snext b{font-size:19px;line-height:1.2}
+.snext small{color:var(--mute);font-size:14px}
+.snext .mt{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+.sarc{margin:2px 0 0;font-size:14px;font-weight:600}
+.sbtns{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap}
+.sbtns .btn{flex:1 1 auto;min-height:48px}
+.sstat{grid-column:1/-1;margin:0;color:var(--mute);font-size:14px}
+.stogs{display:flex;flex-wrap:wrap;gap:0 18px}
+.sfind{margin-top:12px}
+.btn.sm{min-height:34px;padding:0 12px;font-size:13px;flex:none}
+.chap .chs{grid-column:1/-1;font-size:12px;color:var(--mute);font-weight:600;margin-top:-2px}
 .chap{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
 .chap summary{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:6px 12px;align-items:center;padding:12px 16px;cursor:pointer;list-style:none;min-height:56px}
 .chap summary::-webkit-details-marker{display:none}
@@ -336,7 +363,7 @@ footer{padding-bottom:calc(40px + env(safe-area-inset-bottom,0px))}
     </div>
   </div>
 </header>
-<nav><div class="nin"><a href="#cheats" data-v="cheats">Cheats</a><a href="#how-to" data-v="how-to">How to enter</a><a href="#leonida-map" data-v="leonida-map">Map</a><a href="#guides" data-v="guides">Guides</a></div></nav>
+<nav><div class="nin"><a href="#cheats" data-v="cheats">Cheats</a><a href="#how-to" data-v="how-to">How to<span class="nlong"> enter</span></a><a href="#leonida-map" data-v="leonida-map">Map</a><a href="#story" data-v="story">Story</a><a href="#guides" data-v="guides">Guides</a></div></nav>
 
 <main>
 <section id="v-cheats" data-view="cheats">
@@ -430,13 +457,21 @@ footer{padding-bottom:calc(40px + env(safe-area-inset-bottom,0px))}
   <div class="hunt" id="hunt"></div>
   <div class="mini" id="g6mini"><p id="g6st">Bring in GTA6MAP.IO's gameplay markers (robberies, collectibles, activities and more) with your gta6map sync script.</p><button class="btn pri" data-src="imp" type="button">Import markers</button><a href="https://gta6map.io/#map">Open GTA6MAP.IO</a></div>
 </section>
+<section id="v-story" data-view="story" hidden>
+  <div class="ghead"><div><h2 class="gtitle">Story</h2><p class="note">Where you are in the main story. Tick missions as you finish them. Upcoming names stay hidden until you reach them.</p></div></div>
+  <div class="shero" id="shero"></div>
+  <div class="stogs"><label class="tog"><input type="checkbox" id="showOpt"> Show optional jobs</label><label class="tog"><input type="checkbox" id="spoil"> Show every mission name (spoilers)</label></div>
+  <div class="mtrk" id="mtrk"></div>
+  <p class="note sfind">Already further along? Tap your chapter on the bar above, tap <b>Show chapter</b>, then tap <b>I'm here</b> on the mission you're on. Every story mission before it gets ticked.</p>
+  <p class="src">Names and order follow the <a href="https://www.powerpyx.com/gta-6-full-walkthrough-all-missions/">PowerPyx walkthrough</a>, which also lists optional jobs and map tasks. "Story missions" here include short required tasks like depositing cash. Order can shift slightly in your game. Other guides count 91 main missions because they leave the optional ones out.</p>
+</section>
 <section id="v-guides" data-view="guides" hidden>
   <div class="ghead">
     <div><h2 class="gtitle">Guides</h2><p class="note">Pulled from the main GTA VI guide sites in the first days after launch, rewritten short. Facts may shift as guides update; each section links its sources.</p></div>
     <div class="gstat"><b id="gsM">0</b><span>missions done</span></div><div class="gstat"><b id="gsH">0</b><span>of 35 for 100%</span></div>
   </div>
   <div class="chips gjump" id="gjump" role="group" aria-label="Jump to a guide">
-    <button class="chip" data-go="g-start">Start here</button><button class="chip" data-go="g-miss">Don't miss</button><button class="chip" data-go="g-cops">Lose the cops</button><button class="chip" data-go="g-money">Money</button><button class="chip" data-go="g-story">Mission tracker</button><button class="chip" data-go="g-100">100% checklist</button><button class="chip" data-go="g-more">Collectibles &amp; trophies</button><button class="chip" data-go="g-lib">Full guides</button>
+    <button class="chip" data-go="g-start">Start here</button><button class="chip" data-go="g-miss">Don't miss</button><button class="chip" data-go="g-cops">Lose the cops</button><button class="chip" data-go="g-money">Money</button><button class="chip" data-go="story">Story tracker</button><button class="chip" data-go="g-100">100% checklist</button><button class="chip" data-go="g-more">Collectibles &amp; trophies</button><button class="chip" data-go="g-lib">Full guides</button>
   </div>
 
   <h2 class="grp" id="g-start">Start here <small>first hours</small></h2>
@@ -492,11 +527,8 @@ footer{padding-bottom:calc(40px + env(safe-area-inset-bottom,0px))}
   <p>Late-game target: maxing Family Savings for <b>Save for the Future</b> takes $2 million.</p>
   <p class="src">Sources: <a href="https://www.powerpyx.com/gta-6-money-guide-how-to-get-money-fast/">PowerPyx</a>, <a href="https://metaforge.app/gta-6/gta-6-money-guide-how-to-make-money-fast">MetaForge</a>, <a href="https://outputlag.com/guides/gta-6-make-money-fast/">OutputLag</a>, <a href="https://insider-gaming.com/gta-6-money-making/">Insider Gaming</a></p>
 
-  <h2 class="grp" id="g-story">Mission tracker <small id="gsTot"></small></h2>
-  <p>Tick missions as you go. To avoid spoilers, each chapter only shows what you've done plus your next mission.</p>
-  <label class="tog"><input type="checkbox" id="spoil"> Show every mission name (spoilers)</label>
-  <div class="mtrk" id="mtrk"></div>
-  <p class="src">Names and order follow the <a href="https://www.powerpyx.com/gta-6-full-walkthrough-all-missions/">PowerPyx walkthrough</a>, which includes optional jobs and map tasks. Order can shift slightly in your game. Other guides count 91 main missions because they leave the optional ones out.</p>
+  <h2 class="grp" id="g-story">Mission tracker</h2>
+  <div class="mini"><p>The mission tracker has its own <b>Story</b> tab now, with where you are in the story and how far through each chapter you are.</p><a href="#story">Open Story</a></div>
 
   <h2 class="grp" id="g-100">100% checklist <small>unlocks in-game after the story</small></h2>
   <p>In-game it's at Progress › Stats › 100% Completion. Nothing here is missable, so all of it can wait until after the credits.</p>
@@ -739,7 +771,7 @@ function show(s){lastFocus=document.activeElement;$(s).hidden=false;document.bod
 function closeAll(){document.querySelectorAll('.ov').forEach(o=>o.hidden=true);document.body.style.overflow='';if(lastFocus&&lastFocus.focus)lastFocus.focus()}
 
 /* views */
-const VIEWS=['cheats','how-to','leonida-map','guides'];
+const VIEWS=['cheats','how-to','leonida-map','story','guides'];
 function route(){
   let h=location.hash.slice(1);const imp=h==='g6import';if(imp)h='leonida-map';
   const v=VIEWS.includes(h)?h:'cheats';
@@ -1223,20 +1255,47 @@ const LIB=[
 let ms=S.get('ms',{}),hc=S.get('hc',{}),spoil=S.get('spoil',false),rev=S.get('rev',{});
 const openCh=new Set();let openInit=false;
 const parseM=s=>{const [n,h='',f='',t='']=s.split('|');return {n,h,t,o:f.includes('o'),m:f.includes('m'),J:f.includes('J'),L:f.includes('L')}};
-const MTOTAL=CH.reduce((a,c)=>a+c[2].length,0);
+let showOpt=S.get('showopt',false),undoMs=null;
+const ALL=[];CH.forEach((c,ci)=>c[2].forEach((t,i)=>ALL.push(Object.assign(parseM(t),{ci,i,id:`c${ci}-${i}`,g:ALL.length}))));
+const MAIN=ALL.filter(x=>!x.o),OPT=ALL.filter(x=>x.o);
+const nextMain=()=>MAIN.find(x=>!ms[x.id])||null;
+const mTags=(x,isNext)=>(isNext?'<i class="t n">Up next</i>':'')+(x.o?'<i class="t o">Optional</i>':'')+(x.m?'<i class="t m">Missable</i>':'')+(x.J?'<i class="t j">Jason</i>':'')+(x.L?'<i class="t l">Lucia</i>':'')+(x.t?`<i class="t h">${esc(x.t)}</i>`:'');
 function renderM(){
-  let done=0;
-  if(!openInit){openInit=true;const f=CH.findIndex((c,ci)=>c[2].some((_,i)=>!ms[`c${ci}-${i}`]));openCh.add(f<0?0:f)}
+  const nx=nextMain(),ng=nx?nx.g:ALL.length,cur=nx?nx.ci:CH.length-1;
+  if(!openInit){openInit=true;openCh.add(cur)}
+  let doneMain=0;
   $('#mtrk').innerHTML=CH.map((c,ci)=>{
-    const items=c[2].map(parseM),ids=items.map((_,i)=>`c${ci}-${i}`),d=ids.filter(id=>ms[id]).length;done+=d;
-    const all=spoil||rev[ci],next=items.findIndex((_,i)=>!ms[ids[i]]);let hidden=0;
-    const rows=items.map((x,i)=>{const on=!!ms[ids[i]];if(!all&&!on&&i!==next){hidden++;return ''}
-      const tg=(i===next?'<i class="t n">Up next</i>':'')+(x.o?'<i class="t o">Optional</i>':'')+(x.m?'<i class="t m">Missable</i>':'')+(x.J?'<i class="t j">Jason</i>':'')+(x.L?'<i class="t l">Lucia</i>':'')+(x.t?`<i class="t h">${esc(x.t)}</i>`:'');
-      return `<li class="mi${on?' done':''}${i===next?' next':''}"><label><input type="checkbox" data-ms="${ids[i]}"${on?' checked':''}><span><b>${esc(x.n)}</b>${x.h?`<small>${esc(x.h)}</small>`:''}</span></label>${tg?`<span class="mt">${tg}</span>`:''}</li>`}).join('');
+    const items=ALL.filter(x=>x.ci===ci),main=items.filter(x=>!x.o),dm=main.filter(x=>ms[x.id]).length,opt=items.filter(x=>x.o),dO=opt.filter(x=>ms[x.id]).length;doneMain+=dm;
+    const all=spoil||rev[ci];let hidden=0;
+    const rows=items.map(x=>{const on=!!ms[x.id],isNext=x===nx;
+      if(x.o&&!showOpt&&!(x.m&&!on))return '';
+      if(!all&&!on&&x.g>ng){hidden++;return ''}
+      const tg=mTags(x,isNext),here=!on&&!isNext&&!x.o&&x.g>ng?`<button class="btn sm" data-here="${x.id}">I'm here</button>`:'';
+      return `<li class="mi${on?' done':''}${isNext?' next':''}"><label><input type="checkbox" data-ms="${x.id}"${on?' checked':''}><span><b>${esc(x.n)}</b>${x.h?`<small>${esc(x.h)}</small>`:''}</span></label>${tg?`<span class="mt">${tg}</span>`:''}${here}</li>`}).join('');
     const more=hidden?`<li class="mhid">${hidden} more hidden to avoid spoilers <button class="btn" data-rev="${ci}">Show chapter</button></li>`:(rev[ci]&&!spoil?`<li class="mhid"><button class="btn" data-rev="${ci}">Hide upcoming missions</button></li>`:'');
-    return `<details class="chap" data-ci="${ci}"${openCh.has(ci)?' open':''}><summary><span class="chn">${esc(c[0])}</span><b>${esc(c[1])}</b><span class="chc">${d}/${items.length}</span><span class="bar"><i style="width:${d/items.length*100}%"></i></span></summary><ul class="mlist">${rows}${more}</ul></details>`}).join('');
-  $('#gsM').textContent=done;$('#gsTot').textContent=`${done} of ${MTOTAL} checked`;
-  $('#gsM').nextElementSibling.textContent=`of ${MTOTAL} missions`}
+    const st=dm===main.length?'<i class="t h">Done</i>':ci===cur?'<i class="t n">You\'re here</i>':'';
+    return `<details class="chap" id="chap${ci}" data-ci="${ci}"${openCh.has(ci)?' open':''}><summary><span class="chn">${esc(c[0])}</span><b>${esc(c[1])} ${st}</b><span class="chc">${dm}/${main.length}</span><span class="bar"><i style="width:${main.length?dm/main.length*100:0}%"></i></span>${showOpt&&opt.length?`<span class="chs">${dO} of ${opt.length} optional jobs</span>`:''}</summary><ul class="mlist">${rows}${more}</ul></details>`}).join('');
+  renderHero(nx,doneMain);
+  $('#gsM').textContent=doneMain;$('#gsM').nextElementSibling.textContent=`of ${MAIN.length} story missions`}
+function renderHero(nx,doneMain){
+  const pct=Math.round(doneMain/MAIN.length*100),C=2*Math.PI*33;
+  const ring=`<svg class="ring" viewBox="0 0 80 80" role="img" aria-label="${pct}% of the story done"><circle class="rbg" cx="40" cy="40" r="33"/><circle class="rfg" cx="40" cy="40" r="33" stroke-dasharray="${(C*pct/100).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 40 40)"${pct?'':' stroke-opacity="0"'}/><text x="40" y="46" text-anchor="middle">${pct}%</text></svg>`;
+  const cur=nx?nx.ci:-1;
+  const strip=`<div class="sstrip" role="group" aria-label="Chapters">${CH.map((c,ci)=>{const m=MAIN.filter(x=>x.ci===ci),d=m.filter(x=>ms[x.id]).length,cl=d===m.length?'done':ci===cur?'cur':'';
+    return `<button class="sseg ${cl}" data-chap="${ci}" style="flex-grow:${Math.max(m.length,4)}" aria-label="${esc(c[0])}, ${d} of ${m.length} done"><span class="sf"><i style="width:${m.length?d/m.length*100:0}%"></i></span>${ci?'Ch '+ci:'Pro'}</button>`}).join('')}</div>`;
+  const undo=undoMs?'<button class="btn" id="mUndo">Undo</button>':'';
+  const stat=`<p class="sstat">${doneMain} of ${MAIN.length} story missions done · ${OPT.filter(x=>ms[x.id]).length} of ${OPT.length} optional jobs</p>`;
+  if(!nx){$('#shero').innerHTML=`<div><p class="sk">All chapters done</p><h3>Story complete</h3></div>${ring}${strip}<div class="snext"><b>You've finished the main story.</b><small>That unlocks the $250,000 cheat on the Cheats tab, and the 100% checklist opens in-game.</small></div>${undo?`<div class="sbtns">${undo}</div>`:''}${stat}`;return}
+  const cm=MAIN.filter(x=>x.ci===nx.ci),cd=cm.filter(x=>ms[x.id]).length;
+  const arc=nx.t?ALL.filter(x=>x.t===nx.t):[],ad=arc.filter(x=>ms[x.id]).length;
+  $('#shero').innerHTML=`<div><p class="sk">${esc(CH[nx.ci][0])} · ${cd} of ${cm.length} done</p><h3>${esc(CH[nx.ci][1])}</h3></div>${ring}${strip}
+    <div class="snext"><span class="sk">Up next</span><b>${esc(nx.n)}</b>${nx.h?`<small>${esc(nx.h)}</small>`:''}${(nx.J||nx.L||nx.m)?`<span class="mt">${mTags(Object.assign({},nx,{t:''}),false)}</span>`:''}${arc.length?`<p class="sarc">${esc(nx.t)}: ${ad} of ${arc.length} steps done</p>`:''}</div>
+    <div class="sbtns"><button class="btn pri" data-mdone="${nx.id}">Done, show next mission</button>${undo}</div>${stat}`}
+function snapMs(){undoMs=JSON.stringify(ms)}
+function setHere(id){const x=ALL.find(y=>y.id===id);if(!x)return;snapMs();
+  for(const y of MAIN){if(y.g<x.g)ms[y.id]=1;else delete ms[y.id]}
+  S.set('ms',ms);openCh.clear();openCh.add(x.ci);renderM();
+  const h=$('#shero');if(h)h.scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})}
 function renderH(){
   let k=0,done=0;
   $('#hund').innerHTML=HUND.map(([g,items])=>`<div class="hg"><h3>${esc(g)}</h3><ul>${items.map(s=>{const [t,h='']=s.split('|'),id='h'+(k++),on=!!hc[id];if(on)done++;
@@ -1245,15 +1304,21 @@ function renderH(){
 $('#heat').innerHTML=HEAT.map(h=>`<div class="hrow2"><span class="hic"><svg viewBox="0 0 24 24" aria-hidden="true">${h[0]}</svg></span><div><b>${esc(h[1])}</b><span>${esc(h[2])}</span></div></div>`).join('');
 $('#money').innerHTML=MONEY.map(m=>`<div class="mrow"><span class="ch">${esc(m[0])}</span><div><b>${esc(m[1])}</b><span>${esc(m[2])}</span></div></div>`).join('');
 $('#lib').innerHTML=LIB.map(l=>`<a href="${l[0]}"><b>${esc(l[1])}</b><span>${esc(l[2])}</span></a>`).join('');
-$('#spoil').checked=spoil;
+$('#spoil').checked=spoil;$('#showOpt').checked=showOpt;
+$('#showOpt').addEventListener('change',e=>{showOpt=e.target.checked;S.set('showopt',showOpt);renderM()});
+$('#shero').addEventListener('click',e=>{
+  const d=e.target.closest('[data-mdone]');if(d){snapMs();ms[d.dataset.mdone]=1;S.set('ms',ms);const nx=nextMain();if(nx)openCh.add(nx.ci);renderM();return}
+  if(e.target.closest('#mUndo')){if(undoMs!=null){ms=JSON.parse(undoMs);undoMs=null;S.set('ms',ms);renderM()}return}
+  const c=e.target.closest('[data-chap]');if(c){const ci=+c.dataset.chap;openCh.add(ci);renderM();const el=document.getElementById('chap'+ci);
+    if(el)el.scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})}});
 $('#spoil').addEventListener('change',e=>{spoil=e.target.checked;S.set('spoil',spoil);renderM()});
-$('#mtrk').addEventListener('change',e=>{const id=e.target.dataset.ms;if(!id)return;e.target.checked?ms[id]=1:delete ms[id];S.set('ms',ms);renderM();
+$('#mtrk').addEventListener('change',e=>{const id=e.target.dataset.ms;if(!id)return;undoMs=null;e.target.checked?ms[id]=1:delete ms[id];S.set('ms',ms);renderM();
   const n=$(`#mtrk [data-ms="${id}"]`);if(n)n.focus()});
-$('#mtrk').addEventListener('click',e=>{const b=e.target.closest('[data-rev]');if(!b)return;const ci=+b.dataset.rev;rev[ci]?delete rev[ci]:rev[ci]=1;S.set('rev',rev);renderM()});
+$('#mtrk').addEventListener('click',e=>{const h=e.target.closest('[data-here]');if(h){setHere(h.dataset.here);return}const b=e.target.closest('[data-rev]');if(!b)return;const ci=+b.dataset.rev;rev[ci]?delete rev[ci]:rev[ci]=1;S.set('rev',rev);renderM()});
 $('#mtrk').addEventListener('toggle',e=>{const d=e.target;if(!d.matches||!d.matches('details'))return;const ci=+d.dataset.ci;d.open?openCh.add(ci):openCh.delete(ci)},true);
 $('#hund').addEventListener('change',e=>{const id=e.target.dataset.hc;if(!id)return;e.target.checked?hc[id]=1:delete hc[id];S.set('hc',hc);renderH();
   const n=$(`#hund [data-hc="${id}"]`);if(n)n.focus()});
-$('#gjump').addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(!b)return;const t=document.getElementById(b.dataset.go);
+$('#gjump').addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(!b)return;if(b.dataset.go==='story'){location.hash='#story';return}const t=document.getElementById(b.dataset.go);
   if(t)t.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'})});
 renderM();renderH();
 

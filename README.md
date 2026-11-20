@@ -4,7 +4,8 @@ A personal GTA VI companion that installs on a phone like an app and works offli
 
 - **Cheats:** all 61, with unlock challenges, D-pad codes, a one-arrow-at-a-time entry mode, favorites and your own codes.
 - **Map:** the community map and satellite-style render of Leonida, sharp down to about one pixel per in-game metre, with 971 searchable landmarks in 12 categories (Ammu-Nation, fences, Pay 'n' Spray, gas, safehouses and more), tap-for-details popups, a full-screen mode, Save and Found marks on any place, Saved/Hide found/Show all filters, a browsable Places list, and your own pins in 17 types (watches, flamingo cards, gang operations, bank jobs, stick-ups and more) with progress against the in-game totals.
-- **Guides:** first-hours tips, things that expire, how to lose the cops, money by chapter, a spoiler-safe mission tracker and the 100% checklist.
+- **Story:** where you are in the main story at a glance (current chapter, up-next mission, heist prep progress, a bar across all chapters), a spoiler-safe mission tracker with optional jobs on demand, and an I'm here button to catch up if you're already partway in.
+- **Guides:** first-hours tips, things that expire, how to lose the cops, money by chapter and the 100% checklist.
 
 Progress is stored only on the device that's using it. The **Your progress** box at the bottom of every tab backs it up and restores it.
 
