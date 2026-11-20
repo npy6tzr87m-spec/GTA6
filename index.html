@@ -167,6 +167,23 @@ html.mapfull,html.mapfull body{overflow:hidden}
 .mapwrap.full .nrose{top:auto;bottom:calc(16px + env(safe-area-inset-bottom,0px))}
 .mapwrap.full .mhint{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 .mapwrap.full .zm{bottom:calc(12px + env(safe-area-inset-bottom,0px))}
+.lm.fv span{box-shadow:0 0 0 3px #f2a900,0 1px 3px rgba(0,0,0,.45)}
+.lm.fd span{opacity:.45}
+.pb .btn svg{width:16px;height:16px;fill:currentColor;margin-right:6px;vertical-align:-2px}
+.pb .btn.on{background:var(--tealbg);border-color:var(--teal);color:var(--teal)}
+.plcard{background:var(--card);border:1px solid var(--line);border-radius:16px;margin:14px 0 6px;overflow:hidden}
+.plcard summary{display:flex;align-items:center;gap:10px;padding:12px 16px;min-height:52px;cursor:pointer;list-style:none}
+.plcard summary::-webkit-details-marker{display:none}
+.plcard summary::after{content:'';margin-left:auto;width:9px;height:9px;border-right:2px solid var(--mute);border-bottom:2px solid var(--mute);transform:rotate(45deg);transition:transform .2s}
+.plcard[open] summary::after{transform:rotate(225deg)}
+.plcard summary small{color:var(--mute);font-weight:600}
+.plbar{padding:0 12px}.plcard>.note{padding:6px 16px 0;margin:0}
+.pllist{display:grid;padding:8px 8px 4px}
+.plrow{display:flex;align-items:center;gap:12px;text-align:left;border:0;border-top:1px solid var(--line);background:none;padding:8px 8px;min-height:52px;width:100%}
+.plrow i{width:12px;height:12px;border-radius:50%;background:var(--c);flex:none;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.15)}
+.plrow span{flex:1}.plrow b{display:block;font-size:15px;font-weight:600}.plrow small{color:var(--mute);font-size:13px}
+.plrow em{font-style:normal}
+#plMore{margin:4px 16px 14px}
 .mtools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px}
 .seg{display:flex;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px}
 .seg button{border:0;background:none;min-height:40px;padding:0 16px;border-radius:999px;font-weight:700;color:var(--mute)}
@@ -390,6 +407,11 @@ footer{padding-bottom:calc(40px + env(safe-area-inset-bottom,0px))}
   <input type="file" id="fileIn" accept="image/*" hidden>
   <p class="mcap" id="mcap">Map layers: <a href="https://map.gtadb.org">"Yanis" GTA VI Community Map v18</a> and the satellite-style render, by <a href="https://github.com/rolux/gtadb.org">gtadb.org and all contributors</a>, licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Cropped to remove the legend, re-tiled and resized. Place names, categories and real-world matches come from the same project. Tap any dot for details. It's a fan reconstruction built from trailers and screenshots before launch, so some details may differ from the game.</p>
   <p class="mcap" id="pcap" hidden></p>
+  <details class="plcard" id="plbox"><summary><b>Places list</b><small id="plCount"></small></summary>
+    <div class="plbar"><label class="srch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="plq" type="search" placeholder="Filter the list" aria-label="Filter the places list" autocomplete="off"></label></div>
+    <p class="note">Uses the same type filters as the map. Tap a place to jump to it.</p>
+    <div class="pllist" id="pllist"></div><button class="btn" id="plMore" hidden>Show more</button>
+  </details>
   <div class="ptools" id="ptools" hidden><label class="btn" for="fileIn">Replace screenshot</label><button class="btn" id="rmP">Remove screenshot</button></div>
   <div class="legend" id="leg" role="group" aria-label="Show or hide pin types"></div>
   <label class="tog"><input type="checkbox" id="hideF"> Hide pins I've marked found</label>
@@ -736,17 +758,23 @@ addEventListener('hashchange',()=>{route();scrollTo(0,0)});
 
 /* ---------- map ---------- */
 const PC=[
-['watch','Collectible watch','W','#f2a900','#23202a'],
-['card','Flamingos card','C','#ff4f86','#fff'],
-['debris','Space debris','D','#6d5ce8','#fff'],
-['coke','Cocaine flamingo','F','#ffb3c8','#23202a'],
-['girly','Girlypop vehicle','G','#c43fcf','#fff'],
-['stunt','Stunt jump','J','#ff7a2f','#23202a'],
-['race','Race track','R','#d92f2f','#fff'],
-['range','Shooting range','S','#4b5563','#fff'],
-['store','Store to rob','$','#0a8f5a','#fff'],
-['fish','Fishing spot','~','#1f6fd1','#fff'],
-['other','Other','?','#23202a','#fff']];
+['watch','Luxury watch','W','#f2a900','#23202a',34],
+['card','Flamingos card','C','#ff4f86','#fff',24],
+['debris','Space debris','D','#6d5ce8','#fff',0],
+['coke','Cocaine flamingo','F','#ffb3c8','#23202a',125],
+['girly','Girlypop vehicle','G','#c43fcf','#fff',16],
+['stunt','Stunt jump','J','#ff7a2f','#23202a',0],
+['gang','Gang operation','O','#7c2d12','#fff',39],
+['bank','Bank job','B','#0f766e','#fff',22],
+['loan','Payday loan','L','#a16207','#fff',7],
+['smash','Smash \'n\' Grab','X','#be123c','#fff',35],
+['store','Stick-up','$','#0a8f5a','#fff',91],
+['race','Race track','R','#d92f2f','#fff',0],
+['range','Shooting range','S','#4b5563','#fff',42],
+['garage','Garage','P','#334155','#fff',0],
+['event','Random event','!','#ea580c','#fff',0],
+['fish','Fishing spot','~','#1f6fd1','#fff',0],
+['other','Other','?','#23202a','#fff',0]];
 const PCM=Object.fromEntries(PC.map(c=>[c[0],c]));
 /* community map layers from gtadb.org (CC BY 4.0), cropped to game x -10240..3840, y -8704..11264; stage units = zoom-4 pixels */
 const LY={y18:{bg:'#2c66a5',lv:{3:[4,5],4:[7,10],5:[14,20]}},day:{bg:'#2f90b0',lv:{3:[4,5],4:[7,10],5:[14,20]}}};
@@ -774,6 +802,8 @@ const pins={map:S.get('pins-map',[]),photo:S.get('pins-photo',[])};
 const oldSketch=S.get('pins-sketch',[]);
 let hideCat=S.get('hidecat',{}),hideF=S.get('hidef',false),lmOn=S.get('lmon',true),addMode=false,photoURL=null,photoNote='';
 let lmCats=Object.assign(Object.fromEntries(Object.keys(LMC).map(k=>[k,1])),S.get('lmcats',{}));
+let lmFav=S.get('lmfav',{}),lmFound=S.get('lmfound',{}),lmSavedOnly=S.get('lmsaved',false),lmHideFound=S.get('lmhidefound',false);
+const lkey=l=>l[0]+'|'+l[1]+'|'+l[2];
 let MAXLV=4;fetch('tiles/y18/5/0_0.jpg',{method:'HEAD',cache:'no-store'}).then(r=>{if(r.ok){MAXLV=5;queueView()}}).catch(()=>{});
 let W=MW,H=MH,z=1,tx=0,ty=0,fitZ=1,lastW=0,lastH=0,LM=[],lmHidden=false,full=false,popAt=null,lastTap=null;
 const grp=()=>base==='photo'?'photo':'map';
@@ -809,7 +839,7 @@ function drawLms(){
   const box=$('#lms');lmHidden=false;
   if(!lmOn||base==='photo'||!LM.length){box.innerHTML='';return}
   const [x0,y0,x1,y1]=visRect(),vis=[];
-  for(let i=0;i<LM.length;i++){const l=LM[i];if(!lmCats[l[5]])continue;const [sx,sy]=g2s(l[1],l[2]);if(sx>=x0&&sx<=x1&&sy>=y0&&sy<=y1)vis.push([i,sx,sy])}
+  for(let i=0;i<LM.length;i++){const l=LM[i];if(!lmShow(l))continue;const [sx,sy]=g2s(l[1],l[2]);if(sx>=x0&&sx<=x1&&sy>=y0&&sy<=y1)vis.push([i,sx,sy])}
   if(vis.length>150&&z<=.22){lmHidden=true;box.innerHTML='';return}
   vis.sort((a,b)=>(LM[b[0]][5]==='place')-(LM[a[0]][5]==='place'));
   const lab=z>=.45&&vis.length<=90,boxes=[];
@@ -817,7 +847,9 @@ function drawLms(){
   const shown=vis.slice(-400),labels=new Set();
   if(lab)for(let k=shown.length-1;k>=0;k--){const [i,sx,sy]=shown[k],nm=LM[i][0].split(', ')[0];if(fits(tx+sx*z+8,ty+sy*z,nm.length*6.4+16))labels.add(i)}
   box.innerHTML=shown.map(([i,sx,sy])=>{const l=LM[i],on=labels.has(i);
-    return `<button class="lm" data-li="${i}" style="left:${sx}px;top:${sy}px;--c:${LMC[l[5]][1]}" aria-label="${esc(l[0])}"><span></span>${on?`<em>${esc(l[0].split(', ')[0])}</em>`:''}</button>`}).join('')}
+    const k=lkey(l),cl=(lmFav[k]?' fv':'')+(lmFound[k]?' fd':'');
+    return `<button class="lm${cl}" data-li="${i}" style="left:${sx}px;top:${sy}px;--c:${LMC[l[5]][1]}" aria-label="${esc(l[0])}${lmFav[k]?', saved':''}${lmFound[k]?', found':''}"><span></span>${on?`<em>${esc(l[0].split(', ')[0])}</em>`:''}</button>`}).join('')}
+function lmShow(l){const k=lkey(l);return lmSavedOnly?!!lmFav[k]&&!(lmHideFound&&lmFound[k]):!!lmCats[l[5]]&&!(lmHideFound&&lmFound[k])}
 function hint(){$('#mh').textContent=addMode?'Tap the map to drop a pin':(lmHidden?'Zoom in to see landmarks':'')}
 
 /* popup anchored to a point on the map */
@@ -837,16 +869,20 @@ function lmHTML(i,sx,sy){const l=LM[i],p=l[0].split(', '),c=LMC[l[5]];
   const am=l[6]?` <a href="https://maps.apple.com/?ll=${l[6]},${l[7]}&q=${encodeURIComponent(l[3].split(' (')[0])}">Open in Apple Maps</a>`:'';
   return `<span class="pcat" style="--c:${c[1]}">${esc(c[0])}</span><b class="pt">${esc(p[0])}</b><small class="pa">${esc(p.slice(1).join(', ')||'Leonida')}</small>`+
     (l[8]?`<p class="pnote">${esc(l[8])}</p>`:'')+(l[4]?`<p class="tags">${l[4].split('·').map(t=>`<span>${esc(t)}</span>`).join('')}</p>`:'')+
-    (l[3]?`<p class="prw">Real-world match: ${esc(l[3])}.${am}</p>`:'')+`<div class="pb"><button class="btn" data-pinat="${sx},${sy}">Pin this spot</button></div>`}
+    (l[3]?`<p class="prw">Real-world match: ${esc(l[3])}.${am}</p>`:'')+
+    `<div class="pb"><button class="btn${lmFav[lkey(l)]?' on':''}" data-lfav="${i}" aria-pressed="${!!lmFav[lkey(l)]}">${STAR}${lmFav[lkey(l)]?'Saved':'Save'}</button><button class="btn${lmFound[lkey(l)]?' on':''}" data-lfound="${i}" aria-pressed="${!!lmFound[lkey(l)]}">${lmFound[lkey(l)]?'Found':'Mark found'}</button><button class="btn" data-pinat="${sx},${sy}">Pin here</button></div>`}
 function showLm(i){const l=LM[i];if(!l)return;const [sx,sy]=g2s(l[1],l[2]);openPop(sx,sy,lmHTML(i,sx,sy))}
 function flyLm(i){const l=LM[i];const [sx,sy]=g2s(l[1],l[2]);centerOn(sx,sy,Math.max(z,1.1/dpr()));showLm(i)}
 function showPinPop(id){const p=pins[grp()].find(q=>q.id===id);if(!p)return;const c=PCM[p.c]||PCM.other,[sx,sy]=pinPos(p);
   openPop(sx,sy,`<span class="pcat" style="--c:${c[3]}">Your pin · ${esc(c[1])}</span><b class="pt">${esc(p.n||c[1])}</b><small class="pa">${p.f?'Marked found':'Not found yet'}</small><div class="pb"><button class="btn pri" data-pfound="${p.id}">${p.f?'Mark not found':'Mark found'}</button><button class="btn" data-pedit="${p.id}">Edit</button></div>`)}
 $('#pop').addEventListener('click',e=>{
+  e.stopPropagation();
   if(e.target.closest('#popX')){closePop();return}
   const a=e.target.closest('[data-pinat]');if(a){const [sx,sy]=a.dataset.pinat.split(',').map(Number);closePop();openPin(null,sx,sy);return}
   const f=e.target.closest('[data-pfound]');if(f){const p=pins[grp()].find(q=>q.id===f.dataset.pfound);if(p){p.f=!p.f;savePins();drawPins();showPinPop(p.id)}return}
-  const ed=e.target.closest('[data-pedit]');if(ed){closePop();openPin(ed.dataset.pedit)}});
+  const ed=e.target.closest('[data-pedit]');if(ed){closePop();openPin(ed.dataset.pedit);return}
+  const lf=e.target.closest('[data-lfav],[data-lfound]');if(lf){const i=+(lf.dataset.lfav??lf.dataset.lfound),k=lkey(LM[i]),store=lf.dataset.lfav!=null?lmFav:lmFound;
+    store[k]?delete store[k]:store[k]=1;S.set(lf.dataset.lfav!=null?'lmfav':'lmfound',store);showLm(i);drawCats();queueView();renderPL()}});
 
 /* gestures: pan, pinch, wheel, double tap, keys */
 const pts=new Map();let g=null,moved=false;
@@ -911,13 +947,16 @@ $('#jumps').addEventListener('click',e=>{const b=e.target.closest('[data-j]');if
 function drawCats(){
   const n={};LM.forEach(l=>n[l[5]]=(n[l[5]]||0)+1);
   const all=Object.keys(LMC).every(k=>lmCats[k]);
-  $('#lmcat').innerHTML=`<button class="chip" data-lmc="*" aria-pressed="${all}">All</button>`+Object.entries(LMC).filter(([k])=>n[k]).map(([k,c])=>`<button class="chip lc" data-lmc="${k}" aria-pressed="${!!lmCats[k]}"><i style="--c:${c[1]}"></i>${esc(c[0])} <small>${n[k]}</small></button>`).join('')}
+  const nf=Object.keys(lmFav).length;
+  $('#lmcat').innerHTML=`<button class="chip" data-lmc="*" aria-pressed="${all&&!lmSavedOnly}">${all?'Hide all':'Show all'}</button><button class="chip" data-lmc="saved" aria-pressed="${lmSavedOnly}">Saved <small>${nf}</small></button><button class="chip" data-lmc="hidefound" aria-pressed="${lmHideFound}">Hide found</button>`+Object.entries(LMC).filter(([k])=>n[k]).map(([k,c])=>`<button class="chip lc" data-lmc="${k}" aria-pressed="${!!lmCats[k]}"><i style="--c:${c[1]}"></i>${esc(c[0])} <small>${n[k]}</small></button>`).join('')}
 $('#lmcat').addEventListener('click',e=>{const b=e.target.closest('[data-lmc]');if(!b)return;const k=b.dataset.lmc;
-  if(k==='*'){const all=Object.keys(LMC).every(c=>lmCats[c]);Object.keys(LMC).forEach(c=>lmCats[c]=all?0:1)}
-  else if(Object.keys(LMC).every(c=>lmCats[c])){Object.keys(LMC).forEach(c=>lmCats[c]=c===k?1:0)}
-  else lmCats[k]=lmCats[k]?0:1;
+  if(k==='saved'){lmSavedOnly=!lmSavedOnly;S.set('lmsaved',lmSavedOnly)}
+  else if(k==='hidefound'){lmHideFound=!lmHideFound;S.set('lmhidefound',lmHideFound)}
+  else if(k==='*'){lmSavedOnly=false;S.set('lmsaved',false);const all=Object.keys(LMC).every(c=>lmCats[c]);Object.keys(LMC).forEach(c=>lmCats[c]=all?0:1)}
+  else if(Object.keys(LMC).every(c=>lmCats[c])&&!lmSavedOnly){Object.keys(LMC).forEach(c=>lmCats[c]=c===k?1:0)}
+  else{lmCats[k]=lmCats[k]?0:1;lmSavedOnly=false;S.set('lmsaved',false)}
   if(!lmOn){lmOn=true;S.set('lmon',true);$('#lmB').setAttribute('aria-pressed',true)}
-  S.set('lmcats',lmCats);drawCats();queueView()});
+  S.set('lmcats',lmCats);drawCats();queueView();renderPL()});
 const sug=$('#sugg');let sugI=[];
 $('#ls').addEventListener('input',e=>{const t=e.target.value.trim().toLowerCase();
   if(t.length<2||!LM.length){sug.hidden=true;return}
@@ -930,7 +969,23 @@ sug.addEventListener('click',e=>{const b=e.target.closest('[data-si]');if(b)pick
 document.addEventListener('click',e=>{if(!e.target.closest('.msearch'))sug.hidden=true});
 $('#lmB').setAttribute('aria-pressed',lmOn);
 $('#lmB').addEventListener('click',()=>{lmOn=!lmOn;S.set('lmon',lmOn);$('#lmB').setAttribute('aria-pressed',lmOn);queueView()});
-fetch('data/landmarks.json').then(r=>r.json()).then(d=>{LM=d;$('#ls').placeholder=`Search ${d.length} places, shops, gas…`;drawCats();queueView()}).catch(()=>{$('#ls').placeholder='Place search unavailable here'});
+let plN=60;
+function renderPL(){
+  const box=$('#plbox');if(!box||!LM.length)return;
+  const t=$('#plq').value.trim().toLowerCase(),rows=[];
+  for(let i=0;i<LM.length;i++){const l=LM[i];if(!lmShow(l))continue;if(t&&!(l[0]+' '+l[3]+' '+l[4]+' '+LMC[l[5]][0]).toLowerCase().includes(t))continue;rows.push(i)}
+  rows.sort((a,b)=>LM[a][0].localeCompare(LM[b][0]));
+  $('#plCount').textContent=`${rows.length} shown`;
+  if(!box.open)return;
+  $('#pllist').innerHTML=rows.length?rows.slice(0,plN).map(i=>{const l=LM[i],p=l[0].split(', '),k=lkey(l);
+    return `<button class="plrow" data-pl="${i}"><i style="--c:${LMC[l[5]][1]}"></i><span><b>${esc(p[0])}</b><small>${esc(p.slice(1).join(', ')||'Leonida')} · ${esc(LMC[l[5]][0])}</small></span>${lmFav[k]?'<em class="t m">Saved</em>':''}${lmFound[k]?'<em class="t h">Found</em>':''}</button>`}).join('')
+    :'<p class="note">Nothing matches these filters.</p>';
+  $('#plMore').hidden=rows.length<=plN;$('#plMore').textContent=`Show more (${rows.length-plN} left)`}
+$('#plbox').addEventListener('toggle',()=>{plN=60;renderPL()});
+$('#plq').addEventListener('input',()=>{plN=60;renderPL()});
+$('#plMore').addEventListener('click',()=>{plN+=60;renderPL()});
+$('#pllist').addEventListener('click',e=>{const b=e.target.closest('[data-pl]');if(!b)return;if(base==='photo')setBase('y18');flyLm(+b.dataset.pl);mw.scrollIntoView({block:'center',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})});
+fetch('data/landmarks.json').then(r=>r.json()).then(d=>{LM=d;$('#ls').placeholder=`Search ${d.length} places, shops, gas…`;drawCats();queueView();renderPL()}).catch(()=>{$('#ls').placeholder='Place search unavailable here'});
 
 /* pins */
 function drawPins(){
@@ -941,7 +996,7 @@ function drawPins(){
 function legend(){
   const list=pins[grp()];
   $('#leg').innerHTML=PC.map(c=>{const all=list.filter(p=>p.c===c[0]),f=all.filter(p=>p.f).length;
-    return `<button class="lg" data-lc="${c[0]}" aria-pressed="${!hideCat[c[0]]}" style="--c:${c[3]};--t:${c[4]}"><span class="dot">${esc(c[2])}</span>${esc(c[1])} <small>${f}/${all.length}</small></button>`}).join('')}
+    return `<button class="lg" data-lc="${c[0]}" aria-pressed="${!hideCat[c[0]]}" style="--c:${c[3]};--t:${c[4]}"><span class="dot">${esc(c[2])}</span>${esc(c[1])} <small>${f}/${c[5]||all.length}</small></button>`}).join('')}
 function plist(){
   const list=[...pins[grp()]].sort((a,b)=>PC.findIndex(c=>c[0]===a.c)-PC.findIndex(c=>c[0]===b.c));
   const old=oldSketch.length&&base!=='photo'?`<p class="note">${oldSketch.length} pin${oldSketch.length>1?'s':''} from the earlier sketch map couldn't move over, since the sketch was only approximate. Re-pin ${oldSketch.length>1?'them':'it'} here. <button class="btn" id="clrOld">Dismiss</button></p>`:'';
@@ -996,7 +1051,7 @@ async function setBase(b){
     $('#base').innerHTML=`<img class="ovw" src="${photoURL}" alt="Your map screenshot" draggable="false">`;$('#upl').hidden=true}
   else{W=1000;H=1000;mw.style.background='#0b1c21';$('#base').innerHTML='';$('#upl').hidden=false}
   $('#mcap').hidden=b==='photo';$('#pcap').hidden=b!=='photo'||!photoURL;$('#pcap').textContent='Your screenshot. Pins here are separate from the community map. If you replace the image, use the same zoom level so old pins still line up.'+(photoNote?' '+photoNote:'');
-  $('#msearch').hidden=$('#lmB').hidden=$('#lmcat').hidden=$('#jumps').hidden=b==='photo';
+  $('#msearch').hidden=$('#lmB').hidden=$('#lmcat').hidden=$('#jumps').hidden=$('#plbox').hidden=b==='photo';
   $('#ptools').hidden=!(b==='photo'&&photoURL);
   stg.style.width=W+'px';stg.style.height=H+'px';
   if(keep)apply();else fit();
